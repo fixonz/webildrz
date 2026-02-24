@@ -27,10 +27,10 @@
         }
 
         :root {
-            --bg: #020408;
-            --surface: rgba(13, 17, 28, 0.7);
-            --surface2: rgba(22, 29, 43, 0.8);
-            --border: rgba(255, 255, 255, 0.08);
+            --bg: #05070a;
+            --surface: #0c111d;
+            --surface2: #161d2b;
+            --border: rgba(255, 255, 255, 0.06);
             --accent: #00ffaa;
             --accent2: #00d4ff;
             --accent-glow: rgba(0, 255, 170, 0.15);
@@ -39,8 +39,31 @@
             --muted: #94a3b8;
             --success: #10b981;
             --premium: #ff3366;
-            --radius: 24px;
-            --glass: blur(12px) saturate(180%);
+            --radius: 32px;
+            --glass: blur(20px);
+        }
+
+        @keyframes counterPulse {
+            0% {
+                transform: scale(1);
+                color: var(--accent);
+            }
+
+            50% {
+                transform: scale(1.2);
+                color: var(--success);
+                text-shadow: 0 0 15px var(--success);
+            }
+
+            100% {
+                transform: scale(1);
+                color: var(--accent);
+            }
+        }
+
+        .count-up {
+            animation: counterPulse 0.6s ease-out;
+            display: inline-block;
         }
 
         body {
@@ -2654,19 +2677,28 @@
             }, 800);
         }
 
-        // Fetch and update site counter
+        // Fetch and update site counter with Live Polling
+        let lastCount = 149;
         async function updateSiteCounter() {
             try {
                 const res = await fetch('/api/stats');
                 const data = await res.json();
-                if (data.sites_created) {
-                    document.getElementById('site-counter').textContent = data.sites_created;
+                if (data.sites_created && data.sites_created !== lastCount) {
+                    const el = document.getElementById('site-counter');
+                    el.textContent = data.sites_created;
+                    el.classList.remove('count-up');
+                    void el.offsetWidth; // trigger reflow
+                    el.classList.add('count-up');
+                    lastCount = data.sites_created;
                 }
             } catch (e) {
                 console.warn('Could not fetch stats');
             }
         }
+
+        // Initial fetch + poll every 60 seconds for global "live" feel
         updateSiteCounter();
+        setInterval(updateSiteCounter, 60000);
 
         // ── DOM refs ──
         const form = document.getElementById('gen-form');
