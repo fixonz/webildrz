@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>no mot biel — Excelența, Redefinită.</title>
+    <meta name="description" content="Soluții premium pentru orice necesitate. Discreție, eficiență și o rețea exclusivistă la dispoziția dumneavoastră. Contactați-ne pentru a transforma imposibilul în realitate.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔑</text></svg>">
+
+    <style>
+        :root {
+            --background: #101010;
+            --surface: #1C1C1C;
+            --primary-text: #EAEAEA;
+            --secondary-text: #A0A0A0;
+            --accent: #C0B283;
+            --accent-dark: #A8996E;
+            --border-color: rgba(192, 178, 131, 0.15);
+        }
+
+        /* --- Reset & Base --- */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--primary-text);
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1, h2, h3 {
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--primary-text);
+        }
+        
+        h1 { font-size: 2.5rem; letter-spacing: -1px; }
+        h2 { font-size: 2rem; }
+        h3 { font-size: 1.25rem; }
+
+        p {
+            color: var(--secondary-text);
+            margin-bottom: 1rem;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--accent-dark);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            margin-bottom: 10px;
+        }
+
+        .section-title .subtitle {
+            font-weight: 300;
+            font-size: 1.1rem;
+            color: var(--secondary-text);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .accent-text {
+            color: var(--accent);
+        }
+        
+        /* --- Navbar --- */
+        .navbar {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            padding: 15px 0;
+            z-index: 1000;
+            background: rgba(16, 16, 16, 0.7);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-nav {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--primary-text);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-menu {
+            display: none; /* Hidden on mobile */
+            list-style: none;
+            gap: 30px;
+        }
+        
+        .nav-menu a {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--primary-text);
+            transition: color 0.3s ease;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--accent);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 95vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background-image: linear-gradient(rgba(16, 16, 16, 0.8), rgba(16, 16, 16, 0.95)), url('https://images.unsplash.com/photo-1604213410329-34441a17926c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+        }
+        
+        .hero .logo-hero {
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--secondary-text);
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+            color: var(--secondary-text);
+            font-weight: 300;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 18px 40px;
+            background-color: var(--accent);
+            color: var(--background);
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background-color: var(--accent-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            color: #000;
+        }
+
+        /* --- Trust Section --- */
+        .trust-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .trust-item {
+            text-align: center;
+            padding: 30px;
+            background-color: var(--surface);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+        }
+        
+        .trust-item svg {
+            width: 48px;
+            height: 48px;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .trust-item h3 {
+            margin-bottom: 10px;
+        }
+
+        /* --- Services Section --- */
+        #servicii {
+            background-color: var(--surface);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .service-card {
+            background: var(--background);
+            padding: 25px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .service-card svg {
+            width: 36px;
+            height: 36px;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+        
+        .service-card h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--primary-text);
+        }
+
+        /* --- Testimonials Section --- */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background-color: var(--surface);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            color: var(--background);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-right: 15px;
+        }
+        
+        .testimonial-author-info .name {
+            font-weight: 700;
+            color: var(--primary-text);
+        }
+        
+        .testimonial-author-info .title {
+            font-size: 0.9rem;
+            color: var(--secondary-text);
+        }
+
+        .testimonial-rating {
+            margin-left: auto;
+            color: #FFC107;
+            font-size: 0.9rem;
+        }
+
+        .testimonial-body {
+            font-style: italic;
+            color: var(--primary-text);
+            border-left: 3px solid var(--accent);
+            padding-left: 20px;
+        }
+
+        /* --- Footer --- */
+        .footer {
+            background-color: #000;
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .footer .logo-footer {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--secondary-text);
+            margin-bottom: 20px;
+        }
+
+        .footer p {
+            font-size: 0.9rem;
+            color: var(--secondary-text);
+            margin: 0;
+        }
+
+        /* --- Mobile Fixed CTA --- */
+        .fixed-cta-mobile {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--accent);
+            padding: 15px;
+            z-index: 999;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
+            border-top: 1px solid var(--accent-dark);
+        }
+
+        .fixed-cta-mobile a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--background);
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+        }
+        
+        .fixed-cta-mobile svg {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+        
+        /* --- Media Queries (Desktop) --- */
+        @media (min-width: 768px) {
+            h1 { font-size: 4rem; }
+            h2 { font-size: 2.5rem; }
+            
+            .nav-menu {
+                display: flex;
+            }
+
+            .trust-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .fixed-cta-mobile {
+                display: none;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .testimonials-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo-nav">no mot biel</a>
+            <ul class="nav-menu">
+                <li><a href="#misiune">Misiune</a></li>
+                <li><a href="#servicii">Servicii</a></li>
+                <li><a href="#testimoniale">Referințe</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <div class="hero-content container">
+                <h1 class="logo-hero">no mot biel</h1>
+                <h1>De la <span class="accent-text">Idee</span> la Realitate. Instant.</h1>
+                <p>Găsim soluții acolo unde alții văd doar probleme. Servicii exclusiviste, personalizate pentru cele mai exigente standarde.</p>
+                <a href="tel:+40763531700" class="cta-button">Aflați cum vă putem ajuta</a>
+            </div>
+        </section>
+
+        <!-- Trust Section -->
+        <section id="misiune" class="trust-section">
+            <div class="container">
+                <div class="trust-grid">
+                    <div class="trust-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        <h3>Discreție Absolută</h3>
+                        <p>Confidențialitatea nu este o promisiune, ci fundamentul pe care este construit fiecare proiect al nostru.</p>
+                    </div>
+                    <div class="trust-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path><path d="M2 8c0-2.2.7-4.3 2-6"></path><path d="M22 8c0-2.2-.7-4.3-2-6"></path></svg>
+                        <h3>Execuție Impecabilă</h3>
+                        <p>Atenția la detaliu care ne definește asigură rezultate ce depășesc orice așteptare, de fiecare dată.</p>
+                    </div>
+                    <div class="trust-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 18a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2"></path><rect x="3" y="4" width="18" height="18" rx="2"></rect><circle cx="12" cy="10" r="2"></circle><line x1="8" y1="2" x2="8" y2="4"></line><line x1="16" y1="2" x2="16" y2="4"></line></svg>
+                        <h3>Rețea Exclusivistă</h3>
+                        <p>Vă oferim acces la o rețea globală de resurse și contacte de elită, deschizând uși inaccesibile altora.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="servicii">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Soluții Universale</h2>
+                    <p class="subtitle">O gamă completă de servicii premium, concepute pentru a vă elibera timpul și a vă maximiza potențialul.</p>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"></path><path d="m9 12 2 2 4-4"></path></svg>
+                        <h3>Consultanță Strategică</h3>
+                    </div>
+                    <div class="service-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 0 2l-.15.08a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1 0-2l.15-.08a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                        <h3>Proiecte Personalizate</h3>
+                    </div>
+                    <div class="service-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>
+                        <h3>Servicii Concierge Premium</h3>
+                    </div>
+                    <div class="service-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        <h3>Management Evenimente</h3>
+                    </div>
+                    <div class="service-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        <h3>Soluții Logistice Complexe</h3>
+                    </div>
+                    <div class="service-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="M12 6v6l4 2"></path></svg>
+                        <h3>Asistență 24/7</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Testimonials Section -->
+        <section id="testimoniale">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Ce spun partenerii noștri</h2>
+                    <p class="subtitle">Profesionalism de pe altă planetă. Rezultate care vorbesc de la sine.</p>
+                </div>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="testimonial-avatar">AP</div>
+                            <div class="testimonial-author-info">
+                                <div class="name">Andrei P.</div>
+                                <div class="title">CEO, Tech Innovators</div>
+                            </div>
+                            <div class="testimonial-rating">★★★★★</div>
+                        </div>
+                        <p class="testimonial-body">"Incredibil. Au transformat o idee vagă despre un eveniment 'impresionant' într-un proiect concret și impecabil executat în mai puțin de 48 de ore. Discreția și eficiența lor sunt de neegalat."</p>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="testimonial-avatar">EV</div>
+                            <div class="testimonial-author-info">
+                                <div class="name">Elena V.</div>
+                                <div class="title">Antreprenor & Designer</div>
+                            </div>
+                            <div class="testimonial-rating">★★★★★</div>
+                        </div>
+                        <p class="testimonial-body">"Căutam o soluție 'totală' pentru noul meu sediu, de la design la achiziții rare. Echipa no mot biel nu doar că a înțeles viziunea, dar a depășit orice așteptare. Găsesc soluții acolo unde alții văd doar probleme."</p>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="testimonial-avatar">MS</div>
+                            <div class="testimonial-author-info">
+                                <div class="name">Mihai S.</div>
+                                <div class="title">Colecționar Privat</div>
+                            </div>
+                            <div class="testimonial-rating">★★★★★</div>
+                        </div>
+                        <p class="testimonial-body">"Nivelul de profesionalism este pur și simplu de pe altă planetă. Pentru proiecte complexe unde miza este maximă și marja de eroare este zero, no mot biel este singura mea opțiune. Recomand fără nicio ezitare."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <h3 class="logo-footer">no mot biel</h3>
+            <p>Site creat de <a href="#" target="_blank">WEB? DONE!</a> — N-ai site? Ai acum.. | © 2026</p>
+        </div>
+    </footer>
+    
+    <!-- Fixed CTA on Mobile -->
+    <div class="fixed-cta-mobile">
+        <a href="tel:+40763531700">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            Sună Acum
+        </a>
+    </div>
+
+</body>
+</html>

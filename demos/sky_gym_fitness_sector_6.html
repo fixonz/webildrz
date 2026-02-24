@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKY GYM | Elite Fitness Sector 6</title>
+    
+    <!-- Google Fonts: Syne for Headlines, Outfit for Body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS for Layout & Utilities -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0D0D0D',
+                        gold: '#D4AF37',
+                        goldLight: '#F1D592',
+                        glass: 'rgba(255, 255, 255, 0.03)',
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        syne: ['Syne', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0D0D0D;
+            color: #FFFFFF;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(90deg, #D4AF37 0%, #F1D592 50%, #D4AF37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: #D4AF37;
+            transform: translateY(-10px);
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .hero-bg {
+            background: linear-gradient(rgba(13, 13, 13, 0.7), rgba(13, 13, 13, 0.9)), 
+                        url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .btn-gold {
+            background: linear-gradient(90deg, #D4AF37, #B08D26);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-gold:hover {
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+            transform: scale(1.02);
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Custom Grayscale Map */
+        .map-container iframe {
+            filter: grayscale(1) invert(1) contrast(1.2);
+            opacity: 0.6;
+        }
+
+        .nav-blur {
+            backdrop-filter: blur(20px);
+            background: rgba(13, 13, 13, 0.8);
+        }
+    </style>
+</head>
+<body class="font-sans">
+
+    <!-- Header -->
+    <nav class="fixed top-0 w-full z-50 nav-blur border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center">
+                    <i data-lucide="zap" class="text-dark fill-dark"></i>
+                </div>
+                <span class="font-syne text-2xl font-extrabold tracking-tighter">SKY<span class="text-gold">GYM</span></span>
+            </div>
+            <a href="tel:+40766777888" class="hidden md:flex items-center gap-2 text-gold font-semibold hover:text-white transition">
+                <i data-lucide="phone-call" class="w-4 h-4"></i>
+                0766 777 888
+            </a>
+            <button class="bg-gold text-dark px-6 py-2 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-white transition">
+                Înscrie-te
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center hero-bg px-6 pt-20">
+        <div class="max-w-5xl text-center">
+            <h2 class="font-syne text-gold text-sm md:text-lg tracking-[0.4em] uppercase mb-6 animate-pulse">
+                Limitless Excellence in Sector 6
+            </h2>
+            <h1 class="font-syne text-5xl md:text-8xl font-extrabold leading-none mb-8">
+                NU E DOAR FITNESS.<br>
+                <span class="gold-gradient-text italic">E ASCENSIUNEA TA.</span>
+            </h1>
+            <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-12 font-light leading-relaxed">
+                Descoperă cel mai exclusivist hub de performanță din Sectorul 6. Echipamente de top, antrenori de elită și o comunitate care nu acceptă mediocritatea.
+            </p>
+            <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+                <a href="#services" class="btn-gold text-dark px-10 py-5 rounded-full font-bold text-lg w-full md:w-auto text-center">
+                    REZERVĂ UN TUR GRATUIT
+                </a>
+                <a href="#contact" class="border border-white/20 hover:border-gold px-10 py-5 rounded-full font-bold text-lg w-full md:w-auto text-center transition">
+                    LOCAȚIE
+                </a>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 floating">
+            <i data-lucide="chevron-down" class="text-gold w-8 h-8"></i>
+        </div>
+    </section>
+
+    <!-- Showcase / Services -->
+    <section id="services" class="py-24 px-6 bg-dark">
+        <div class="max-w-7-xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                <div class="max-w-2xl">
+                    <h3 class="text-gold font-syne uppercase tracking-widest mb-4">Experiența Sky Gym</h3>
+                    <h2 class="text-4xl md:text-6xl font-syne font-bold">ARHITECTURA UNUI <span class="text-white/20">CORP PERFECT</span></h2>
+                </div>
+                <p class="text-gray-500 max-w-xs italic text-right border-r-2 border-gold pr-4">
+                    "Excelența nu este un act, ci un obicei."
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="glass-card p-10 rounded-3xl group">
+                    <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-gold transition-colors">
+                        <i data-lucide="dumbbell" class="text-gold group-hover:text-dark w-8 h-8"></i>
+                    </div>
+                    <h4 class="text-2xl font-syne font-bold mb-4">Antrenament Personal</h4>
+                    <p class="text-gray-400 leading-relaxed">Sesiuni 1-la-1 cu experți în biomecanică și nutriție pentru rezultate garantate.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-card p-10 rounded-3xl group border-gold/30">
+                    <div class="w-16 h-16 bg-gold rounded-2xl flex items-center justify-center mb-8">
+                        <i data-lucide="activity" class="text-dark w-8 h-8"></i>
+                    </div>
+                    <h4 class="text-2xl font-syne font-bold mb-4">Echipamente Next-Gen</h4>
+                    <p class="text-gray-400 leading-relaxed">Tehnologie de ultimă oră pentru monitorizarea progresului și biomecanica mișcării.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-card p-10 rounded-3xl group">
+                    <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-gold transition-colors">
+                        <i data-lucide="coffee" class="text-gold group-hover:text-dark w-8 h-8"></i>
+                    </div>
+                    <h4 class="text-2xl font-syne font-bold mb-4">Wellness & Recovery</h4>
+                    <p class="text-gray-400 leading-relaxed">Zonă dedicată de relaxare, saună și bar proteic premium pentru recuperare totală.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brand Story -->
+    <section class="py-24 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-gold/5 -skew-x-12 translate-x-1/4"></div>
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div class="relative">
+                <img src="https://images.unsplash.com/photo-1593079831268-3381b0db4a77?q=80&w=2069&auto=format&fit=crop" 
+                     alt="Sky Gym Interior" class="rounded-3xl shadow-2xl z-10 relative">
+                <div class="absolute -bottom-6 -right-6 bg-gold p-8 rounded-3xl z-20 hidden md:block">
+                    <span class="block text-4xl font-syne font-black text-dark">10+</span>
+                    <span class="text-dark font-bold text-sm tracking-tighter">ANI DE EXCELENȚĂ</span>
+                </div>
+            </div>
+            <div>
+                <h3 class="text-gold font-syne uppercase tracking-widest mb-4">Povestea Noastră</h3>
+                <h2 class="text-4xl md:text-5xl font-syne font-bold mb-8">STANDARDUL DE AUR ÎN SECTORUL 6</h2>
+                <p class="text-gray-300 text-lg mb-6 leading-relaxed">
+                    Sky Gym Fitness nu este doar o sală, este un sanctuar al disciplinei. Situat în inima Sectorului 6, am creat un spațiu unde luxul întâlnește performanța brută.
+                </p>
+                <p class="text-gray-400 mb-8 italic">
+                    "Am eliminat aglomerația și am păstrat calitatea. Aici vii să devii cea mai bună variantă a ta, într-un mediu care te inspiră la fiecare pas."
+                </p>
+                <div class="flex items-center gap-4">
+                    <div class="h-[1px] w-12 bg-gold"></div>
+                    <span class="font-syne font-bold tracking-widest text-sm">ECHIPA SKY GYM</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Map -->
+    <section id="contact" class="py-24 px-6 bg-[#080808]">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="glass-card p-12 rounded-[3rem]">
+                    <h2 class="font-syne text-4xl font-bold mb-8">CONTACT <span class="text-gold">ELITE</span></h2>
+                    
+                    <div class="space-y-8">
+                        <div class="flex items-start gap-6">
+                            <div class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="map-pin" class="text-gold"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-1">Locație</h4>
+                                <p class="text-gray-400">Sector 6, București, România</p>
+                                <p class="text-gray-500 text-sm">Lângă Plaza Romania / AFI Cotroceni</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-6">
+                            <div class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="phone" class="text-gold"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-1">Telefon Direct</h4>
+                                <p class="text-gold text-2xl font-bold tracking-tighter">+40 766 777 888</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-6">
+                            <div class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="clock" class="text-gold"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-1">Program Non-Stop</h4>
+                                <p class="text-gray-400">Acces 24/7 pentru membrii Platinum</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-12 p-6 bg-white/5 rounded-2xl border border-white/10">
+                        <p class="text-sm text-center text-gray-400">Urmărește ascensiunea pe Social Media</p>
+                        <div class="flex justify-center gap-6 mt-4">
+                            <a href="#" class="text-white hover:text-gold transition"><i data-lucide="instagram"></i></a>
+                            <a href="#" class="text-white hover:text-gold transition"><i data-lucide="facebook"></i></a>
+                            <a href="#" class="text-white hover:text-gold transition"><i data-lucide="youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="h-[500px] lg:h-full rounded-[3rem] overflow-hidden map-container border border-white/10">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2849.0232231238!2d26.02!3d44.43!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b201ce80396001%3A0x6295552395d82c0!2sSector%206%2C%20Bucure%C8%99ti!5e0!3m2!1sro!2sro!4v1700000000000!5m2!1sro!2sro" 
+                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 border-t border-white/5 text-center">
+        <div class="flex justify-center items-center gap-2 mb-6">
+            <div class="w-6 h-6 bg-gold rounded-full flex items-center justify-center">
+                <i data-lucide="zap" class="text-dark w-3 h-3 fill-dark"></i>
+            </div>
+            <span class="font-syne text-xl font-extrabold">SKY<span class="text-gold">GYM</span></span>
+        </div>
+        <p class="text-gray-600 text-sm">© 2024 SKY GYM SECTOR 6. DEFINING THE APEX OF FITNESS.</p>
+    </footer>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Simple scroll animation for navbar
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('py-2');
+                nav.classList.remove('py-4');
+            } else {
+                nav.classList.add('py-4');
+                nav.classList.remove('py-2');
+            }
+        });
+    </script>
+</body>
+</html>

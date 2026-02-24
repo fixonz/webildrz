@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ro" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mugshot | Premium Coffee Shop București</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            gold: '#C5A059',
+                            dark: '#1A1A1A',
+                            light: '#F5F5F7',
+                            accent: '#2D2D2D'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #F5F5F7; }
+        .heading-font { font-family: 'Playfair Display', serif; }
+        .hero-gradient { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)); }
+    </style>
+</head>
+<body class="text-brand-dark antialiased">
+
+    <!-- NAVIGATION -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
+        <div class="container mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+            <a href="#" class="text-2xl font-bold tracking-tighter heading-font">MUGSHOT</a>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 font-medium text-sm uppercase tracking-widest">
+                <a href="#servicii" class="hover:text-brand-gold transition">Servicii</a>
+                <a href="#despre" class="hover:text-brand-gold transition">Povestea Noastră</a>
+                <a href="#contact" class="hover:text-brand-gold transition">Contact</a>
+            </div>
+
+            <!-- Mobile Call Button (Quick Access) -->
+            <a href="tel:+40767953836" class="md:hidden bg-brand-dark text-white p-2 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+            </a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative min-h-screen flex items-center pt-20">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=1920" 
+                 alt="Coffee Background" class="w-full h-full object-cover">
+            <div class="absolute inset-0 hero-gradient"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 sm:px-6 relative z-10 text-white">
+            <div class="max-w-3xl">
+                <span class="inline-block px-4 py-1 border border-brand-gold text-brand-gold rounded-full text-xs uppercase tracking-widest mb-6">București | Str. Aurel Vlaicu 20</span>
+                <h1 class="text-5xl md:text-7xl heading-font mb-6 leading-tight">Cafeaua care îți redefinește dimineața.</h1>
+                <p class="text-lg md:text-xl text-gray-200 mb-10 max-w-xl font-light">O experiență senzorială premium în centrul capitalei. Selecții de origine, barista pasionați și o atmosferă creată pentru momente de claritate.</p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="tel:+40767953836" class="bg-brand-gold hover:bg-white hover:text-brand-dark text-white px-8 py-4 rounded-none font-semibold transition duration-300 text-center uppercase tracking-wider text-sm">
+                        Rezervă o masă
+                    </a>
+                    <a href="#contact" class="bg-transparent border border-white hover:bg-white hover:text-brand-dark text-white px-8 py-4 rounded-none font-semibold transition duration-300 text-center uppercase tracking-wider text-sm">
+                        Găsește-ne pe hartă
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES GRID -->
+    <section id="servicii" class="py-24 bg-white">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl heading-font mb-4">Experiența Mugshot</h2>
+                <div class="w-20 h-1 bg-brand-gold mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <!-- Service 1 -->
+                <div class="group">
+                    <div class="overflow-hidden mb-6">
+                        <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&q=80&w=800" 
+                             alt="Specialty Coffee" class="w-full h-64 object-cover transform group-hover:scale-105 transition duration-500">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 heading-font">Specialty Coffee</h3>
+                    <p class="text-gray-600 leading-relaxed">Boabe selecționate din cele mai bune regiuni ale lumii, prăjite artizanal pentru a evidenția notele unice.</p>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="group">
+                    <div class="overflow-hidden mb-6">
+                        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80&w=800" 
+                             alt="Artisan Pastries" class="w-full h-64 object-cover transform group-hover:scale-105 transition duration-500">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 heading-font">Patiserie Artizanală</h3>
+                    <p class="text-gray-600 leading-relaxed">Croissante proaspete și deserturi create zilnic în laboratorul nostru, folosind doar ingrediente naturale.</p>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="group">
+                    <div class="overflow-hidden mb-6">
+                        <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=800" 
+                             alt="Vibe" class="w-full h-64 object-cover transform group-hover:scale-105 transition duration-500">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 heading-font">Atmosferă Lucrativă</h3>
+                    <p class="text-gray-600 leading-relaxed">Design minimalist și liniștit, perfect pentru întâlniri de business sau dimineți productive cu laptopul.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION (ALTERNATED) -->
+    <section id="despre" class="py-24 bg-brand-light">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="w-full lg:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&q=80&w=1000" 
+                         alt="Interior Mugshot" class="shadow-2xl">
+                </div>
+                <div class="w-full lg:w-1/2 space-y-6">
+                    <h2 class="text-3xl md:text-5xl heading-font leading-tight">Mai mult decât un Coffee Shop. Un ritual urban.</h2>
+                    <p class="text-gray-600 text-lg leading-relaxed">
+                        Situat pe Strada Aurel Vlaicu, Mugshot s-a născut din pasiunea pentru precizie. Credem că fiecare "shot" de espresso merită o atenție desăvârșită. 
+                    </p>
+                    <p class="text-gray-600 text-lg leading-relaxed">
+                        Spațiul nostru este un manifest pentru simplitate și calitate, un loc unde comunitatea se întâlnește pentru a celebra gustul autentic și conversațiile de valoare.
+                    </p>
+                    <div class="pt-4 border-t border-gray-200">
+                        <p class="italic text-brand-gold">"O cafea bună nu este un lux, ci o necesitate pentru o minte creativă."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT & MAP -->
+    <section id="contact" class="py-24 bg-white">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="w-full lg:w-1/3 space-y-8">
+                    <div>
+                        <h2 class="text-3xl heading-font mb-6">Vizitează-ne</h2>
+                        <p class="text-gray-600 mb-8">Te așteptăm în fiecare zi pentru doza ta de energie și inspirație.</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4">
+                            <div class="bg-brand-dark text-white p-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold uppercase text-xs tracking-widest text-brand-gold">Adresă</h4>
+                                <p class="text-lg">Strada Aurel Vlaicu 20<br>030167, București</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="bg-brand-dark text-white p-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold uppercase text-xs tracking-widest text-brand-gold">Contact</h4>
+                                <a href="tel:+40767953836" class="text-lg hover:text-brand-gold transition">+40 767 953 836</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="bg-brand-dark text-white p-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold uppercase text-xs tracking-widest text-brand-gold">Program</h4>
+                                <p class="text-lg">Luni - Vineri: 08:00 - 19:00<br>Sâmbătă - Duminică: 09:00 - 18:00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full lg:w-2/3 h-[450px] bg-gray-200">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2848.567086884393!2d26.10300947664653!3d44.44203670104874!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b1ff3513364741%3A0x67e41f99c15b1425!2sStrada%20Aurel%20Vlaicu%2020%2C%20Bucure%C8%99ti%20030167!5e0!3m2!1sen!2sro!4v1715600000000!5m2!1sen!2sro" 
+                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-dark text-white py-16">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="text-center md:text-left">
+                    <h2 class="text-3xl font-bold heading-font mb-2">MUGSHOT</h2>
+                    <p class="text-gray-400 text-sm tracking-widest uppercase">Est. 2024 • București</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-brand-gold transition uppercase text-xs tracking-widest">Instagram</a>
+                    <a href="#" class="text-gray-400 hover:text-brand-gold transition uppercase text-xs tracking-widest">Facebook</a>
+                    <a href="#" class="text-gray-400 hover:text-brand-gold transition uppercase text-xs tracking-widest">LinkedIn</a>
+                </div>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
+                <p>&copy; 2024 Mugshot Coffee Shop. Toate drepturile rezervate.</p>
+                <p class="mt-2 font-light">Strada Aurel Vlaicu 20, 030167 București, Romania</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

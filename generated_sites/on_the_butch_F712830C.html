@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>on the butch — Excelență în Execuție</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👑</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+    <style>
+        :root {
+            --bg-dark: #1A1A1A;
+            --bg-card: #2B2B2B;
+            --accent-gold: #D4AF37;
+            --text-light: #F5F5F5;
+            --text-secondary: #a0a0a0;
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 80px; /* Space for fixed CTA */
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: var(--text-light);
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: 3.5rem; /* 56px */
+        }
+
+        h2 {
+            font-size: 2.5rem; /* 40px */
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        h2 .highlight {
+            color: var(--accent-gold);
+        }
+
+        p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .section {
+            padding: 80px 0;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 500px;
+            z-index: 1000;
+            border-radius: 50px;
+            padding: 10px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(43, 43, 43, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+            text-decoration: none;
+        }
+
+        .nav-menu-icon {
+            font-size: 1.8rem;
+            color: var(--text-light);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 120px;
+            position: relative;
+            background-image: linear-gradient(rgba(26, 26, 26, 0.8), rgba(26, 26, 26, 1)), url('https://images.unsplash.com/photo-1581362624541-ad03953fb303?q=80&w=1974&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent-gold);
+            color: var(--bg-dark);
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+        }
+        .cta-button i {
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        /* Trust Section */
+        .trust-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin-top: 4rem;
+        }
+        .trust-item {
+            text-align: center;
+            padding: 20px;
+        }
+        .trust-item i {
+            font-size: 3rem;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+        }
+        .trust-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+        .trust-item p {
+            font-size: 0.95rem;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background-color: #111;
+        }
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-top: 4rem;
+        }
+        .testimonial-card {
+            background-color: var(--bg-card);
+            padding: 30px;
+            border-radius: 16px;
+            border-left: 4px solid var(--accent-gold);
+        }
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--accent-gold);
+            color: var(--bg-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-right: 15px;
+        }
+        .testimonial-author-info {
+            line-height: 1.3;
+        }
+        .testimonial-author {
+            font-weight: 700;
+            color: var(--text-light);
+        }
+        .testimonial-stars {
+            color: var(--accent-gold);
+        }
+        .testimonial-quote {
+            font-style: italic;
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 4rem;
+        }
+        .service-item {
+            background-color: var(--bg-card);
+            padding: 30px 25px;
+            border-radius: 16px;
+            text-align: center;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .service-item:hover {
+            transform: translateY(-5px);
+            background-color: #333;
+        }
+        .service-item i {
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+        }
+        .service-item h3 {
+            font-size: 1.2rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            text-align: center;
+            background-image: linear-gradient(rgba(26, 26, 26, 0.9), rgba(26, 26, 26, 0.9)), url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=2070&auto=format&fit=crop');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+        .contact p {
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        .footer-logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            text-decoration: none;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+        .footer-branding {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Fixed CTA on Mobile */
+        .fixed-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--bg-card);
+            padding: 15px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            z-index: 999;
+            display: block;
+        }
+        .fixed-cta-button {
+            display: block;
+            width: 100%;
+            background-color: var(--accent-gold);
+            color: var(--bg-dark);
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .fixed-cta-button i {
+            margin-right: 10px;
+        }
+
+        /* Desktop Styles */
+        @media (min-width: 768px) {
+            h1 { font-size: 5rem; }
+            h2 { font-size: 3rem; }
+            .trust-grid { grid-template-columns: repeat(3, 1fr); gap: 30px; }
+            .testimonial-grid { grid-template-columns: repeat(2, 1fr); }
+            .services-grid { grid-template-columns: repeat(3, 1fr); }
+            .fixed-cta { display: none; } /* Hide fixed button on desktop */
+        }
+        @media (min-width: 1024px) {
+            .testimonial-grid { grid-template-columns: repeat(3, 1fr); }
+            .services-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="#" class="logo">on the butch</a>
+        <i class="ri-menu-3-line nav-menu-icon"></i>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container hero-content">
+            <div class="hero-logo">on the butch</div>
+            <h1>Proiectul Tău. <br>Executat Ireproșabil.</h1>
+            <p>De la concept la realitate, transformăm viziunile ambițioase în proiecte de excepție. Fără compromisuri. Fără bătăi de cap.</p>
+            <a href="tel:0721000000" class="cta-button">
+                <i class="ri-phone-fill"></i>
+                Sună Acum: 0721 000 000
+            </a>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- Trust Section -->
+        <section class="section trust-section">
+            <div class="container">
+                <h2>De ce <span class="highlight">on the butch?</span></h2>
+                <div class="trust-grid">
+                    <div class="trust-item">
+                        <i class="ri-focus-2-line"></i>
+                        <h3>Precizie Absolută</h3>
+                        <p>Fiecare detaliu contează. Planificăm riguros și executăm la milimetru pentru un rezultat final perfect, respectând termenele și bugetul stabilit.</p>
+                    </div>
+                    <div class="trust-item">
+                        <i class="ri-group-2-line"></i>
+                        <h3>Rețea Exclusivistă</h3>
+                        <p>Colaborăm doar cu cei mai buni artizani, furnizori și specialiști din România pentru a garanta o calitate premium și finisaje de neegalat.</p>
+                    </div>
+                    <div class="trust-item">
+                        <i class="ri-shield-check-line"></i>
+                        <h3>Management Integral</h3>
+                        <p>De la birocrație la ultimul finisaj, preluăm întreaga responsabilitate. Tu te bucuri de rezultat, noi ne ocupăm de întregul proces.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="section testimonials">
+            <div class="container">
+                <h2>Au transformat <span class="highlight">imposibilul</span> în realitate.</h2>
+                <div class="testimonial-grid">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="testimonial-avatar">RI</div>
+                            <div class="testimonial-author-info">
+                                <span class="testimonial-author">Radu Ionescu</span>
+                                <div class="testimonial-stars">
+                                    <i class="ri-star-s-fill"></i><i class="ri-star-s-fill"></i><i class="ri-star-s-fill"></i><i class="ri-star-s-fill"></i><i class="ri-star-s-fill"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="testimonial-quote">"Am colaborat cu 'on the butch' pentru reamenajarea sediului nostru. Au o capacitate rară de a livra viziunea clientului fără compromisuri. O echipă de profesioniști desăvârșiți."</p>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="testimonial-avatar">EP</div>
+                            <div class="testimonial-author-info">
+                                <span class="testimonial-author">Elena Popescu</span>
+                                <div class="testimonial-stars">
+                                    <i class="ri-star-s-fill"></i><i class="ri-star-s-fill"></i><i class="ri-star-s-fill"></i><i class="ri-star-s-fill"></i><i class="ri-star-s-fill"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="testimonial-quote">"Proiectul meu era extrem de complex. Echipa 'on the butch' nu doar că a respectat fiecare detaliu, dar a adus și o viziune creativă care a depășit așteptările. Au transformat un spațiu brut într-o operă de artă."</p>
+                    </div>
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="testimonial-avatar">MD</div>
+                            <div class="testimonial-author-info">
+                                <span class="testimonial-author">Mihai Dumitrescu</span>
+                                <div class="testimonial-stars">
+                                    <i class="ri-star-s-fill"></i><i class="ri-star-s-fill"></i><i class="ri-star-s-fill"></i><i class="ri-star-s-fill"></i><i class="ri-star-s-fill"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="testimonial-quote">"Să lansezi un restaurant de lux sub presiunea timpului părea o misiune imposibilă. Investiția în 'on the butch' s-a meritat până la ultimul cent. Coordonare perfectă."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="section">
+            <div class="container">
+                <h2>Aria Noastră de <span class="highlight">Expertiză</span></h2>
+                <div class="services-grid">
+                    <div class="service-item">
+                        <i class="ri-lightbulb-flash-line"></i>
+                        <h3>Concept & Strategie</h3>
+                    </div>
+                    <div class="service-item">
+                        <i class="ri-file-list-3-line"></i>
+                        <h3>Management de Proiect</h3>
+                    </div>
+                    <div class="service-item">
+                        <i class="ri-compasses-2-line"></i>
+                        <h3>Design & Arhitectură</h3>
+                    </div>
+                    <div class="service-item">
+                        <i class="ri-shake-hands-line"></i>
+                        <h3>Selecție Furnizori</h3>
+                    </div>
+                    <div class="service-item">
+                        <i class="ri-building-line"></i>
+                        <h3>Execuție & Supervizare</h3>
+                    </div>
+                    <div class="service-item">
+                        <i class="ri-key-2-line"></i>
+                        <h3>Recepție & Predare</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section contact">
+            <div class="container">
+                <h2>Sunteți gata să <span class="highlight">începem?</span></h2>
+                <p>Primul pas către realizarea proiectului dumneavoastră este o conversație. Contactați-ne pentru a stabili o consultanță inițială și pentru a discuta cum vă putem transforma viziunea în realitate.</p>
+                <a href="tel:0721000000" class="cta-button">
+                    <i class="ri-phone-fill"></i>
+                    Discută cu un Expert
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <a href="#" class="footer-logo">on the butch</a>
+            <p class="footer-branding">Site creat de WEB? DONE! — N-ai site? Ai acum.. | © 2026</p>
+        </div>
+    </footer>
+
+    <!-- Fixed CTA Button for Mobile -->
+    <div class="fixed-cta">
+        <a href="tel:0721000000" class="fixed-cta-button">
+            <i class="ri-phone-fill"></i> Sună Acum
+        </a>
+    </div>
+
+</body>
+</html>

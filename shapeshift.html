@@ -1,0 +1,3160 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEB? DONE! | N-ai site? Ai acum..</title>
+    <meta name="description"
+        content="Generează un site profesional pentru afacerea ta în mai puțin de 60 de secunde. Complet gratuit, fără tehnic.">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #020408;
+            --surface: rgba(13, 17, 28, 0.7);
+            --surface2: rgba(22, 29, 43, 0.8);
+            --border: rgba(255, 255, 255, 0.08);
+            --accent: #00ffaa;
+            --accent2: #00d4ff;
+            --accent-glow: rgba(0, 255, 170, 0.15);
+            --gold: #f7e16d;
+            --text: #ffffff;
+            --muted: #94a3b8;
+            --success: #10b981;
+            --premium: #ff3366;
+            --radius: 24px;
+            --glass: blur(12px) saturate(180%);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Ambient dynamic blobs */
+        .ambient-blob {
+            position: fixed;
+            width: 70vw;
+            height: 70vw;
+            border-radius: 50%;
+            filter: blur(140px);
+            z-index: -1;
+            opacity: 0.3;
+            pointer-events: none;
+            transition: transform 2.5s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform;
+            animation: blob-morph 20s infinite alternate ease-in-out;
+        }
+
+        @keyframes blob-morph {
+            0% {
+                transform: translate(0, 0) scale(1) rotate(0deg);
+                border-radius: 50%;
+            }
+
+            33% {
+                transform: translate(10vw, -10vh) scale(1.2) rotate(120deg);
+                border-radius: 40% 60% 70% 30%;
+            }
+
+            66% {
+                transform: translate(-5vw, 15vh) scale(0.8) rotate(240deg);
+                border-radius: 60% 40% 30% 70%;
+            }
+
+            100% {
+                transform: translate(0, 0) scale(1.1) rotate(360deg);
+                border-radius: 50%;
+            }
+        }
+
+        .blob-1 {
+            top: -15%;
+            left: -15%;
+            background: radial-gradient(circle, rgba(0, 255, 170, 0.25) 0%, transparent 70%);
+        }
+
+        .blob-2 {
+            bottom: -15%;
+            right: -15%;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.2) 0%, transparent 70%);
+        }
+
+        .blob-3 {
+            top: 30%;
+            left: 40%;
+            width: 40vw;
+            height: 40vw;
+            background: radial-gradient(circle, rgba(108, 99, 255, 0.15) 0%, transparent 70%);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: none;
+            background: transparent;
+        }
+
+        nav.scrolled {
+            padding: 12px 0;
+            background: rgba(2, 4, 8, 0.7);
+            backdrop-filter: var(--glass);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1.4rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+
+        .logo span {
+            color: var(--accent2);
+            -webkit-text-fill-color: var(--accent2);
+        }
+
+        .nav-badge {
+            background: rgba(0, 255, 170, 0.1);
+            border: 1px solid rgba(0, 255, 170, 0.2);
+            color: var(--accent);
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        /* HERO */
+        .hero {
+            text-align: center;
+            padding: 60px 0 40px;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 229, 160, 0.1);
+            border: 1px solid rgba(0, 229, 160, 0.25);
+            color: var(--success);
+            padding: 8px 18px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 28px;
+        }
+
+        .hero-tag::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(1.4);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.8rem);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            color: var(--muted);
+            font-size: 1.15rem;
+            max-width: 520px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+
+        .floating {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.15;
+            filter: blur(1px);
+            pointer-events: none;
+            z-index: -1;
+            animation: float-slow 10s infinite ease-in-out;
+        }
+
+        @keyframes float-slow {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            33% {
+                transform: translate(20px, -30px) rotate(10deg);
+            }
+
+            66% {
+                transform: translate(-15px, 20px) rotate(-5deg);
+            }
+        }
+
+        /* FORM CARD & GLASS EFFECTS */
+        .glass {
+            background: var(--surface);
+            backdrop-filter: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+        }
+
+        .form-card {
+            padding: 56px;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .form-card:hover {
+            box-shadow: 0 50px 120px rgba(0, 255, 170, 0.1);
+            border-color: rgba(0, 255, 170, 0.3);
+        }
+
+        /* Continuous Layout Shift */
+        .shapeshift-active .form-card,
+        .shapeshift-active .tier-card,
+        .shapeshift-active .feature-card {
+            animation: card-morph 12s infinite alternate ease-in-out;
+        }
+
+        @keyframes card-morph {
+            0% {
+                border-radius: var(--radius);
+                transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+            }
+
+            50% {
+                border-radius: 60px 20px 80px 40px;
+                transform: perspective(1000px) rotateX(1deg) rotateY(-1deg) scale(1.01);
+            }
+
+            100% {
+                border-radius: 40px 100px 30px 90px;
+                transform: perspective(1000px) rotateX(-1deg) rotateY(1deg);
+            }
+        }
+
+        /* Global Color Shift */
+        @keyframes hue-shift {
+            0% {
+                filter: hue-rotate(0deg);
+            }
+
+            100% {
+                filter: hue-rotate(360deg);
+            }
+        }
+
+        .hue-shifting {
+            animation: hue-shift 30s infinite linear;
+        }
+
+        .form-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
+            z-index: 5;
+        }
+
+        .form-card h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .form-card h2 .icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 640px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        input,
+        select,
+        textarea {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 18px;
+            font-size: 1rem;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+            width: 100%;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: var(--muted);
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.15);
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        select option {
+            background: var(--surface);
+        }
+
+        textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        /* GENERATE BUTTON */
+        .btn-generate {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+            border: none;
+            border-radius: 16px;
+            color: white;
+            font-family: 'Syne', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 28px;
+            letter-spacing: 0.02em;
+            box-shadow: 0 10px 30px rgba(108, 99, 255, 0.35);
+        }
+
+        /* COLOR PALETTE PICKER */
+        .palette-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 4px;
+        }
+
+        .palette-swatch {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .palette-swatch input[type=radio] {
+            display: none;
+        }
+
+        .palette-dots {
+            display: flex;
+            gap: 3px;
+            padding: 8px 10px;
+            border-radius: 12px;
+            border: 2px solid transparent;
+            background: var(--surface2);
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .palette-swatch input:checked+.palette-dots {
+            border-color: var(--accent2);
+            transform: scale(1.08);
+        }
+
+        .palette-swatch:hover .palette-dots {
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .palette-dot {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+        }
+
+        .palette-label {
+            font-size: 0.68rem;
+            color: var(--muted);
+            white-space: nowrap;
+        }
+
+        /* Custom colors row */
+        .custom-colors {
+            display: none;
+            gap: 12px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .custom-colors.active {
+            display: flex;
+        }
+
+        .color-pick {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            align-items: flex-start;
+        }
+
+        .color-pick label {
+            font-size: 0.72rem;
+            color: var(--muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .color-pick input[type=color] {
+            width: 52px;
+            height: 36px;
+            padding: 2px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--surface2);
+            cursor: pointer;
+        }
+
+        /* LOGO UPLOAD */
+        .logo-upload-area {
+            border: 2px dashed var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+            position: relative;
+        }
+
+        .logo-upload-area:hover {
+            border-color: rgba(108, 99, 255, 0.4);
+            background: rgba(108, 99, 255, 0.04);
+        }
+
+        .logo-upload-area.has-logo {
+            border-style: solid;
+            border-color: var(--success);
+        }
+
+        .logo-upload-area input[type=file] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+        }
+
+        .logo-preview-img {
+            display: none;
+            max-height: 60px;
+            max-width: 160px;
+            margin: 0 auto;
+            border-radius: 8px;
+        }
+
+        .logo-upload-placeholder {
+            font-size: 0.88rem;
+            color: var(--muted);
+        }
+
+        .logo-upload-placeholder span {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .logo-remove {
+            display: none;
+            margin-top: 8px;
+            background: none;
+            border: none;
+            color: #FF7070;
+            font-size: 0.8rem;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .btn-generate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(108, 99, 255, 0.45);
+        }
+
+        .btn-generate:active {
+            transform: scale(0.98);
+        }
+
+        .btn-generate svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        /* PROGRESS */
+        /* ADVANCED SETTINGS TOGGLE */
+        .advanced-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px dashed var(--border);
+            border-radius: 12px;
+            color: var(--muted);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .advanced-toggle:hover {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text);
+            border-style: solid;
+        }
+
+        .advanced-toggle .arrow {
+            transition: transform 0.3s;
+        }
+
+        .advanced-toggle.active .arrow {
+            transform: rotate(180deg);
+        }
+
+        .advanced-section {
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            animation: slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .advanced-section.active {
+            display: flex;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .progress-bar-wrap {
+            background: var(--surface2);
+            border-radius: 100px;
+            height: 6px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            border-radius: 100px;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .progress-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 0.95rem;
+            color: var(--muted);
+            transition: all 0.3s;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid transparent;
+            border-radius: 12px;
+        }
+
+        .step-item.active {
+            color: var(--text);
+            background: rgba(0, 255, 170, 0.05);
+            border-color: rgba(0, 255, 170, 0.2);
+            transform: translateX(8px);
+        }
+
+        .step-item.done {
+            color: var(--success);
+            opacity: 0.8;
+        }
+
+        .step-dot {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 800;
+            flex-shrink: 0;
+            transition: all 0.3s;
+        }
+
+        .step-item.active .step-dot {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 0 15px var(--accent);
+            border-color: var(--accent);
+        }
+
+        .step-item.done .step-dot {
+            background: var(--success);
+            color: #000;
+            border-color: var(--success);
+        }
+
+        /* Cyber Scanner Animation */
+        .scanner-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scanner-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid rgba(0, 255, 170, 0.1);
+            border-radius: 50%;
+            animation: pulseRing 2s infinite ease-out;
+        }
+
+        .scanner-core {
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            animation: coreBreathe 2s infinite ease-in-out;
+            z-index: 2;
+        }
+
+        .scanner-line {
+            position: absolute;
+            width: 140%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            box-shadow: 0 0 20px var(--accent);
+            animation: scanMove 3s infinite linear;
+            z-index: 1;
+        }
+
+        @keyframes pulseRing {
+            0% {
+                transform: scale(0.6);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1.4);
+                opacity: 0;
+            }
+        }
+
+        @keyframes coreBreathe {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes scanMove {
+            0% {
+                top: -20%;
+                transform: rotate(0deg);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 1;
+            }
+
+            80% {
+                opacity: 1;
+            }
+
+            100% {
+                top: 120%;
+                transform: rotate(10deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* RESULT */
+        #result-area {
+            display: none;
+            margin-top: 32px;
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .result-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--success);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-action {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-download {
+            background: var(--success);
+            color: #0a1a14;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(0, 229, 160, 0.3);
+        }
+
+        .btn-new {
+            background: var(--surface2);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-new:hover {
+            background: var(--border);
+        }
+
+        .preview-frame {
+            width: 100%;
+            height: 600px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            background: white;
+        }
+
+        /* FEATURES */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 60px 0;
+        }
+
+        @media (max-width: 768px) {
+            .features {
+                grid-template-columns: 1fr;
+                gap: 14px;
+                margin: 40px 0;
+            }
+        }
+
+        .feature-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 28px;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(108, 99, 255, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .feature-card h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* PORTFOLIO */
+        .portfolio-section {
+            margin: 80px 0 20px;
+            text-align: center;
+        }
+
+        .portfolio-section .section-label {
+            display: inline-block;
+            background: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            color: var(--accent2);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .portfolio-section h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .portfolio-section>p {
+            color: var(--muted);
+            font-size: 1rem;
+            margin-bottom: 40px;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .portfolio-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.3s, border-color 0.3s;
+            text-align: left;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(108, 99, 255, 0.3);
+        }
+
+        .portfolio-preview {
+            width: 100%;
+            height: 220px;
+            position: relative;
+            overflow: hidden;
+            background: #0a0c10;
+        }
+
+        .portfolio-preview iframe {
+            width: 1280px;
+            height: 1000px;
+            border: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: scale(0.28);
+            transform-origin: top left;
+            pointer-events: none;
+            opacity: 0.7;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        /* Hero Focus: Keep the main branding visible with a subtle scale zoom */
+        .portfolio-card:hover .portfolio-preview iframe {
+            opacity: 1;
+            transform: scale(0.32);
+        }
+
+        .portfolio-preview::after {
+            content: 'LIVE PREVIEW';
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            padding: 4px 10px;
+            background: rgba(10, 12, 16, 0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            font-size: 0.6rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            color: var(--premium);
+            z-index: 10;
+        }
+
+        .portfolio-info {
+            padding: 20px;
+        }
+
+        .portfolio-niche {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
+
+        .portfolio-name {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .portfolio-meta {
+            font-size: 0.8rem;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .portfolio-rating {
+            color: #FFD166;
+        }
+
+        /* MARKETING / CAMPAIGN */
+        .campaign-strip {
+            background: linear-gradient(135deg, rgba(108, 99, 255, 0.15) 0%, rgba(0, 212, 255, 0.1) 100%);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            border-radius: 28px;
+            padding: 60px 48px;
+            text-align: center;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .campaign-strip::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%236C63FF' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+            pointer-events: none;
+        }
+
+        .campaign-strip h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .campaign-strip h2 span {
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .campaign-strip p {
+            color: var(--muted);
+            font-size: 1rem;
+            margin-bottom: 32px;
+            line-height: 1.7;
+        }
+
+        .campaign-stats {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+            margin-bottom: 36px;
+        }
+
+        .campaign-stat .num {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .campaign-stat .label {
+            font-size: 0.82rem;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        .campaign-btns {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-campaign-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            border: none;
+            border-radius: 14px;
+            color: white;
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(108, 99, 255, 0.35);
+        }
+
+        .btn-campaign-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 40px rgba(108, 99, 255, 0.45);
+        }
+
+        .btn-campaign-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 14px;
+            color: var(--text);
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-campaign-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* ── COMPREHENSIVE MOBILE RESPONSIVE ── */
+        @media (max-width: 768px) {
+
+            /* Nav */
+            nav {
+                padding: 16px 0;
+            }
+
+            .nav-badge {
+                display: none;
+            }
+
+            /* Hero */
+            .hero {
+                padding: 40px 0 28px;
+            }
+
+            .hero h1 {
+                font-size: clamp(1.9rem, 8vw, 2.8rem);
+            }
+
+            .hero p {
+                font-size: 1rem;
+                margin-bottom: 28px;
+            }
+
+            .hero-tag {
+                font-size: 0.7rem;
+                margin-bottom: 20px;
+            }
+
+            .floating {
+                display: none;
+            }
+
+            /* Form card */
+            .form-card {
+                padding: 28px 20px;
+                border-radius: 24px;
+            }
+
+            .form-card h2 {
+                font-size: 1.2rem;
+                margin-bottom: 20px;
+            }
+
+            /* Portfolio */
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+
+            .portfolio-preview {
+                height: 180px;
+            }
+
+            .portfolio-preview iframe {
+                width: 1280px;
+                height: 900px;
+                transform: scale(0.24);
+            }
+
+            .portfolio-card:hover .portfolio-preview iframe {
+                transform: scale(0.27);
+            }
+
+            /* Campaign strip */
+            .campaign-strip {
+                padding: 36px 20px;
+                border-radius: 20px;
+            }
+
+            .campaign-strip h2 {
+                font-size: 1.6rem;
+            }
+
+            .campaign-stats {
+                gap: 24px;
+            }
+
+            .campaign-stat .num {
+                font-size: 1.8rem;
+            }
+
+            .campaign-btns {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn-campaign-primary,
+            .btn-campaign-secondary {
+                justify-content: center;
+                width: 100%;
+            }
+
+            /* Container padding on mobile */
+            .container {
+                padding: 0 16px;
+            }
+        }
+
+        /* Portrait phones (small) */
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.9rem;
+                line-height: 1.1;
+            }
+
+            .hero p {
+                font-size: 0.95rem;
+            }
+
+            .form-card {
+                padding: 24px 16px;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-preview {
+                height: 160px;
+            }
+
+            .portfolio-preview iframe {
+                transform: scale(0.20);
+            }
+        }
+
+        /* Tablet landscape — portfolio 2 cols */
+        @media (min-width: 769px) and (max-width: 1100px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Floating bottom CTA on mobile */
+        .mobile-cta-bar {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-cta-bar {
+                display: flex;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                padding: 12px 16px;
+                background: linear-gradient(0deg, #05070a 80%, transparent);
+                z-index: 900;
+            }
+
+            .mobile-cta-bar a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                width: 100%;
+                padding: 16px;
+                background: linear-gradient(135deg, var(--accent), var(--accent2));
+                border-radius: 16px;
+                color: #000;
+                font-family: 'Syne', sans-serif;
+                font-size: 1rem;
+                font-weight: 800;
+                text-decoration: none;
+                box-shadow: 0 8px 30px rgba(0, 255, 170, 0.35);
+            }
+        }
+
+        /* ── MOBILE-FIRST PRICING SECTION ── */
+        .pricing-section {
+            padding: 80px 20px 40px;
+            text-align: center;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .pricing-section h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        .pricing-section>p {
+            color: var(--muted);
+            font-size: 1.1rem;
+            margin-bottom: 50px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            align-items: stretch;
+            margin: 0 auto 80px;
+        }
+
+        .tier-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 32px 24px;
+            text-align: left;
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            /* Ensure equal height */
+        }
+
+        /* Extreme Mobile Optimization (Verified Centering) */
+        @media (max-width: 1200px) {
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 800px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                /* Compact focused width on mobile */
+                gap: 32px;
+            }
+
+            .pricing-section h2 {
+                font-size: 2.2rem;
+            }
+
+            .tier-card {
+                padding: 40px 28px;
+            }
+
+            /* Add swipe indicator */
+            .pricing-section::after {
+                content: '← Swipe →';
+                display: block;
+                text-align: center;
+                font-size: 0.7rem;
+                color: var(--muted);
+                margin-top: -20px;
+                letter-spacing: 0.1em;
+                opacity: 0.6;
+            }
+        }
+
+        .tier-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            border-color: var(--accent);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            color: #000;
+            padding: 6px 18px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(0, 255, 170, 0.3);
+        }
+
+        .tier-name {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--muted);
+            margin-bottom: 16px;
+        }
+
+        .tier-card.popular .tier-name {
+            color: var(--accent);
+        }
+
+        .tier-card.elite .tier-name {
+            color: var(--gold);
+        }
+
+        .tier-price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .currency {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--muted);
+        }
+
+        .price-val {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .period {
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .tier-tagline {
+            font-size: 0.9rem;
+            color: var(--muted);
+            margin: 12px 0 24px;
+            line-height: 1.5;
+            min-height: 3em;
+        }
+
+        .tier-divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 0 0 24px 0;
+        }
+
+        .tier-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 32px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            flex-grow: 1;
+        }
+
+        .tier-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.92rem;
+            line-height: 1.4;
+            color: var(--text);
+        }
+
+        .tier-features li.dim {
+            color: var(--muted);
+            opacity: 0.4;
+        }
+
+        .feat-icon {
+            flex-shrink: 0;
+            font-size: 1rem;
+            margin-top: 2px;
+        }
+
+        .feat-icon.yes {
+            color: var(--success);
+        }
+
+        .feat-icon.no {
+            color: var(--muted);
+        }
+
+        .feat-icon.gold {
+            color: var(--gold);
+        }
+
+        .tier-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            border-radius: 16px;
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            border: none;
+            text-decoration: none;
+        }
+
+        .tier-btn-outline {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .tier-btn-outline:hover {
+            background: rgba(0, 255, 170, 0.08);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .tier-btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #000;
+        }
+
+        .tier-btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(0, 255, 170, 0.4);
+        }
+
+        .tier-card.popular {
+            border-color: var(--accent);
+        }
+
+        .tier-card.elite {
+            border-color: var(--gold);
+        }
+
+        /* MODAL */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .modal-overlay.open {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 48px;
+            max-width: 520px;
+            width: 100%;
+            position: relative;
+            animation: modalIn 0.3s ease;
+        }
+
+        .modal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), #FF9500);
+            border-radius: 28px 28px 0 0;
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: var(--text);
+        }
+
+        .modal-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        .modal h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .modal>p {
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.65;
+            margin-bottom: 28px;
+        }
+
+        .contact-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .contact-option {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px 20px;
+            text-decoration: none;
+            color: var(--text);
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .contact-option:hover {
+            border-color: var(--gold);
+            transform: translateX(4px);
+        }
+
+        .contact-option .co-icon {
+            font-size: 1.6rem;
+            flex-shrink: 0;
+        }
+
+        .contact-option .co-label {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .contact-option .co-sub {
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        /* FOOTER REPAIR */
+        footer {
+            text-align: center;
+            padding: 100px 0 60px;
+            color: var(--text);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+            position: relative;
+            z-index: 10;
+            background: linear-gradient(to top, var(--bg), transparent);
+            width: 100%;
+        }
+
+        footer strong {
+            color: var(--accent);
+            text-shadow: 0 0 15px var(--accent);
+        }
+
+        footer p {
+            margin-bottom: 12px;
+            opacity: 0.8;
+            letter-spacing: 0.05em;
+        }
+
+
+        /* MOBILE OPTIMIZATION - 2026 HIGH-END REWRITE */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            nav {
+                padding: 16px 0;
+            }
+
+            .nav-badge {
+                display: none;
+                /* Keep it clean */
+            }
+
+            .hero {
+                padding: 60px 0 30px;
+                text-align: left;
+                /* More modern for mobile */
+            }
+
+            .hero h1 {
+                font-size: clamp(2.2rem, 10vw, 3rem);
+                line-height: 1.1;
+                margin-bottom: 16px;
+            }
+
+            .hero p {
+                font-size: 1.05rem;
+                margin: 0 0 32px 0;
+                max-width: 100%;
+                opacity: 0.9;
+            }
+
+            .simple-gen-box {
+                flex-direction: column;
+                border-radius: 20px;
+                padding: 12px;
+                gap: 12px;
+                background: var(--surface2);
+                border-color: var(--border);
+            }
+
+            .simple-gen-input {
+                font-size: 1.1rem;
+                padding: 12px 16px;
+                text-align: left;
+            }
+
+            .btn-go {
+                width: 100%;
+                padding: 18px;
+                font-size: 1rem;
+                justify-content: center;
+                border-radius: 16px;
+            }
+
+            .form-card {
+                padding: 32px 20px;
+                margin: 20px -10px;
+                /* Slight bleed for importance */
+                border-radius: 28px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                margin: 40px 0;
+            }
+
+            .feature-card {
+                padding: 24px;
+                display: flex;
+                align-items: flex-start;
+                gap: 16px;
+            }
+
+            .feature-icon {
+                font-size: 1.6rem;
+                margin-bottom: 0;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .pricing-grid {
+                display: flex;
+                overflow-x: auto;
+                padding: 20px 0 40px;
+                gap: 20px;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                margin: 0 -20px;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .tier-card {
+                min-width: 85vw;
+                scroll-snap-align: center;
+                margin-bottom: 0;
+            }
+
+            .campaign-strip {
+                padding: 40px 24px;
+                border-radius: 24px;
+                text-align: center;
+            }
+
+            .campaign-stats {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+
+            footer {
+                padding: 60px 20px 100px;
+            }
+        }
+
+        /* Support for very small screens */
+        @media (max-width: 380px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* INTRO ANIMATION */
+        #intro-overlay {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .intro-logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: #fff;
+            opacity: 0;
+            transform: scale(0.8);
+            animation: intro-logo-in 1.5s forwards cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .intro-line {
+            width: 0%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
+            animation: intro-line-in 2s forwards ease-in-out;
+        }
+
+        .intro-text {
+            font-size: 0.8rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--muted);
+            opacity: 0;
+            animation: fade-in 1s 1.2s forwards;
+        }
+
+        @keyframes intro-logo-in {
+            to {
+                opacity: 1;
+                transform: scale(1);
+                letter-spacing: 0.1em;
+            }
+        }
+
+        @keyframes intro-line-in {
+            to {
+                width: 80%;
+            }
+        }
+
+        @keyframes fade-in {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .content-hidden {
+            display: none;
+        }
+
+        /* SIMPLIFIED HERO ACTION */
+        .simple-gen-box {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 100px;
+            padding: 8px 8px 8px 32px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s;
+        }
+
+        .simple-gen-box:focus-within {
+            border-color: var(--accent);
+            box-shadow: 0 20px 80px rgba(0, 255, 170, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .simple-gen-input {
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 1.2rem;
+            flex: 1;
+            outline: none;
+            padding: 12px 0;
+        }
+
+        .btn-go {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #000;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 100px;
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-go:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px var(--accent);
+        }
+    </style>
+</head>
+
+<body class="shapeshift-active">
+    <div id="intro-overlay">
+        <div class="intro-logo">WEB<span>?</span> AI??</div>
+        <div class="intro-line"></div>
+        <div class="intro-text">SCANNINNG</div>
+    </div>
+    </div>
+
+    <div class="ambient-blob blob-1"></div>
+    <div class="ambient-blob blob-2"></div>
+    <div class="ambient-blob blob-3"></div>
+
+    <nav id="main-nav">
+        <div class="nav-container">
+            <div class="logo">WEB<span>?</span> DONE!</div>
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <a href="/view"
+                    style="color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: color 0.2s; white-space: nowrap;"
+                    onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">Ai deja
+                    un ID? 🔍</a>
+                <span class="nav-badge">⚡ Engine AI 2026</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="hero reveal">
+            <div class="floating" style="top: 10%; left: 5%;">🌐</div>
+            <div class="floating" style="top: 25%; right: 10%; animation-delay: -2s;">⚡</div>
+            <div class="floating" style="bottom: 10%; left: -5%; animation-delay: -5s;">🚀</div>
+            <div class="hero-tag">⚡ Engine AI Generația 2026 &middot; <span id="site-counter">149</span> site-uri create
+            </div>
+            <h1>Creează-ți Prezența<br>în <em>Viitor</em></h1>
+            <p>N-ai site? Scrie numele afacerii tale mai jos și BAM. E gata.</p>
+
+            <div class="simple-gen-box">
+                <input type="text" id="simple-biz-name" class="simple-gen-input" placeholder="Numele afacerii tale...">
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn-go" onclick="startSimpleGen()">
+                        BAM! SITE ⚡
+                    </button>
+                    <button class="btn-go"
+                        style="padding: 16px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--muted); backdrop-filter: var(--glass);"
+                        onclick="showAdvancedDetails()" title="Setări Avansate">
+                        ⚙️
+                    </button>
+                </div>
+            </div>
+            <p style="margin-top: 16px; font-size: 0.75rem; color: var(--muted); opacity: 0.7;">
+                Vrei să vezi un site existent? <a href="/view"
+                    style="color: var(--accent2); text-decoration: underline;">Introdu ID-ul aici</a>
+            </p>
+        </div>
+
+        <!-- HIDDEN FORM (used by script internally) -->
+        <div class="form-card glass interactive-glow reveal" id="main-form-card"
+            style="display:none; margin-top: 40px;">
+            <h2>
+                <span class="icon">✦</span>
+                Detaliile Afacerii Tale
+            </h2>
+
+            <form id="gen-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="biz-name">Numele Afacerii *</label>
+                        <input id="biz-name" type="text" placeholder="ex: Salon Maria" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="biz-phone">Telefon *</label>
+                        <input id="biz-phone" type="tel" placeholder="ex: 0721 234 567" required>
+                    </div>
+
+                    <!-- Hidden Category for AI Logic -->
+                    <input type="hidden" id="biz-category" value="General">
+                    <div class="form-group full">
+                        <label for="biz-extra">Povestește-ne pe scurt despre afacere (sau lasă AI-ul să
+                            ghicească)</label>
+                        <textarea id="biz-extra"
+                            placeholder="ex: Suntem o cafenea artizanală cu prăjire proprie. Avem și prăjituri vegane. Program 08-20."></textarea>
+                    </div>
+
+                    <button type="button" class="advanced-toggle" onclick="toggleAdvanced()">
+                        <span>⚙️ Setări Avansate (Logo, Culori, Adresă...)</span>
+                        <span class="arrow">▼</span>
+                    </button>
+
+                    <div class="advanced-section" id="advanced-section">
+                        <div class="form-group">
+                            <label for="biz-address">Oraș / Adresă</label>
+                            <input id="biz-address" type="text" placeholder="ex: Str. Victoriei 10, București">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="biz-reviews">Recenzii sau 'Citate' de la clienți (opțional)</label>
+                            <textarea id="biz-reviews"
+                                placeholder='ex: "Cea mai bună cafea din cartier!" - Andrei G.'></textarea>
+                        </div>
+
+                        <!-- LOGO UPLOAD -->
+                        <div class="form-group">
+                            <label>Logo Afacere (opțional)</label>
+                            <div class="logo-upload-area" id="logo-drop"
+                                onclick="document.getElementById('logo-file').click()">
+                                <input type="file" id="logo-file" accept="image/*"
+                                    style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;"
+                                    onchange="handleLogo(this)">
+                                <img class="logo-preview-img" id="logo-preview" src="" alt="Logo">
+                                <div class="logo-upload-placeholder" id="logo-placeholder">
+                                    📁 <span>Click pentru a adăuga logo</span><br>
+                                    <small>PNG, JPG sau SVG — max 2MB</small>
+                                </div>
+                                <button type="button" class="logo-remove" id="logo-remove" onclick="removeLogo(event)">✕
+                                    Elimină logo</button>
+                            </div>
+                        </div>
+
+                        <!-- COLOR PALETTE -->
+                        <div class="form-group">
+                            <label>Paletă de Culori</label>
+                            <div class="palette-grid" id="palette-grid">
+                                <label class="palette-swatch">
+                                    <input type="radio" name="palette" value="auto" checked>
+                                    <div class="palette-dots">
+                                        <div class="palette-dot" style="background:#6C63FF"></div>
+                                        <div class="palette-dot" style="background:#00D4FF"></div>
+                                        <div class="palette-dot" style="background:#f0f0f0"></div>
+                                    </div>
+                                    <span class="palette-label">Auto (AI)</span>
+                                </label>
+                                <label class="palette-swatch">
+                                    <input type="radio" name="palette" value="dark">
+                                    <div class="palette-dots">
+                                        <div class="palette-dot" style="background:#111"></div>
+                                        <div class="palette-dot" style="background:#FFD166"></div>
+                                        <div class="palette-dot" style="background:#222"></div>
+                                    </div>
+                                    <span class="palette-label">Negru & Auriu</span>
+                                </label>
+                                <label class="palette-swatch">
+                                    <input type="radio" name="palette" value="navy">
+                                    <div class="palette-dots">
+                                        <div class="palette-dot" style="background:#1B2B5E"></div>
+                                        <div class="palette-dot" style="background:#C5A028"></div>
+                                        <div class="palette-dot" style="background:#EEF0F4"></div>
+                                    </div>
+                                    <span class="palette-label">Navy & Auriu</span>
+                                </label>
+                                <label class="palette-swatch">
+                                    <input type="radio" name="palette" value="forest">
+                                    <div class="palette-dots">
+                                        <div class="palette-dot" style="background:#1B4332"></div>
+                                        <div class="palette-dot" style="background:#52B788"></div>
+                                        <div class="palette-dot" style="background:#F8F9FA"></div>
+                                    </div>
+                                    <span class="palette-label">Verde & Alb</span>
+                                </label>
+                                <label class="palette-swatch">
+                                    <input type="radio" name="palette" value="warmred">
+                                    <div class="palette-dots">
+                                        <div class="palette-dot" style="background:#9B1D20"></div>
+                                        <div class="palette-dot" style="background:#F5E6D0"></div>
+                                        <div class="palette-dot" style="background:#2C1810"></div>
+                                    </div>
+                                    <span class="palette-label">Vișiniu & Crem</span>
+                                </label>
+                                <label class="palette-swatch">
+                                    <input type="radio" name="palette" value="rose">
+                                    <div class="palette-dots">
+                                        <div class="palette-dot" style="background:#4A1942"></div>
+                                        <div class="palette-dot" style="background:#E8A0BF"></div>
+                                        <div class="palette-dot" style="background:#FAF0E6"></div>
+                                    </div>
+                                    <span class="palette-label">Plum & Roz</span>
+                                </label>
+                                <label class="palette-swatch">
+                                    <input type="radio" name="palette" value="custom" id="pal-custom">
+                                    <div class="palette-dots">
+                                        <div class="palette-dot"
+                                            style="background: conic-gradient(red,yellow,lime,cyan,blue,magenta,red)">
+                                        </div>
+                                        <div class="palette-dot" style="background:#fff"></div>
+                                        <div class="palette-dot" style="background:#333"></div>
+                                    </div>
+                                    <span class="palette-label">Custom...</span>
+                                </label>
+                            </div>
+                            <!-- Custom color pickers -->
+                            <div class="custom-colors" id="custom-colors">
+                                <div class="color-pick"><label>Primar</label><input type="color" id="col-primary"
+                                        value="#6C63FF"></div>
+                                <div class="color-pick"><label>Secundar</label><input type="color" id="col-secondary"
+                                        value="#00D4FF"></div>
+                                <div class="color-pick"><label>Accent</label><input type="color" id="col-accent"
+                                        value="#FFD166"></div>
+                                <div class="color-pick"><label>Background</label><input type="color" id="col-bg"
+                                        value="#080B14"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="btn-generate">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                    </svg>
+                    Generează Site-ul Meu în ~60 sec
+                </button>
+            </form>
+
+            <!-- PROGRESS -->
+            <div id="progress-area" style="display: none;">
+                <div class="scanner-container">
+                    <div class="scanner-ring"></div>
+                    <div class="scanner-ring" style="animation-delay: -1s;"></div>
+                    <div class="scanner-line"></div>
+                    <div class="scanner-core">🤖</div>
+                </div>
+
+                <h3 style="text-align: center; margin-bottom: 24px; font-family: 'Syne', sans-serif;">Construim viitorul
+                    tău digital...</h3>
+
+                <div class="progress-bar-wrap">
+                    <div class="progress-bar" id="prog-bar"></div>
+                </div>
+                <div class="progress-steps">
+                    <div class="step-item" id="step1">
+                        <div class="step-dot">1</div>
+                        <span>Analizăm afacerea și nișa ta...</span>
+                    </div>
+                    <div class="step-item" id="step2">
+                        <div class="step-dot">2</div>
+                        <span>Selectăm paleta de culori perfectă...</span>
+                    </div>
+                    <div class="step-item" id="step3">
+                        <div class="step-dot">3</div>
+                        <span>AI-ul scrie copywriting-ul și structura...</span>
+                    </div>
+                    <div class="step-item" id="step4">
+                        <div class="step-dot">4</div>
+                        <span>Integrăm recenziile și secțiunile premium...</span>
+                    </div>
+                    <div class="step-item" id="step5">
+                        <div class="step-dot">5</div>
+                        <span>Finalizăm și optimizăm pentru mobil...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RESULT -->
+            <div id="result-area">
+                <!-- Site ID card -->
+                <div id="site-id-card"
+                    style="display:none; background:rgba(0,229,160,0.06); border:1px solid rgba(0,229,160,0.2); border-radius:16px; padding:16px 20px; margin-bottom:16px;">
+                    <div
+                        style="font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); margin-bottom:6px;">
+                        🔑 Codul tău unic</div>
+                    <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+                        <span id="site-id-display"
+                            style="font-family:'Syne',sans-serif; font-size:1.8rem; font-weight:800; letter-spacing:0.12em; color:var(--success);">——</span>
+                        <div style="flex:1; min-width:160px;">
+                            <div style="font-size:0.82rem; color:var(--text); margin-bottom:4px;">Salvează acest cod! Cu
+                                el poți vedea site-ul oricând.</div>
+                            <div style="font-size:0.76rem; color:var(--muted);">Trimite-l prin WhatsApp prietenilor sau
+                                clienților.</div>
+                        </div>
+                        <a id="btn-view-site" href="/view" target="_blank"
+                            style="display:inline-flex; align-items:center; gap:8px; padding:10px 20px; background:var(--success); color:#0a1a14; border-radius:10px; font-weight:700; font-size:0.85rem; text-decoration:none; white-space:nowrap; transition:all 0.2s;">🔍
+                            Vizualizează</a>
+                    </div>
+                </div>
+                <div class="result-header">
+                    <div class="result-title">✅ Site-ul tău e gata!</div>
+                    <div class="action-btns">
+                        <button class="btn-action btn-download" id="btn-dl">⬇ Descarcă HTML</button>
+                        <button class="btn-action btn-new" id="btn-new">↩ Alt site</button>
+                    </div>
+                </div>
+                <iframe class="preview-frame" id="preview-iframe" srcdoc=""></iframe>
+            </div>
+        </div>
+
+        <!-- FEATURES -->
+        <div class="features reveal">
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3>Design Adaptat Nișei</h3>
+                <p>Culori, fonturi și layout-uri alese specific pentru tipul afacerii — nu template-uri generice.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⭐</div>
+                <h3>Recenzii Reale Integrate</h3>
+                <p>Dacă ai recenzii Google, le injectăm direct în site cu design testimoniale de 5 stele.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>100% Mobile-First</h3>
+                <p>Site-ul arată perfect pe iPhone și Android, cu buton de apel flotant și layout fluid.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Gata în 60 Secunde</h3>
+                <p>Completezi un formular, AI-ul generează tot codul HTML, CSS și copywriting-ul pentru tine.</p>
+            </div>
+            <div class="feature-card" style="border-color: var(--premium);">
+                <div class="feature-icon">💳</div>
+                <h3>Plăți Stripe Integrate</h3>
+                <p>Vinde produse sau acceptă rezervări plătite direct pe site prin Stripe API. Sigur și rapid.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Al Tău Forever</h3>
+                <p>Descarci un fișier HTML complet, independent. Îl găzduiești unde vrei, fără abonamente.</p>
+            </div>
+        </div>
+
+        <!-- PORTFOLIO -->
+        <div class="portfolio-section reveal">
+            <div class="section-label">🎯 Portofoliu Real</div>
+            <h2>Ce poate face AI-ul nostru</h2>
+            <p>Site-uri create automat în mai puțin de 60 de secunde pentru afaceri din Romania. © 2026 WEB? DONE!</p>
+
+            <div class="portfolio-grid" id="portfolio-grid">
+                <!-- Populated dynamically by JS -->
+                <div style="grid-column: 1/-1; padding: 40px; text-align: center; color: var(--muted);">
+                    ⚡ Se încarcă cele mai noi proiecte...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MARKETING CAMPAIGN -->
+    <div class="campaign-strip reveal glass">
+        <h2>România online.<br><span>Afacerea ta, acum.</span></h2>
+        <p>Milioane de afaceri românești nu au un site în 2026.<br>Fiecare zi fără site = clienți pierduți. Noi
+            schimbăm asta în 60 de secunde.</p>
+        <div class="campaign-stats">
+            <div class="campaign-stat">
+                <div class="num">60sec</div>
+                <div class="label">De la zero la site live</div>
+            </div>
+            <div class="campaign-stat">
+                <div class="num">€49</div>
+                <div class="label">Domeniu + hosting inclus</div>
+            </div>
+            <div class="campaign-stat">
+                <div class="num">30+</div>
+                <div class="label">Nișe acoperite</div>
+            </div>
+            <div class="campaign-stat">
+                <div class="num">2026</div>
+                <div class="label">Primul pas e acum</div>
+            </div>
+        </div>
+        <div class="campaign-btns">
+            <button class="btn-campaign-primary"
+                onclick="document.getElementById('biz-name').scrollIntoView({behavior:'smooth'})">⚡ Încearcă Gratuit
+                Acum</button>
+            <a href="https://wa.me/40761561700?text=Salut!%20Vreau%20un%20site%20pentru%20afacerea%20mea!"
+                target="_blank" class="btn-campaign-secondary">💬 Vorbește cu un Expert</a>
+        </div>
+    </div>
+
+    <!-- PRICING -->
+    <div class="pricing-section reveal" id="pricing">
+        <div class="section-label">💰 Pachete & Prețuri</div>
+        <h2>Alege planul tău</h2>
+
+        <!-- Billing toggle -->
+        <div
+            style="display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:40px; flex-wrap:wrap;">
+            <span id="lbl-monthly" style="font-weight:700; font-size:0.9rem; color:var(--text);">Lunar</span>
+            <label style="position:relative; display:inline-block; width:52px; height:28px; cursor:pointer;">
+                <input type="checkbox" id="annual-toggle" style="opacity:0;width:0;height:0;"
+                    onchange="toggleBilling()">
+                <span
+                    style="position:absolute;inset:0;background:var(--surface2);border-radius:100px;border:1px solid var(--border);transition:0.3s;"
+                    id="toggle-track"></span>
+                <span
+                    style="position:absolute;left:4px;top:4px;width:20px;height:20px;background:var(--accent);border-radius:50%;transition:0.3s;"
+                    id="toggle-thumb"></span>
+            </label>
+            <span id="lbl-annual" style="font-size:0.9rem; color:var(--muted);">Anual <span
+                    style="background:rgba(0,229,160,0.15);border:1px solid rgba(0,229,160,0.3);color:var(--success);padding:2px 8px;border-radius:100px;font-size:0.72rem;font-weight:700;">-33%
+                    ECONOMII</span></span>
+        </div>
+
+        <!-- Social proof bar -->
+        <div style="text-align:center; margin-bottom:36px;">
+            <div
+                style="display:inline-flex; align-items:center; gap:8px; background:rgba(108,99,255,0.08); border:1px solid rgba(108,99,255,0.15); padding:10px 20px; border-radius:100px; font-size:0.82rem; color:var(--muted);">
+                <span style="display:flex; gap:-4px;">👤👤👤</span>
+                <strong style="color:var(--text);">47 afaceri</strong> din București & Cluj au pornit în această
+                săptămână
+            </div>
+        </div>
+
+        <div class="pricing-grid">
+
+            <!-- STARTER -->
+            <div class="tier-card">
+                <div class="tier-name">Starter</div>
+                <div class="tier-price-row">
+                    <span class="price-val">Gratuit</span>
+                </div>
+                <div class="tier-tagline">Generează și descarcă. Fără card. Fără obligație.</div>
+                <hr class="tier-divider">
+                <ul class="tier-features">
+                    <li><span class="feat-icon yes">✓</span> Site AI generat în 60s</li>
+                    <li><span class="feat-icon yes">✓</span> Design adaptat nișei</li>
+                    <li><span class="feat-icon yes">✓</span> Testimoniale & recenzii</li>
+                    <li><span class="feat-icon yes">✓</span> Descărcare HTML</li>
+                    <li class="dim"><span class="feat-icon no">✕</span> Hosting & domeniu</li>
+                    <li class="dim"><span class="feat-icon no">✕</span> SSL inclus</li>
+                </ul>
+                <button class="tier-btn tier-btn-outline"
+                    onclick="document.getElementById('biz-name').scrollIntoView({behavior:'smooth'})">Generează Plan
+                    Gratis →</button>
+            </div>
+
+            <!-- BASIC -->
+            <div class="tier-card">
+                <div class="tier-name">Basic</div>
+                <div class="tier-price-row">
+                    <span class="currency">€</span>
+                    <span class="price-val" data-monthly="9" data-annual="6">9</span>
+                    <span class="period">/lună</span>
+                </div>
+                <div class="tier-tagline tier-default">Site live pe subdomeniu. Primul pas în online.</div>
+                <div class="tier-tagline tier-savings" style="display:none; color:var(--success); font-weight:700;">
+                    Economisești €36/an!</div>
+                <hr class="tier-divider">
+                <ul class="tier-features">
+                    <li><span class="feat-icon yes">✓</span> Tot ce include Starter</li>
+                    <li><span class="feat-icon yes">✓</span> <strong>Subdomeniu .webdone.ro</strong></li>
+                    <li><span class="feat-icon yes">✓</span> Hosting gestionat</li>
+                    <li><span class="feat-icon yes">✓</span> SSL gratuit (HTTPS)</li>
+                    <li><span class="feat-icon yes">✓</span> Cod unic de acces 🔑</li>
+                </ul>
+                <button class="tier-btn tier-btn-outline" onclick="openContact('basic')">Alege Basic →</button>
+            </div>
+
+            <!-- PRO -->
+            <div class="tier-card popular">
+                <div class="popular-badge">⚡ Cel mai ales</div>
+                <div class="tier-name">Pro</div>
+                <div class="tier-price-row">
+                    <span class="currency">€</span>
+                    <span class="price-val" data-monthly="19" data-annual="13">19</span>
+                    <span class="period">/lună</span>
+                </div>
+                <div class="tier-tagline tier-default">Domeniu propriu, email și analytics. Complet.</div>
+                <div class="tier-tagline tier-savings" style="display:none; color:var(--success); font-weight:700;">
+                    Economisești €72/an!</div>
+                <hr class="tier-divider">
+                <ul class="tier-features">
+                    <li><span class="feat-icon yes">✓</span> Tot ce include Basic</li>
+                    <li><span class="feat-icon yes">✓</span> <strong>Domeniu .ro propriu</strong></li>
+                    <li><span class="feat-icon yes">✓</span> <strong>Email profesional</strong></li>
+                    <li><span class="feat-icon yes">✓</span> Google Analytics</li>
+                    <li><span class="feat-icon yes">✓</span> Suport WhatsApp prioritar</li>
+                </ul>
+                <button class="tier-btn tier-btn-primary" onclick="openContact('pro')">Vreau Pro →</button>
+            </div>
+
+            <!-- STRIPE ELITE -->
+            <div class="tier-card elite">
+                <div class="popular-badge" style="background: var(--premium);">✨ E-Commerce</div>
+                <div class="tier-name">Stripe Elite</div>
+                <div class="tier-price-row">
+                    <span class="currency">€</span>
+                    <span class="price-val" data-monthly="69" data-annual="49">69</span>
+                    <span class="period">/lună</span>
+                </div>
+                <div class="tier-tagline">Vinde online. Acceptă plăți. Crește-ți afacerea.</div>
+                <hr class="tier-divider">
+                <ul class="tier-features">
+                    <li><span class="feat-icon gold">★</span> Tot ce include Pro</li>
+                    <li><span class="feat-icon gold">★</span> <strong>Integrare Stripe API</strong></li>
+                    <li><span class="feat-icon gold">★</span> <strong>Catalog Produse</strong></li>
+                    <li><span class="feat-icon gold">★</span> Management comenzi</li>
+                </ul>
+                <button class="tier-btn" style="background: var(--gold); color: #000;"
+                    onclick="openContact('stripe')">Activează Stripe →</button>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- CONTACT MODAL -->
+    <div class="modal-overlay" id="contact-modal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeContact()">✕</button>
+            <div class="modal-icon" id="modal-icon">👋</div>
+            <h3 id="modal-title">Contactează-ne</h3>
+            <p id="modal-desc">Un reprezentant WEB? DONE! te va contacta în mai puțin de 2 ore pentru a discuta
+                detaliile pachetului tău.</p>
+            <div class="contact-options">
+                <a href="https://wa.me/40761561700?text=Salut!%20Vreau%20să%20aflu%20mai%20multe%20despre%20pachetul%20WEB%3F%20DONE!"
+                    target="_blank" class="contact-option">
+                    <span class="co-icon">💬</span>
+                    <div>
+                        <div class="co-label">WhatsApp — Cel mai rapid</div>
+                        <div class="co-sub">Răspundem în minute, nu ore</div>
+                    </div>
+                </a>
+                <a href="mailto:contact@webdone.ro?subject=Vreau%20un%20pachet%20WEB%3F%20DONE!" class="contact-option">
+                    <span class="co-icon">📧</span>
+                    <div>
+                        <div class="co-label">Email — contact@webdone.ro</div>
+                        <div class="co-sub">Trimite-ne detalii despre afacerea ta</div>
+                    </div>
+                </a>
+                <a href="tel:+40761561700" class="contact-option">
+                    <span class="co-icon">📞</span>
+                    <div>
+                        <div class="co-label">Telefon — 0761 561 700</div>
+                        <div class="co-sub">Luni – Vineri, 09:00 – 18:00</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Creat cu ❤️ de <strong>WEB? DONE!</strong> Cum? N-ai site?! Ba ai.. in 60 s</p>
+        <p style="margin-top: 8px; font-size: 0.78rem;"> © 2026 WEB? DONE! · Nu stocăm
+            datele tale</p>
+    </footer>
+
+    <!-- MOBILE FLOATING CTA (hidden on desktop via CSS) -->
+    <div class="mobile-cta-bar">
+        <a href="#biz-name"
+            onclick="document.getElementById('biz-name').scrollIntoView({behavior:'smooth'});return false;">
+            ⚡ Generează Site Gratuit — 60 sec
+        </a>
+    </div>
+    </div>
+
+    <script>
+        // ── Intro Sequence ──
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const overlay = document.getElementById('intro-overlay');
+                overlay.style.transition = 'opacity 1s ease';
+                overlay.style.opacity = '0';
+                setTimeout(() => overlay.style.display = 'none', 1000);
+            }, 2500);
+        });
+
+        // ── Form & Advanced Settings ──
+        function toggleAdvanced() {
+            const btn = document.querySelector('.advanced-toggle');
+            const section = document.getElementById('advanced-section');
+            btn.classList.toggle('active');
+            section.classList.toggle('active');
+        }
+        // Hero "BAM!" button: if name exists, auto-fills defaults and starts gen immediately.
+        function startSimpleGen() {
+            const nameInput = document.getElementById('simple-biz-name');
+            const name = nameInput.value.trim();
+
+            const card = document.getElementById('main-form-card');
+            card.style.display = 'block';
+
+            if (!name) {
+                // If empty, just scroll to form and focus name
+                card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                setTimeout(() => document.getElementById('biz-name').focus(), 600);
+                return;
+            }
+
+            // Fill name and default phone
+            document.getElementById('biz-name').value = name;
+            if (!document.getElementById('biz-phone').value) {
+                document.getElementById('biz-phone').value = '0721 000 000';
+            }
+
+            // Scroll to form (or the progress area which will soon appear)
+            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            // Trigger generation
+            setTimeout(() => {
+                form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+            }, 500);
+        }
+
+        // Show form without auto-generating
+        function showAdvancedDetails() {
+            const nameInput = document.getElementById('simple-biz-name');
+            const name = nameInput.value.trim();
+            const card = document.getElementById('main-form-card');
+
+            card.style.display = 'block';
+            if (name) {
+                document.getElementById('biz-name').value = name;
+            }
+
+            card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Optional: Automatically expand the internal advanced section
+            const advSection = document.getElementById('advanced-section');
+            if (advSection && !advSection.classList.contains('active')) {
+                toggleAdvanced();
+            }
+
+            setTimeout(() => {
+                const phoneInput = document.getElementById('biz-phone');
+                if (phoneInput) phoneInput.focus();
+            }, 800);
+        }
+
+        // Fetch and update site counter
+        async function updateSiteCounter() {
+            try {
+                const res = await fetch('/api/stats');
+                const data = await res.json();
+                if (data.sites_created) {
+                    document.getElementById('site-counter').textContent = data.sites_created;
+                }
+            } catch (e) {
+                console.warn('Could not fetch stats');
+            }
+        }
+        updateSiteCounter();
+
+        // ── DOM refs ──
+        const form = document.getElementById('gen-form');
+        const progressArea = document.getElementById('progress-area');
+        const resultArea = document.getElementById('result-area');
+        const progBar = document.getElementById('prog-bar');
+        const steps = ['step1', 'step2', 'step3', 'step4', 'step5'].map(id => document.getElementById(id));
+        const btnDl = document.getElementById('btn-dl');
+        const btnNew = document.getElementById('btn-new');
+        const iframe = document.getElementById('preview-iframe');
+
+        let generatedHTML = '';
+        let logoBase64 = '';   // set by handleLogo()
+
+        // ── Logo upload ──
+        function handleLogo(input) {
+            const file = input.files[0];
+            if (!file) return;
+            if (file.size > 2 * 1024 * 1024) { alert('Logo prea mare (max 2MB). Te rog compressă imaginea.'); return; }
+            const reader = new FileReader();
+            reader.onload = e => {
+                logoBase64 = e.target.result;   // data:image/...;base64,...
+                document.getElementById('logo-preview').src = logoBase64;
+                document.getElementById('logo-preview').style.display = 'block';
+                document.getElementById('logo-placeholder').style.display = 'none';
+                document.getElementById('logo-remove').style.display = 'block';
+                document.getElementById('logo-drop').classList.add('has-logo');
+            };
+            reader.readAsDataURL(file);
+        }
+        function removeLogo(e) {
+            e.stopPropagation();
+            logoBase64 = '';
+            document.getElementById('logo-file').value = '';
+            document.getElementById('logo-preview').style.display = 'none';
+            document.getElementById('logo-placeholder').style.display = 'block';
+            document.getElementById('logo-remove').style.display = 'none';
+            document.getElementById('logo-drop').classList.remove('has-logo');
+        }
+
+        // ── Palette toggle ──
+        let palSelected = 'auto'; // tracks currently selected palette
+        document.querySelectorAll('input[name="palette"]').forEach(r => {
+            r.addEventListener('change', () => {
+                palSelected = r.value; // update tracker
+                const cc = document.getElementById('custom-colors');
+                cc.classList.toggle('active', r.value === 'custom');
+            });
+        });
+
+        // ── Billing toggle ──
+        let isAnnual = false;
+        function toggleBilling() {
+            isAnnual = document.getElementById('annual-toggle').checked;
+            document.getElementById('toggle-thumb').style.left = isAnnual ? '28px' : '4px';
+            document.getElementById('toggle-track').style.background = isAnnual ? 'rgba(0,229,160,0.2)' : '';
+            document.getElementById('lbl-monthly').style.color = isAnnual ? 'var(--muted)' : 'var(--text)';
+            document.getElementById('lbl-annual').style.color = isAnnual ? 'var(--text)' : 'var(--muted)';
+            document.querySelectorAll('.price-val').forEach(el => {
+                el.textContent = isAnnual ? el.dataset.annual : el.dataset.monthly;
+            });
+            document.querySelectorAll('.tier-tagline.tier-default').forEach(el => el.style.display = isAnnual ? 'none' : 'block');
+            document.querySelectorAll('.tier-tagline.tier-savings').forEach(el => el.style.display = isAnnual ? 'block' : 'none');
+            // update button text prices
+            document.querySelectorAll('.tier-btn .price-val').forEach(el => {
+                el.textContent = isAnnual ? el.dataset.annual : el.dataset.monthly;
+            });
+        }
+
+        // ── Mouse Shadow Effect ──
+        const card = document.getElementById('main-form-card');
+        if (card) {
+            window.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        }
+
+        // ── Scroll Reveal Logic ──
+        // Sticky Nav Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('main-nav');
+            if (window.scrollY > 20) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Intersection Observer for Reveal
+        const revealOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, revealOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // ── Dynamic Scroll & Shape Effects ──
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const scrollPercent = scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+
+            // Move Blobs (Parallax)
+            const b1 = document.querySelector('.blob-1');
+            const b2 = document.querySelector('.blob-2');
+            const b3 = document.querySelector('.blob-3');
+
+            if (b1) b1.style.transform = `translate(${scrollY * 0.05}px, ${scrollY * 0.12}px) scale(${1 + scrollPercent * 0.2})`;
+            if (b2) b2.style.transform = `translate(${scrollY * -0.05}px, ${scrollY * -0.08}px) scale(${1 - scrollPercent * 0.1})`;
+            if (b3) b3.style.transform = `translate(${scrollY * 0.02}px, ${scrollY * 0.15}px) rotate(${scrollY * 0.05}deg)`;
+
+            // Change Site BG Color subtly
+            const hue = 230 + (scrollPercent * 40);
+            document.documentElement.style.setProperty('--bg', `hsl(${hue}, 40%, 6%)`);
+        });
+
+        // ── Shapeshift Engine (Elite Palette Cycling) ──
+        const ELITE_THEMES = [
+            { accent: '#00ffaa', accent2: '#00d4ff', bg: '#020408' }, // Neon Ice
+            { accent: '#ff3366', accent2: '#ff00ff', bg: '#050208' }, // Cyber Pink
+            { accent: '#7700ff', accent2: '#00ccff', bg: '#02050d' }, // Electric Purple
+            { accent: '#10b981', accent2: '#3b82f6', bg: '#020d08' }, // Emerald Sky
+            { accent: '#f7e16d', accent2: '#ff0000', bg: '#0d0202' }  // Dragon Breath
+        ];
+
+        let currentThemeIndex = 0;
+        let lastThemeChange = 0;
+
+        function updateShapeshift() {
+            const now = Date.now();
+
+            // Periodically switch base theme (every 8 seconds)
+            if (now - lastThemeChange > 8000) {
+                currentThemeIndex = (currentThemeIndex + 1) % ELITE_THEMES.length;
+                lastThemeChange = now;
+
+                const theme = ELITE_THEMES[currentThemeIndex];
+                document.documentElement.style.setProperty('--accent', theme.accent);
+                document.documentElement.style.setProperty('--accent2', theme.accent2);
+                document.documentElement.style.setProperty('--bg', theme.bg);
+
+                // Add a smooth transition class briefly
+                document.body.style.transition = 'background-color 2s ease, filter 2s ease';
+            }
+
+            // Subtle layout breathing
+            const breathingScale = 1 + Math.sin(now / 2000) * 0.01;
+            const container = document.querySelector('.container');
+            if (container) container.style.transform = `scale(${breathingScale})`;
+
+            requestAnimationFrame(updateShapeshift);
+        }
+        updateShapeshift();
+
+        // ── Step UI ──
+        function setStep(index) {
+            steps.forEach((s, i) => {
+                s.classList.remove('active', 'done');
+                if (i < index) { s.classList.add('done'); s.querySelector('.step-dot').innerHTML = '✓'; }
+                else if (i === index) { s.classList.add('active'); s.querySelector('.step-dot').innerHTML = '◌'; }
+            });
+            progBar.style.width = `${(index / steps.length) * 100}%`;
+        }
+
+        function resetUI() {
+            progressArea.style.display = 'none';
+            resultArea.style.display = 'none';
+            form.style.display = 'block';
+            steps.forEach(s => {
+                s.classList.remove('active', 'done');
+                s.querySelector('.step-dot').innerHTML = s.id.replace('step', '');
+            });
+            progBar.style.width = '0%';
+        }
+
+        // ── Contact Modal ──
+        async function openContact(tier) {
+            const map = {
+                basic: { icon: '🚀', title: 'Plan Basic — €9/lună', desc: 'Site-ul tău live pe subdomeniu, SSL inclus. Un specialist te contactează în maxim 2 ore.' },
+                pro: { icon: '📈', title: 'Plan Pro — €19/lună', desc: 'Domeniu .ro propriu, email de business și analytics. Zero bataie de cap.' },
+                stripe: { icon: '💳', title: 'Elite E-Commerce — €69/lună', desc: 'Integrare Stripe API completă pentru plăți online și catalog produse. Hai să-ți vindem marfa!' },
+                agency: { icon: '👑', title: 'Plan Agency — €49/lună', desc: 'Pana la 10 site-uri, white-label și dashboard centralizat. Hai să discutăm.' },
+                custom: { icon: '💎', title: 'Ultimate Custom — Proiect Complex', desc: 'Aplicații custom, jocuri, platforme SaaS sau orice altceva. Un arhitect software te va contacta personal pentru o ofertă dedicată.' },
+                elite: { icon: '👑', title: 'Proiect Personalizat', desc: 'Ai nevoie de ceva unic? Design de la zero, mai multe pagini, SEO complet. Vorbim.' }
+            };
+
+            // Notify admin instantly for high-tier leads
+            if (['custom', 'stripe', 'agency'].includes(tier)) {
+                fetch('/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ tier: tier === 'custom' ? 'ULTIMATE CUSTOM' : tier.toUpperCase() })
+                }).catch(e => console.warn('Lead notify failed - normal for static previews'));
+            }
+
+            const t = map[tier] || map.elite;
+            document.getElementById('modal-icon').textContent = t.icon;
+            document.getElementById('modal-title').textContent = t.title;
+            document.getElementById('modal-desc').textContent = t.desc;
+            const wa = document.querySelector('.contact-option[href*="wa.me"]');
+            if (wa) wa.href = `https://wa.me/40761561700?text=Salut!%20Vreau%20${encodeURIComponent(t.title)}%20de%20la%20WEB%3F%20DONE!`;
+            document.getElementById('contact-modal').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeContact() {
+            document.getElementById('contact-modal').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        document.getElementById('contact-modal').addEventListener('click', function (e) { if (e.target === this) closeContact(); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeContact(); });
+
+        // ── Color palette map ──
+        const nicheColors = {
+            'Cabinet Stomatologic': 'Teal & Mint & Pure White - medical, clean, professional.',
+            'Clinică Medicală': 'Soft Blue & White & Silver - trustworthy and sterile.',
+            'Cabinet Psihologie': 'Warm Lavender & Sage Green & Cream - calming and safe.',
+            'Fizioterapie': 'Forest Green & Light Blue & White - health and movement.',
+            'Farmacie': 'Emerald Green & White & Light Grey.',
+            'Restaurant': 'Deep Crimson & Charcoal & Gold accents - elegant and appetizing.',
+            'Cafenea': 'Sage Green & Cream & Coffee Brown - modern, cozy, organic.',
+            'Pizzerie': 'Tomato Red & Basil Green & White - vibrant and authentic.',
+            'Catering': 'Royal Blue & Silver & White - professional and premium.',
+            'Salon Coafură': 'Neon Pink & Black & Platinum - edgy and stylish.',
+            'Salon Înfrumusețare': 'Lavender & Gold & White - luxury beauty.',
+            'Spa & Relaxare': 'Seafoam Green & Stone Grey & White - Zen vibe.',
+            'Sală Fitness': 'Electric Blue & White & Indigo - high energy, modern.',
+            'Studio Yoga': 'Terracotta & Sage & Sand - grounded and natural.',
+            'Grădiniță Particulară': 'Sky Blue & Sunny Yellow & Pastel Mint - joyful (NO DARK COLORS).',
+            'Meditații': 'Indigo & Silver & white - academic.',
+            'Școală de Dans': 'Electric Purple & Magenta & Silver - artistic.',
+            'Cabinet Avocatură': 'Deep Navy & Slate & White - authoritative.',
+            'Contabilitate': 'Steel Blue & White & Emerald - trustworthy.',
+            'Agenție Imobiliară': 'Midnight Blue & Platinum & White - premium.',
+            'Arhitectură': 'Concrete Grey & Electric Blue & White - modern and creative.',
+            'Service Auto': 'Racing Red & Carbon Grey & White - fast and technical.',
+            'Spălătorie Auto': 'Cyan & Deep Blue & White - water and freshness.',
+            'Servicii Construcții': 'Slate Grey & Safety Blue & White - robust and reliable.',
+        };
+        const paletteOverrides = {
+            dark: 'CULORI IMPUSE DE UTILIZATOR: Negru (#111) ca background, Auriu (#FFD166) ca accent, alb ca text. Stil premium dark-luxury.',
+            navy: 'CULORI IMPUSE DE UTILIZATOR: Navy Blue (#1B2B5E) primar, Auriu (#C5A028) accent, Off-white (#EEF0F4) background. Stil corporate premium.',
+            forest: 'CULORI IMPUSE DE UTILIZATOR: Forest Green (#1B4332) primar, Sage Green (#52B788) accent, White background. Stil natural & sustenabil.',
+            warmred: 'CULORI IMPUSE DE UTILIZATOR: Vișiniu (#9B1D20) primar, Crem (#F5E6D0) background, Dark Brown (#2C1810) text. Stil rustic-premium.',
+            rose: 'CULORI IMPUSE DE UTILIZATOR: Deep Plum (#4A1942) primar, Roz Pudrat (#E8A0BF) accent, Cream (#FAF0E6) background. Stil feminin-luxury.',
+        };
+
+        // ── Portfolio — Hardcoded + shuffled each page load ──
+        function loadPortfolio() {
+            const grid = document.getElementById('portfolio-grid');
+            const ALL_DEMOS = [
+                'ana_25CEA8E2.html',
+                'auto_service_ionescu.html',
+                'avocat_popescu__asociaii.html',
+                'bioclinic_medical_center.html',
+                'd_10_hair_studio.html',
+                'dentist_elite_bucureti.html',
+                'desoi.html',
+                'frizeria_modernă.html',
+                'grdinia_prichindeii_veseli.html',
+                'mdm_2002_service.html',
+                'montessori.html',
+                'mugshot.html',
+                'royal_spa__beauty.html',
+                'ruah__specialty_coffee.html',
+                'sky_gym_fitness_sector_6.html',
+                'test_auto.html',
+                'urban_cafe__bistro.html'
+            ];
+
+            // Shuffle and pick 6
+            const demos = ALL_DEMOS.sort(() => Math.random() - 0.5).slice(0, 6);
+
+            grid.innerHTML = demos.map(file => {
+                const name = file.replace('.html', '')
+                    .replace(/[_\-]+/g, ' ')
+                    .replace(/\b\w/g, l => l.toUpperCase())
+                    .trim();
+                const rating = (4.5 + Math.random() * 0.5).toFixed(1);
+                const reviews = Math.floor(Math.random() * 400) + 80;
+                return `
+                    <a href="/demos/${file}" target="_blank" class="portfolio-card" style="text-decoration:none;color:inherit;">
+                        <div class="portfolio-preview">
+                            <iframe src="/demos/${file}" loading="lazy"></iframe>
+                        </div>
+                        <div class="portfolio-info">
+                            <div class="portfolio-niche">Proiect Generat AI</div>
+                            <div class="portfolio-name">${name}</div>
+                            <div class="portfolio-meta">
+                                <span class="portfolio-rating">★★★★★</span>
+                                <span>${rating} &middot; ${reviews} recenzii &middot; România</span>
+                            </div>
+                        </div>
+                    </a>
+                `;
+            }).join('');
+        }
+        loadPortfolio();
+
+        // ── Bad Words Filter ──
+        const BAD_WORDS = ["pula", "pizda", "muie", "futu-te", "fututi", "jeg", "cacat", "cur", "sugi", "nigger", "faggot", "hitler", "nazi", "porn", "xxx", "sex", "escort"];
+        function checkBadWords(text) {
+            const lower = text.toLowerCase();
+            return BAD_WORDS.some(word => lower.includes(word));
+        }
+
+        // ── Main submit ──
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const bizName = document.getElementById('biz-name').value.trim();
+            const bizPhone = document.getElementById('biz-phone').value.trim();
+            const bizCategory = document.getElementById('biz-category').value || 'General';
+
+            // Validate required fields
+            if (!bizName) {
+                document.getElementById('biz-name').focus();
+                document.getElementById('biz-name').style.borderColor = 'var(--premium)';
+                return;
+            }
+            if (!bizPhone) {
+                document.getElementById('biz-phone').focus();
+                document.getElementById('biz-phone').style.borderColor = 'var(--premium)';
+                return;
+            }
+
+            // Client-side safety check
+            if (checkBadWords(bizName) || checkBadWords(document.getElementById('biz-extra').value)) {
+                alert('Vă rugăm să folosiți un limbaj decent pentru generarea site-ului.');
+                return;
+            }
+
+            // Reset border colors
+            document.getElementById('biz-name').style.borderColor = '';
+            document.getElementById('biz-phone').style.borderColor = '';
+
+            const bizAddress = document.getElementById('biz-address').value.trim() || 'România';
+            const bizExtra = document.getElementById('biz-extra').value.trim();
+            const bizReviews = document.getElementById('biz-reviews').value.trim();
+
+            // ── Build palette block ──
+            let colorBlock;
+            if (palSelected === 'custom') {
+                const p = document.getElementById('col-primary').value;
+                const s = document.getElementById('col-secondary').value;
+                const a = document.getElementById('col-accent').value;
+                const b = document.getElementById('col-bg').value;
+                colorBlock = `CULORI IMPUSE DE UTILIZATOR (RESPECTĂ-LE 100%): Primar: ${p}, Secundar: ${s}, Accent: ${a}, Background: ${b}.`;
+            } else if (palSelected !== 'auto' && paletteOverrides[palSelected]) {
+                colorBlock = paletteOverrides[palSelected];
+            } else {
+                colorBlock = `PALETĂ CROMATICĂ UNICĂ (FĂRĂ ORANGE GENERIC): ${nicheColors[bizCategory] || 'Alege o paletă rară, surprinzătoare și modernă, evitând clișeele de Orange/Black.'}`;
+            }
+
+            // ── Build logo block ──
+            const logoBlock = logoBase64
+                ? `\nLOGO AFACERE: Include acest logo în navbar, hero și footer: <img src="${logoBase64}" alt="Logo ${bizName}" style="max-height:60px; max-width:200px;">\n`
+                : '';
+
+            // ── Build reviews block ──
+            const reviewsBlock = bizReviews
+                ? `\nRECENZII CLIENT FURNIZATE (FOLOSEȘTE-LE În DESIGN - secțiune testimoniale premium):\n${bizReviews}\n`
+                : `\nGenerează 3 testimoniale plauzibile și specifice pentru o afacere de tip "${bizCategory}".\n`;
+
+            const extraBlock = bizExtra ? `\nDETALII EXTRA (servicii, program, promoții): ${bizExtra}\n` : '';
+
+            const prompt = `Ești un Director Creativ de Top Mondial. Creează un Landing Page de LUX, MOBILE-FIRST și VISUALLY STUNNING pentru:
+Nume Afacere: ${bizName}
+Nișă: ${bizCategory}
+Locație: ${bizAddress}
+Tel: ${bizPhone}
+Partener: WEB? DONE!
+${logoBlock}${reviewsBlock}${extraBlock}
+${colorBlock}
+
+CERINȚE TEHNICE OBLIGATORII:
+1. FAVICON: favicon relevant nișei (emoji sau icon).
+2. BRANDING în Footer: "Site creat de WEB? DONE! — N-ai site? Ai acum.. | © 2026"
+3. ANUL: Folosește MEREU 2026 în footer și copyright.
+4. LOGO: Dacă e furnizat logo (tag <img> cu base64), include-l în navbar stanga, în hero și footer.
+5. CULORI: Respectă STRICT paleta de mai sus.
+6. SECȚIUNI OBLIGATORII:
+   - Navbar cu glassmorphism, logo și meniu.
+   - Hero: Headline puternic + buton apel ${bizPhone} proeminent.
+   - Trust Section: 3 argumente forte specifice nișei.
+   - Testimoniale: Carduri premium cu avatar (inițiale), stele, citat, autor.
+   - Servicii: Grid cu iconițe.
+   - Contact cu buton "Sună Acum" fix pe mobil.
+7. COPYWRITING: Dacă clienții menționează ceva specific în recenzii, folosește în headline-uri!
+8. IMAGINI (OBLIGATORIU 8-10 POZE): 
+   - Hero background image (full width, cinematic).
+   - Cel puțin o poză Unsplash pentru FIECARE serviciu/feature.
+   - O secțiune "Galerie" sau "Viziunea Noastră" cu 4-6 imagini grid specifice nișei "${bizCategory}".
+   - Folosește URL-uri Unsplash valide.
+9. VISUAL DESIGN: 
+   - Design-ul trebuie să fie "Image-First" — spațios, cu poze mari, de impact.
+   - Folosește overlay-uri subtile de gradient peste imagini pentru contrast și lizibilitate.
+   - Margini mari (white space) între secțiuni pentru un look aerisit, de lux.
+10. MOBILE-FIRST absolut.
+
+Returnează DOAR codul HTML complet (fără markdown) care începe cu <!DOCTYPE html>.`;
+
+            // ── Show progress ──
+            form.style.display = 'none';
+            progressArea.style.display = 'block';
+            resultArea.style.display = 'none';
+
+            // Start fake progress but don't finish yet
+            let currentStep = 0;
+            const stepInterval = setInterval(() => {
+                if (currentStep < 4) {
+                    setStep(currentStep++);
+                } else {
+                    clearInterval(stepInterval);
+                }
+            }, 1800);
+
+            // ── Call API ──
+            let siteId = null;
+            try {
+                const res = await fetch('/api/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt, biz_name: bizName })
+                });
+                if (!res.ok) throw new Error(`Server error: ${res.status}`);
+                const data = await res.json();
+                generatedHTML = data.html;
+                siteId = data.site_id || null;
+            } catch (err) {
+                console.warn('API not available:', err.message);
+                generatedHTML = buildFallbackHTML(bizName, bizPhone, bizCategory, bizAddress);
+            }
+
+            // ── Finish Logic (Dynamic) ──
+            clearInterval(stepInterval);
+            // Rapidly finish remaining steps
+            for (let i = currentStep; i <= 4; i++) {
+                await new Promise(r => setTimeout(r, 300));
+                setStep(i);
+            }
+
+            progBar.style.width = '100%';
+
+            setTimeout(() => {
+                progressArea.style.display = 'none';
+                resultArea.style.display = 'block';
+                iframe.srcdoc = generatedHTML;
+
+                // Show site ID card
+                if (siteId) {
+                    document.getElementById('site-id-display').textContent = siteId;
+                    document.getElementById('btn-view-site').href = `/view?id=${siteId}`;
+                    document.getElementById('site-id-card').style.display = 'block';
+                }
+
+                // Download button
+                btnDl.onclick = () => {
+                    const blob = new Blob([generatedHTML], { type: 'text/html' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `${bizName.toLowerCase().replace(/\s+/g, '-')}-site.html`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                };
+
+                // Scroll to result
+                resultArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 600);
+        });
+
+        btnNew.addEventListener('click', () => { resetUI(); form.reset(); logoBase64 = ''; removeLogo({ stopPropagation: () => { } }); document.getElementById('site-id-card').style.display = 'none'; });
+
+        function buildFallbackHTML(name, phone, category, address) {
+            return `<!DOCTYPE html><html lang="ro"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${name} | Site Oficial</title><style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:sans-serif;background:#f8f9fa;color:#1a1a2e;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}.card{background:white;border-radius:24px;padding:48px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.1);max-width:500px;width:100%}h1{font-size:2rem;font-weight:800;margin:16px 0}p{color:#666;margin-bottom:24px;line-height:1.6}a.btn{display:inline-block;background:#6C63FF;color:white;padding:16px 32px;border-radius:12px;text-decoration:none;font-weight:700;font-size:1.1rem}.footer{margin-top:32px;font-size:0.75rem;color:#aaa}</style></head><body><div class="card"><div style="font-size:3rem">&#9889;</div><h1>${name}</h1><p>${category} in ${address}. Contactati-ne pentru mai multe informatii.</p><a href="tel:${phone}" class="btn">&#128222; Suna: ${phone}</a><div class="footer">Site creat de WEB? DONE! &mdash; N-ai site? Ai acum.. | &copy; 2026</div></div></body></html>`;
+        }
+    </script>
+</body>
+
+</html>

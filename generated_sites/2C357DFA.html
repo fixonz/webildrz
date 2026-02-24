@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ro" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Anna Are Mere | Calitate Premium</title>
+    
+    <!-- FAVICON -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍏</text></svg>">
+    
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- TAILWIND CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#1A362D',    /* Forest Green */
+                            gold: '#D4AF37',    /* Champagne Gold */
+                            cream: '#FDFBF7',   /* Off-white/Cream */
+                            light: '#EAE5D9',   /* Soft Beige */
+                            text: '#2C2C2C'     /* Charcoal */
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Montserrat"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- CUSTOM CSS -->
+    <style>
+        body {
+            background-color: #FDFBF7;
+            color: #2C2C2C;
+            -webkit-font-smoothing: antialiased;
+        }
+        .glass {
+            background: rgba(253, 251, 247, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        .fade-in {
+            animation: fadeIn 1.2s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Hide scrollbar for clean look */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #FDFBF7; }
+        ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 4px; }
+    </style>
+</head>
+<body class="font-sans antialiased">
+
+    <!-- NAVBAR (Glassmorphism) -->
+    <nav class="fixed w-full z-50 glass transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- LOGO -->
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <svg class="w-8 h-8 text-brand-gold" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C7.5 2 4 5.5 4 10c0 3.5 2.2 6.5 5.3 7.6l1.2 3.6c.2.5.7.8 1.2.8h.6c.5 0 1-.3 1.2-.8l1.2-3.6C17.8 16.5 20 13.5 20 10c0-4.5-3.5-8-8-8zm0 2c3.3 0 6 2.7 6 6s-2.7 6-6 6-6-2.7-6-6 2.7-6 6-6zm-1 2v4h2V6h-2z"/>
+                    </svg>
+                    <span class="font-serif font-bold text-xl tracking-wide text-brand-dark uppercase">Anna Are Mere</span>
+                </div>
+                <!-- DESKTOP MENU -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#despre" class="text-brand-dark hover:text-brand-gold font-medium transition">Despre Noi</a>
+                    <a href="#servicii" class="text-brand-dark hover:text-brand-gold font-medium transition">Servicii</a>
+                    <a href="#recenzii" class="text-brand-dark hover:text-brand-gold font-medium transition">Recenzii</a>
+                    <a href="tel:0721000000" class="bg-brand-dark text-brand-gold px-6 py-2.5 rounded-full font-medium hover:bg-brand-gold hover:text-brand-dark transition-all shadow-lg border border-transparent hover:border-brand-dark">
+                        0721 000 000
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 w-full h-full">
+            <img src="https://images.unsplash.com/photo-1560155016-bd4879ae8f21?q=80&w=1920&auto=format&fit=crop" alt="Premium Lifestyle" class="w-full h-full object-cover object-center" />
+            <div class="absolute inset-0 bg-brand-dark/70"></div>
+        </div>
+        
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto fade-in pt-20">
+            <!-- Logo in Hero -->
+            <div class="flex justify-center mb-6">
+                <svg class="w-16 h-16 text-brand-gold opacity-90" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C7.5 2 4 5.5 4 10c0 3.5 2.2 6.5 5.3 7.6l1.2 3.6c.2.5.7.8 1.2.8h.6c.5 0 1-.3 1.2-.8l1.2-3.6C17.8 16.5 20 13.5 20 10c0-4.5-3.5-8-8-8z"/>
+                </svg>
+            </div>
+            <p class="text-brand-gold font-medium tracking-[0.2em] uppercase text-sm md:text-base mb-4">Anna Are Mere • România</p>
+            <!-- Copywriting using testimonial specific words -->
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-tight mb-6">
+                O Experiență <br><span class="text-brand-gold italic">Desăvârșită</span>
+            </h1>
+            <p class="text-brand-cream text-lg md:text-xl font-light mb-10 max-w-2xl mx-auto opacity-90">
+                Descoperă calitatea premium și prospețimea autentică. Atenția noastră la detalii transformă fiecare interacțiune într-un moment de lux.
+            </p>
+            <a href="tel:0721000000" class="inline-flex items-center gap-3 bg-brand-gold text-brand-dark px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.4)]">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                Sună Acum: 0721 000 000
+            </a>
+        </div>
+    </header>
+
+    <!-- TRUST SECTION -->
+    <section id="despre" class="py-20 bg-brand-cream relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-brand-dark mb-4">De ce suntem prima alegere?</h2>
+                <div class="w-24 h-1 bg-brand-gold mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <!-- Trust 1 -->
+                <div class="text-center group">
+                    <div class="w-20 h-20 mx-auto bg-brand-dark rounded-full flex items-center justify-center mb-6 group-hover:-translate-y-2 transition-transform duration-300 shadow-xl">
+                        <svg class="w-10 h-10 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold text-brand-dark mb-3">Selecție Riguroasă</h3>
+                    <p class="text-brand-text/80 font-light leading-relaxed">Fiecare produs este ales manual, respectând cele mai înalte standarde de prospețime și calitate pentru a-ți oferi doar perfecțiunea.</p>
+                </div>
+                <!-- Trust 2 -->
+                <div class="text-center group">
+                    <div class="w-20 h-20 mx-auto bg-brand-dark rounded-full flex items-center justify-center mb-6 group-hover:-translate-y-2 transition-transform duration-300 shadow-xl">
+                        <svg class="w-10 h-10 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold text-brand-dark mb-3">Calitate Artizanală</h3>
+                    <p class="text-brand-text/80 font-light leading-relaxed">Atenția noastră la detalii se reflectă în fiecare pachet. Ambalare de lux și o prezentare care justifică fiecare așteptare.</p>
+                </div>
+                <!-- Trust 3 -->
+                <div class="text-center group">
+                    <div class="w-20 h-20 mx-auto bg-brand-dark rounded-full flex items-center justify-center mb-6 group-hover:-translate-y-2 transition-transform duration-300 shadow-xl">
+                        <svg class="w-10 h-10 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-serif font-bold text-brand-dark mb-3">Livrare Premium</h3>
+                    <p class="text-brand-text/80 font-light leading-relaxed">Promptitudine și siguranță absolută oriunde în România. Ne asigurăm că experiența ajunge impecabilă la ușa ta.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES (GRID) -->
+    <section id="servicii" class="py-20 bg-brand-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                <div class="max-w-2xl">
+                    <h2 class="text-3xl md:text-5xl font-serif font-bold text-brand-dark mb-4">Serviciile Noastre</h2>
+                    <p class="text-brand-text/80 text-lg font-light">Concepute pentru cei care nu fac compromisuri. Oferim soluții personalizate care transformă obișnuitul în extraordinar.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Service 1 -->
+                <div class="group relative overflow-hidden rounded-2xl shadow-2xl h-80">
+                    <img src="https://images.unsplash.com/photo-1511116246371-cb86dc9f9390?q=80&w=800&auto=format&fit=crop" alt="Consultanță" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/50 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <div class="w-12 h-12 bg-brand-gold rounded-full flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6 text-brand-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-serif font-bold text-white mb-2">Pachete Custom</h3>
+                        <p class="text-brand-cream/80 font-light">Soluții adaptate perfect nevoilor tale specifice.</p>
+                    </div>
+                </div>
+                <!-- Service 2 -->
+                <div class="group relative overflow-hidden rounded-2xl shadow-2xl h-80">
+                    <img src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?q=80&w=800&auto=format&fit=crop" alt="Premium" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/50 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <div class="w-12 h-12 bg-brand-gold rounded-full flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6 text-brand-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-serif font-bold text-white mb-2">Selecții Premium</h3>
+                        <p class="text-brand-cream/80 font-light">Calitate superioară garantată, ambalare de top.</p>
+                    </div>
+                </div>
+                <!-- Service 3 -->
+                <div class="group relative overflow-hidden rounded-2xl shadow-2xl h-80 md:col-span-2 lg:col-span-1">
+                    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=800&auto=format&fit=crop" alt="Abonamente" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/50 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <div class="w-12 h-12 bg-brand-gold rounded-full flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6 text-brand-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-serif font-bold text-white mb-2">Abonamente Exclusive</h3>
+                        <p class="text-brand-cream/80 font-light">Prospețime și rafinament livrate recurent, direct la tine acasă.</p>
+                    </div>
+                </div>
+                <!-- Service 4 CTA style -->
+                <div class="bg-brand-dark rounded-2xl shadow-2xl h-80 flex flex-col justify-center items-center text-center p-8 border border-brand-gold/20 relative overflow-hidden">
+                    <div class="absolute -right-10 -top-10 w-40 h-40 bg-brand-gold/10 rounded-full blur-3xl"></div>
+                    <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-brand-gold/10 rounded-full blur-3xl"></div>
+                    <h3 class="text-3xl font-serif font-bold text-brand-gold mb-4 relative z-10">Ai o cerință specială?</h3>
+                    <p class="text-brand-cream/80 mb-8 font-light relative z-10">Suntem aici pentru a transforma viziunea ta în realitate.</p>
+                    <a href="tel:0721000000" class="inline-block border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-brand-dark px-8 py-3 rounded-full font-medium transition-colors relative z-10">
+                        Discută cu Noi
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section id="recenzii" class="py-24 bg-brand-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-brand-gold font-bold tracking-widest uppercase text-sm">Recenzii</span>
+                <h2 class="text-3xl md:text-5xl font-serif font-bold text-brand-dark mt-2 mb-4">Ce spun clienții noștri</h2>
+                <p class="text-brand-text/70 max-w-2xl mx-auto">Experiențe reale ale celor care ne-au ales pentru calitatea și atenția noastră.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg border border-brand-light relative">
+                    <svg class="absolute top-6 right-6 w-10 h-10 text-brand-gold/20" fill="currentColor" viewBox="0 0 32 32"><path d="M10 8c-4.4 0-8 3.6-8 8v8h8v-8H6c0-2.2 1.8-4 4-4V8zm18 0c-4.4 0-8 3.6-8 8v8h8v-8h-4c0-2.2 1.8-4 4-4V8z"/></svg>
+                    <div class="flex text-brand-gold mb-4">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-brand-text font-light italic mb-8 leading-relaxed">"Atenția la detalii este incredibilă. Am fost surprinsă de prospețimea produselor. O experiență cu adevărat desăvârșită!"</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-brand-dark rounded-full flex items-center justify-center text-brand-gold font-bold font-serif text-lg">EM</div>
+                        <div>
+                            <h4 class="font-bold text-brand-dark">Elena M.</h4>
+                            <p class="text-sm text-brand-text/60">Client Fidel</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg border border-brand-light relative">
+                    <svg class="absolute top-6 right-6 w-10 h-10 text-brand-gold/20" fill="currentColor" viewBox="0 0 32 32"><path d="M10 8c-4.4 0-8 3.6-8 8v8h8v-8H6c0-2.2 1.8-4 4-4V8zm18 0c-4.4 0-8 3.6-8 8v8h8v-8h-4c0-2.2 1.8-4 4-4V8z"/></svg>
+                    <div class="flex text-brand-gold mb-4">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-brand-text font-light italic mb-8 leading-relaxed">"De departe cea mai bună alegere. Promptitudine, ambalare de lux și o calitate care justifică fiecare bănuț."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-brand-dark rounded-full flex items-center justify-center text-brand-gold font-bold font-serif text-lg">AP</div>
+                        <div>
+                            <h4 class="font-bold text-brand-dark">Andrei P.</h4>
+                            <p class="text-sm text-brand-text/60">Antreprenor</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg border border-brand-light relative">
+                    <svg class="absolute top-6 right-6 w-10 h-10 text-brand-gold/20" fill="currentColor" viewBox="0 0 32 32"><path d="M10 8c-4.4 0-8 3.6-8 8v8h8v-8H6c0-2.2 1.8-4 4-4V8zm18 0c-4.4 0-8 3.6-8 8v8h8v-8h-4c0-2.2 1.8-4 4-4V8z"/></svg>
+                    <div class="flex text-brand-gold mb-4">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-brand-text font-light italic mb-8 leading-relaxed">"Recomand cu încredere 'Anna Are Mere'. Profesionalismul lor m-a transformat imediat într-un client fidel."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-brand-dark rounded-full flex items-center justify-center text-brand-gold font-bold font-serif text-lg">MV</div>
+                        <div>
+                            <h4 class="font-bold text-brand-dark">Maria V.</h4>
+                            <p class="text-sm text-brand-text/60">Cumpărător Verificat</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT BANNER -->
+    <section class="py-20 bg-brand-dark relative overflow-hidden">
+        <!-- Abstract shapes -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-brand-gold/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-brand-gold/10 rounded-full blur-3xl"></div>
+        
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <h2 class="text-4xl md:text-5xl font-serif font-bold text-white mb-6">Meriți o calitate de excepție</h2>
+            <p class="text-brand-cream/80 text-lg mb-10 max-w-2xl mx-auto font-light">Contactează-ne astăzi pentru a comanda sau pentru a discuta cum te putem ajuta cu servicii personalizate.</p>
+            <a href="tel:0721000000" class="inline-flex items-center gap-3 bg-brand-gold text-brand-dark px-10 py-4 rounded-full font-bold text-xl hover:bg-white hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.3)]">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                0721 000 000
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#12261f] text-center py-12 border-t border-brand-gold/10 relative pb-24 md:pb-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <!-- Footer Logo -->
+            <div class="flex justify-center mb-6 opacity-70">
+                <svg class="w-10 h-10 text-brand-gold" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C7.5 2 4 5.5 4 10c0 3.5 2.2 6.5 5.3 7.6l1.2 3.6c.2.5.7.8 1.2.8h.6c.5 0 1-.3 1.2-.8l1.2-3.6C17.8 16.5 20 13.5 20 10c0-4.5-3.5-8-8-8zm0 2c3.3 0 6 2.7 6 6s-2.7 6-6 6-6-2.7-6-6 2.7-6 6-6zm-1 2v4h2V6h-2z"/>
+                </svg>
+            </div>
+            <h3 class="text-2xl font-serif font-bold text-white mb-2 uppercase tracking-wider">Anna Are Mere</h3>
+            <p class="text-brand-cream/60 font-light mb-8">Excelență din inima naturii, direct în România.</p>
+            
+            <div class="w-full h-px bg-brand-gold/20 mb-8 max-w-md mx-auto"></div>
+            
+            <!-- REQUIRED BRANDING -->
+            <p class="text-brand-cream/50 text-sm font-light">
+                Site creat de WEB? DONE! — N-ai site? Ai acum.. | &copy; 2026
+            </p>
+        </div>
+    </footer>
+
+    <!-- MOBILE FIXED CTA (Visible only on mobile) -->
+    <div class="md:hidden fixed bottom-0 left-0 w-full p-4 z-50 glass border-t border-brand-gold/20">
+        <a href="tel:0721000000" class="flex w-full items-center justify-center gap-2 bg-brand-gold text-brand-dark py-3.5 rounded-full font-bold shadow-lg active:scale-95 transition-transform text-lg">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+            Sună Acum
+        </a>
+    </div>
+
+</body>
+</html>

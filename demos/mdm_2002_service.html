@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ro" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MDM 2002 Service | Excelență în Inginerie Auto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide-static/0.321.0/lucide.min.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #050505; color: #fff; }
+        h1, h2, h3 { font-family: 'Montserrat', sans-serif; }
+        .text-neon { color: #FF5F00; text-shadow: 0 0 20px rgba(255, 95, 0, 0.4); }
+        .bg-neon { background-color: #FF5F00; }
+        .border-neon { border-color: #FF5F00; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .hero-gradient { background: radial-gradient(circle at 20% 30%, rgba(255, 95, 0, 0.15) 0%, rgba(0,0,0,0) 50%); }
+        .card-hover:hover { transform: translateY(-10px); border-color: #FF5F00; box-shadow: 0 20px 40px rgba(255, 95, 0, 0.1); }
+        .asymmetric-shape { clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%); }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-20px); } 100% { transform: translateY(0px); } }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+    </style>
+</head>
+<body class="overflow-x-hidden selection:bg-orange-500 selection:text-white">
+
+    <!-- Navigare -->
+    <nav class="fixed w-full z-50 top-0 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center glass rounded-full px-8 py-3">
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-neon rounded-lg flex items-center justify-center font-black text-black">M</div>
+                <span class="text-xl font-black tracking-tighter uppercase">MDM <span class="text-neon">2002</span></span>
+            </div>
+            <div class="hidden md:flex gap-8 text-sm font-medium uppercase tracking-widest">
+                <a href="#acasa" class="hover:text-neon transition-colors">Acasă</a>
+                <a href="#servicii" class="hover:text-neon transition-colors">Servicii</a>
+                <a href="#despre" class="hover:text-neon transition-colors">Experiență</a>
+                <a href="#contact" class="hover:text-neon transition-colors">Contact</a>
+            </div>
+            <a href="tel:+40731307309" class="bg-neon text-black px-6 py-2 rounded-full font-bold text-sm hover:scale-105 transition-transform active:scale-95">
+                SUNĂ ACUM
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="acasa" class="relative min-h-screen flex items-center pt-20 overflow-hidden hero-gradient">
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+            <div class="relative z-10">
+                <div class="inline-block px-4 py-1 border border-neon/30 rounded-full text-neon text-xs font-bold tracking-widest mb-6 bg-neon/5">
+                    EXPERTIZĂ DIN 2002
+                </div>
+                <h1 class="text-6xl md:text-8xl font-black leading-tight mb-6">
+                    PRECIZIE <br>
+                    <span class="text-neon">INGINERASCĂ</span>
+                </h1>
+                <p class="text-zinc-400 text-lg md:text-xl max-w-lg mb-10 leading-relaxed">
+                    La MDM 2002 Service, transformăm mentenanța auto într-o formă de artă. Tehnologie de ultimă generație și o echipă dedicată performanței mașinii tale.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#servicii" class="bg-white text-black px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-neon hover:text-black transition-all">
+                        VEZI SERVICIILE
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </a>
+                    <a href="#contact" class="glass px-8 py-4 rounded-xl font-bold flex items-center justify-center border border-white/10 hover:border-neon transition-all">
+                        LOCAȚIE SERVICE
+                    </a>
+                </div>
+                <div class="mt-12 flex gap-10 border-t border-white/10 pt-8">
+                    <div>
+                        <div class="text-3xl font-bold">22+</div>
+                        <div class="text-zinc-500 text-xs uppercase tracking-widest">Ani Experiență</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold">15k+</div>
+                        <div class="text-zinc-500 text-xs uppercase tracking-widest">Mașini Reparate</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold">100%</div>
+                        <div class="text-zinc-500 text-xs uppercase tracking-widest">Piese Originale</div>
+                    </div>
+                </div>
+            </div>
+            <div class="relative hidden lg:block">
+                <div class="absolute -top-20 -right-20 w-96 h-96 bg-neon/20 rounded-full blur-[120px]"></div>
+                <div class="relative z-10 animate-float">
+                    <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&q=80&w=800" alt="Premium Auto Service" class="rounded-3xl border border-white/10 grayscale hover:grayscale-0 transition-all duration-700 shadow-2xl">
+                    <div class="absolute -bottom-6 -left-6 glass p-6 rounded-2xl border-l-4 border-neon">
+                        <p class="text-sm font-medium italic">"Excelență în fiecare detaliu tehnic."</p>
+                        <p class="text-xs text-neon mt-2 uppercase font-bold tracking-tighter">Echipa MDM 2002</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicii Section -->
+    <section id="servicii" class="py-24 bg-zinc-950">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="text-4xl md:text-5xl font-black mb-4">SOLUȚII <span class="text-neon">COMPLETE</span></h2>
+                <div class="w-24 h-1 bg-neon mx-auto"></div>
+                <p class="text-zinc-400 mt-6 max-w-2xl mx-auto italic">Folosim echipamente de diagnosticare de nivel industrial pentru a asigura precizia fiecărei intervenții.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="glass p-8 rounded-3xl card-hover transition-all duration-500 group">
+                    <div class="w-14 h-14 bg-neon/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-neon transition-colors">
+                        <svg class="text-neon group-hover:text-black" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Mecanică Generală</h3>
+                    <p class="text-zinc-500 text-sm leading-relaxed">De la suspensii la motoare complexe, abordăm orice problemă cu rigoare germană.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass p-8 rounded-3xl card-hover transition-all duration-500 group">
+                    <div class="w-14 h-14 bg-neon/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-neon transition-colors">
+                        <svg class="text-neon group-hover:text-black" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="12" x="3" y="10" rx="2"/><path d="M7 10V7a5 5 0 0 1 10 0v3"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Diagnoză Avansată</h3>
+                    <p class="text-zinc-500 text-sm leading-relaxed">Identificăm rapid erorile electronice folosind software-uri de ultimă generație.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass p-8 rounded-3xl card-hover transition-all duration-500 group">
+                    <div class="w-14 h-14 bg-neon/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-neon transition-colors">
+                        <svg class="text-neon group-hover:text-black" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 14.14 14.14"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Sistem Frânare</h3>
+                    <p class="text-zinc-500 text-sm leading-relaxed">Siguranța ta nu este negociabilă. Verificări și înlocuiri profesionale de discuri și plăcuțe.</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="glass p-8 rounded-3xl card-hover transition-all duration-500 group">
+                    <div class="w-14 h-14 bg-neon/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-neon transition-colors">
+                        <svg class="text-neon group-hover:text-black" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Revizii Periodice</h3>
+                    <p class="text-zinc-500 text-sm leading-relaxed">Schimburi de ulei și filtre cu produse premium pentru a prelungi viața motorului tău.</p>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="glass p-8 rounded-3xl card-hover transition-all duration-500 group">
+                    <div class="w-14 h-14 bg-neon/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-neon transition-colors">
+                        <svg class="text-neon group-hover:text-black" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M5 20v-5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v5"/><path d="m20 7-3 3-4-3 3-3 4 3Z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Climatizare AC</h3>
+                    <p class="text-zinc-500 text-sm leading-relaxed">Igienizare și reîncărcare freon pentru un confort termic optim în orice sezon.</p>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="glass p-8 rounded-3xl card-hover transition-all duration-500 group">
+                    <div class="w-14 h-14 bg-neon/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-neon transition-colors">
+                        <svg class="text-neon group-hover:text-black" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Reparații Injecție</h3>
+                    <p class="text-zinc-500 text-sm leading-relaxed">Optimizarea consumului și refacerea puterii motorului prin calibrare precisă.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experiență & Calitate Section -->
+    <section id="despre" class="py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                <div class="lg:w-1/2">
+                    <div class="relative">
+                        <div class="absolute -top-4 -left-4 w-24 h-24 border-t-4 border-l-4 border-neon"></div>
+                        <img src="https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?auto=format&fit=crop&q=80&w=800" alt="Work" class="rounded-2xl shadow-2xl relative z-10">
+                    </div>
+                </div>
+                <div class="lg:w-1/2">
+                    <h2 class="text-4xl font-black mb-8 leading-tight">MAI MULT DECÂT UN <br><span class="text-neon">SIMPLU REPAIR SHOP</span></h2>
+                    <p class="text-zinc-400 mb-6 leading-relaxed">
+                        Din 2002, ne-am asumat misiunea de a oferi șoferilor din București un loc unde transparența întâlnește măiestria tehnică. Nu facem compromisuri când vine vorba de calitatea pieselor sau de precizia manoperei.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-4">
+                            <div class="w-6 h-6 rounded-full bg-neon flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            </div>
+                            <span class="font-semibold italic">Garanție extinsă pentru fiecare lucrare.</span>
+                        </li>
+                        <li class="flex items-center gap-4">
+                            <div class="w-6 h-6 rounded-full bg-neon flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            </div>
+                            <span class="font-semibold italic">Transparență totală asupra costurilor.</span>
+                        </li>
+                        <li class="flex items-center gap-4">
+                            <div class="w-6 h-6 rounded-full bg-neon flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            </div>
+                            <span class="font-semibold italic">Echipamente de calibrare premium.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-zinc-900/50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="glass rounded-[3rem] overflow-hidden grid lg:grid-cols-2">
+                <div class="p-12 lg:p-20">
+                    <h2 class="text-4xl font-black mb-8">CONTACTEAZĂ-NE</h2>
+                    <div class="space-y-8">
+                        <div class="flex items-start gap-6">
+                            <div class="text-neon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                            </div>
+                            <div>
+                                <p class="text-zinc-500 uppercase text-xs font-bold tracking-widest mb-1">Locație</p>
+                                <p class="text-xl font-bold italic">Strada Jiului 13, București</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-6">
+                            <div class="text-neon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                            </div>
+                            <div>
+                                <p class="text-zinc-500 uppercase text-xs font-bold tracking-widest mb-1">Program</p>
+                                <p class="text-xl font-bold italic">Luni - Vineri: 08:00 - 18:00</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-6">
+                            <div class="text-neon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            </div>
+                            <div>
+                                <p class="text-zinc-500 uppercase text-xs font-bold tracking-widest mb-1">Telefon Direct</p>
+                                <a href="tel:+40731307309" class="text-3xl font-black text-neon hover:underline tracking-tighter">+40 731 307 309</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-zinc-800 relative grayscale contrast-125">
+                    <!-- Placeholder for Map - In real case, embed Google Maps here -->
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2846.5441589146526!2d26.044156!3d44.48348!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b20247738f7105%3A0x6b3b555e090f48f3!2sStrada%20Jiului%2013%2C%20Bucure%C8%99ti!5e0!3m2!1sro!2sro!4v1700000000000" 
+                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8 text-center">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-neon rounded flex items-center justify-center font-black text-black text-sm">M</div>
+                <span class="font-black uppercase tracking-widest">MDM 2002</span>
+            </div>
+            <p class="text-zinc-500 text-sm">
+                &copy; 2024 MDM 2002 Service. Toate drepturile rezervate. Pasiune pentru precizie.
+            </p>
+            <div class="flex gap-6">
+                <a href="#" class="text-zinc-400 hover:text-neon transition-colors">Facebook</a>
+                <a href="#" class="text-zinc-400 hover:text-neon transition-colors">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth reveal logic could be added here for extra flair
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

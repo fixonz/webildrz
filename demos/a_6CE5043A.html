@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>a — Claritate în Complexitate</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💎</text></svg>">
+
+    <style>
+        :root {
+            --dark-navy: #0D1B2A;
+            --slate-blue: #1B263B;
+            --steel-blue: #415A77;
+            --glacial-mint: #80FFDB; 
+            --off-white: #E0E1DD;
+            --shadow: rgba(0, 0, 0, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-navy);
+            color: var(--off-white);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 1.5rem;
+            background: rgba(27, 38, 59, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(128, 255, 219, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--glacial-mint);
+            text-decoration: none;
+            letter-spacing: -2px;
+        }
+
+        .nav-menu a {
+            color: var(--off-white);
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--glacial-mint);
+        }
+        
+        .nav-menu {
+             display: none; /* Hidden on mobile */
+        }
+
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 4rem 1.5rem;
+            background-image: linear-gradient(rgba(13, 27, 42, 0.8), rgba(13, 27, 42, 1)), url('https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-content .logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .hero-content h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+            color: var(--off-white);
+        }
+        
+        .hero-content h1 span {
+            color: var(--glacial-mint);
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: var(--off-white);
+            opacity: 0.9;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--glacial-mint);
+            color: var(--dark-navy);
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 20px rgba(128, 255, 219, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(128, 255, 219, 0.5);
+        }
+        
+        /* --- GENERIC SECTION STYLING --- */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: var(--off-white);
+        }
+        
+        .section-title span {
+            color: var(--glacial-mint);
+        }
+
+        /* --- TRUST SECTION --- */
+        #trust {
+            background-color: var(--slate-blue);
+        }
+
+        .trust-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+
+        .trust-item {
+            text-align: center;
+            padding: 1.5rem;
+        }
+        
+        .trust-item svg {
+            width: 50px;
+            height: 50px;
+            color: var(--glacial-mint);
+            margin-bottom: 1rem;
+        }
+
+        .trust-item h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .trust-item p {
+            font-weight: 300;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+        
+        /* --- SERVICII SECTION --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            background-color: var(--slate-blue);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--steel-blue);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--glacial-mint);
+        }
+        
+        .service-card svg {
+            width: 40px;
+            height: 40px;
+            color: var(--glacial-mint);
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .service-card p {
+            font-weight: 300;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+
+        /* --- TESTIMONIALS SECTION --- */
+        #testimonials {
+            background: var(--dark-navy) url('https://images.unsplash.com/photo-1511447333015-45b65e60f6d5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1855&q=80') center center/cover no-repeat;
+            position: relative;
+        }
+        
+        #testimonials::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(13, 27, 42, 0.95), rgba(13, 27, 42, 0.95));
+        }
+
+        .testimonials-wrapper {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background-color: rgba(27, 38, 59, 0.8);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--glacial-mint);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .testimonial-quote {
+            font-size: 1.1rem;
+            font-style: italic;
+            font-weight: 300;
+            line-height: 1.7;
+            flex-grow: 1;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            margin-top: auto;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--steel-blue);
+            color: var(--glacial-mint);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-right: 1rem;
+        }
+
+        .author-info .name {
+            font-weight: 500;
+            display: block;
+        }
+        
+        .author-info .title {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            display: block;
+        }
+
+        .stars {
+            color: #FFD700; /* Gold for stars - an exception for universal symbol */
+            margin-top: 0.2rem;
+        }
+        
+        /* --- FOOTER --- */
+        .footer {
+            background-color: #000;
+            padding: 3rem 1.5rem 1.5rem;
+            text-align: center;
+            border-top: 1px solid var(--steel-blue);
+        }
+        
+        .footer-logo {
+            font-size: 2.5rem;
+            color: var(--off-white);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .footer-branding {
+            font-size: 0.9rem;
+            color: var(--steel-blue);
+        }
+        
+        .footer-branding a {
+            color: var(--steel-blue);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-branding a:hover {
+            color: var(--off-white);
+        }
+
+        /* --- FIXED CALL BUTTON (MOBILE ONLY) --- */
+        .fixed-call-button {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999;
+            background-color: var(--glacial-mint);
+            color: var(--dark-navy);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(128, 255, 219, 0.4);
+            animation: pulse 2s infinite;
+        }
+        
+        .fixed-call-button svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 0.5rem;
+        }
+        
+        @keyframes pulse {
+            0% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.05); }
+            100% { transform: translateX(-50%) scale(1); }
+        }
+
+        /* --- DESKTOP & TABLET STYLES --- */
+        @media (min-width: 768px) {
+            .nav-menu {
+                display: block;
+            }
+            
+            .hero-content h1 {
+                font-size: 4rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+
+            .trust-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .testimonials-wrapper {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .hero-content h1 {
+                font-size: 5rem;
+            }
+
+            .section {
+                padding: 6rem 0;
+            }
+            
+            .section-title {
+                font-size: 2.8rem;
+                margin-bottom: 4rem;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .testimonials-wrapper {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .fixed-call-button {
+                display: none; /* Hide fixed button on desktop */
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <a href="#" class="logo">a</a>
+        <nav class="nav-menu">
+            <a href="#trust">Principii</a>
+            <a href="#servicii">Servicii</a>
+            <a href="#testimonials">Clienți</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <a href="#" class="logo">a</a>
+                <h1>Claritate în <span>Complexitate</span>.</h1>
+                <p>Soluții definitive pentru provocări unice. Acționăm unde alții ezită, transformând imposibilul în realitate.</p>
+                <a href="tel:0721000000" class="cta-button">0721 000 000</a>
+            </div>
+        </section>
+
+        <!-- Trust Section -->
+        <section class="section" id="trust">
+            <div class="container">
+                <div class="trust-grid">
+                    <div class="trust-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" /></svg>
+                        <h3>Discreție Absolută</h3>
+                        <p>Confidențialitatea este fundamentul. Fiecare interacțiune este protejată de cel mai înalt standard de discreție.</p>
+                    </div>
+                    <div class="trust-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" /></svg>
+                        <h3>Execuție la Cheie</h3>
+                        <p>De la concept la realitate. Gestionăm fiecare detaliu cu precizie, eliberându-vă cea mai valoroasă resursă: timpul.</p>
+                    </div>
+                    <div class="trust-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" /></svg>
+                        <h3>Rețea de Elită</h3>
+                        <p>Acces instant la o rețea globală de experți, resurse și oportunități, curatoriată pentru a vă garanta succesul.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Servicii Section -->
+        <section class="section" id="servicii">
+            <div class="container">
+                <h2 class="section-title">Aria noastră de <span>Expertiză</span></h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 1.085-1.085-1.085m1.085 1.085V18m-1.085-1.085l-1.085 1.085m0 0l-1 1.085m9.75-9.75h-4.5M12 7.5h4.5M12 12h4.5m-4.5 4.5h4.5M7.5 12h-3v3h3v-3z" /></svg>
+                        <h3>Strategie & Consultanță</h3>
+                        <p>Navigăm complexitatea și dezvoltăm strategii clare pentru creștere exponențială și rezolvarea problemelor critice.</p>
+                    </div>
+                    <div class="service-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-5.571 3m-11.142 0L12 15.25l5.571-3m-5.571 3v6.75a2.25 2.25 0 002.25 2.25h1.5a2.25 2.25 0 002.25-2.25v-6.75" /></svg>
+                        <h3>Management de Proiect</h3>
+                        <p>Orchestrăm proiecte ambițioase de la A la Z, asigurând livrare impecabilă, la timp și în buget.</p>
+                    </div>
+                    <div class="service-card">
+                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" /></svg>
+                        <h3>Soluții Digitale</h3>
+                        <p>Dezvoltăm și implementăm tehnologie de avangardă pentru a crea avantaje competitive decisive.</p>
+                    </div>
+                    <div class="service-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.73-.664 1.203-.84l.708-.266a1.125 1.125 0 011.265.803l.267.708c.177.472.456.885.84 1.203l3.03 2.496m-3.03-2.496c.384-.317.664-.73.84-1.203l.266-.708a1.125 1.125 0 00-.803-1.265l-.708-.267a2.652 2.652 0 00-1.203-.84l-2.496-3.03m0 0c-.384.317-.664.73-.84 1.203l-.266.708a1.125 1.125 0 01-1.265.803l-.708-.267a2.652 2.652 0 01-1.203-.84l-2.496-3.03" /></svg>
+                        <h3>Concierge & Lifestyle</h3>
+                        <p>Servicii bespoke pentru cerințe excepționale, de la managementul activelor la planificarea unor experiențe unice.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="section" id="testimonials">
+            <div class="container testimonials-wrapper">
+                 <div class="testimonial-card">
+                    <p class="testimonial-quote">"Într-un proiect de expansiune cu zeci de variabile, 'a' a fost singurul nostru punct de certitudine. Au adus claritate, au orchestrat execuția impecabil și ne-au economisit luni de zile. Inestimabil."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MI</div>
+                        <div class="author-info">
+                            <span class="name">Mihai Ionescu</span>
+                            <span class="title">CEO, Tech Innovate</span>
+                            <div class="stars">★★★★★</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">"Am apelat la 'a' pentru o situație personală extrem de complexă. Nivelul de discreție, empatie și eficiență a fost pur și simplu de pe altă planetă. Au rezolvat imposibilul."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">EP</div>
+                        <div class="author-info">
+                            <span class="name">Elena Popa</span>
+                            <span class="title">Antreprenor & Investitor</span>
+                            <div class="stars">★★★★★</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">"Lansarea noastră era blocată. Echipa 'a' a diagnosticat problema în 48 de ore și a implementat o strategie care ne-a pus pe traiectorie. Nu sunt consultanți, sunt parteneri de execuție."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AV</div>
+                        <div class="author-info">
+                            <span class="name">Andrei Vasile</span>
+                            <span class="title">Fondator, Nexus Start-up</span>
+                            <div class="stars">★★★★★</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <a href="#home" class="logo footer-logo">a</a>
+        <div class="footer-branding">
+            Site creat de <a href="#" target="_blank">WEB? DONE!</a> — N-ai site? Ai acum.. | © 2026
+        </div>
+    </footer>
+    
+    <!-- Fixed Call Button -->
+    <a href="tel:0721000000" class="fixed-call-button">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" /></svg>
+        Sună Acum
+    </a>
+
+</body>
+</html>
