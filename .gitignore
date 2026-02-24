@@ -2,12 +2,22 @@ __pycache__/
 *.pyc
 .env
 .vscode/
+
+# Generated Content
+demos/*.html
+demos/*.json
+generated_sites/*.html
+generated_sites/*.json
+
+# Logs & Debug
 debug_output.txt
 demos_check.txt
 models_list.txt
 test_api.txt
 filenames.txt
 call_test_result.txt
+
+# Utility Scripts (Keep repo clean)
 preview.py
 agent.py
 pilot.py
