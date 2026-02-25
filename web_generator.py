@@ -1,9 +1,11 @@
+import os
+import re
+from dotenv import load_dotenv
+
 try:
     from google import genai
 except ImportError:
     genai = None
-
-from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -91,6 +93,42 @@ class WebGenerator:
         except Exception as e:
             print(f"CRITICAL ERROR (Mobile Fix): {e}")
             return f"<!DOCTYPE html><html><body style='padding:20px; font-family:sans-serif;'><h1>{biz_data['name']}</h1><p>Contact: {biz_data['phone']}</p></body></html>"
+
+    def enrich_html_with_links(self, html_content, extra_info):
+        """Surgically injects or updates links in existing HTML using a focused AI call."""
+        if not self.client or not extra_info:
+            return html_content
+
+        prompt = f"""
+        Ești un Expert Web Developer. Modifică acest cod HTML pentru a insera/actualiza următoarele link-uri de Social Media sau Info:
+        DATE NOI: {extra_info}
+
+        REGULI:
+        1. NU MODIFICA Design-ul, Culorile sau Structura principală.
+        2. Caută secțiunea de 'Contact' sau 'Footer' și inserează link-urile folosind iconițe sociale (FontAwesome sau simple SVGs).
+        3. Dacă link-urile există deja, actualizează-le cu noile valori.
+        4. Returnează codul HTML COMPLET actualizat.
+        5. Fără ```html, începe direct cu <!DOCTYPE html>.
+
+        COD SURSĂ:
+        {html_content[:30000]} # Cap to avoid context overflow for very large files
+        """
+        
+        try:
+            response = self.client.models.generate_content(
+                model='gemini-2.0-flash',
+                contents=prompt
+            )
+            enriched_html = response.text.strip()
+            enriched_html = re.sub(r'^```html\n?', '', enriched_html)
+            enriched_html = re.sub(r'\n?```$', '', enriched_html)
+
+            if "<!DOCTYPE html>" in enriched_html:
+                return enriched_html
+            return html_content
+        except Exception as e:
+            print(f"ENRICH ERROR: {e}")
+            return html_content
 
     def generate_site(self, biz_data):
         """Generates a complete unique website using AI and returns (site_id, file_path)."""

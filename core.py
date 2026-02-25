@@ -45,3 +45,30 @@ def generate_and_save(biz_data):
             
     increment_counter()
     return site_id, filename
+
+def update_site_links(site_id, extra_info):
+    """Finds a site by ID and updates its content with new links/info."""
+    # Find the file
+    filename = None
+    files = os.listdir(SITES_DIR)
+    for f in files:
+        if site_id in f and f.endswith('.html'):
+            filename = f
+            break
+    
+    if not filename:
+        return False, "Site-ul nu a fost găsit."
+
+    path = os.path.join(SITES_DIR, filename)
+    with open(path, 'r', encoding='utf-8') as f:
+        old_html = f.read()
+
+    generator = WebGenerator()
+    new_html = generator.enrich_html_with_links(old_html, extra_info)
+
+    # Save back to both
+    for d in [SITES_DIR, GEN_DIR]:
+        with open(os.path.join(d, filename), 'w', encoding='utf-8') as f:
+            f.write(new_html)
+    
+    return True, filename

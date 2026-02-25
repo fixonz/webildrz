@@ -1,7 +1,7 @@
 import os
 import telebot
 from telebot import types
-from core import generate_and_save
+from core import generate_and_save, update_site_links
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -27,9 +27,20 @@ def send_welcome(message):
 @bot.message_handler(commands=['cancel'])
 def cancel_cmd(message):
     chat_id = message.chat.id
-    if chat_id in user_sessions:
-        del user_sessions[chat_id]
+    user_sessions.pop(chat_id, None)
     bot.send_message(chat_id, "Am anulat procesul. Trimite /start când vrei să reîncepem. ✌️")
+
+@bot.message_handler(commands=['edit'])
+def edit_cmd(message):
+    chat_id = message.chat.id
+    # Check if we have a site_id in history or current session
+    site_id = user_sessions.get(chat_id, {}).get('last_site_id')
+    if not site_id:
+        bot.send_message(chat_id, "Nu am găsit niciun site recent generat de tine. Generează unul nou cu /start sau trimite-mi codul site-ului.")
+        return
+    
+    user_sessions[chat_id]['step'] = 'edit_info'
+    bot.send_message(chat_id, f"Vrei să modifici link-urile pentru site-ul `{site_id}`? ✅\n\nTrimite-mi noile link-uri de Social Media sau info (sau /skip).", parse_mode='Markdown')
 
 @bot.message_handler(func=lambda m: user_sessions.get(m.chat.id, {}).get('step') == 'name')
 def get_biz_name(message):
@@ -56,8 +67,7 @@ def get_biz_media(message):
 @bot.message_handler(commands=['skip'])
 def skip_step(message):
     chat_id = message.chat.id
-    if chat_id not in user_sessions:
-        return
+    if chat_id not in user_sessions: return
     
     step = user_sessions[chat_id].get('step')
     if step == 'media':
@@ -66,12 +76,28 @@ def skip_step(message):
     elif step == 'social':
         user_sessions[chat_id]['extra_info'] = ""
         start_generation(message)
+    elif step == 'edit_info':
+        bot.send_message(chat_id, "Nicio schimbare efectuată. Site-ul tău râmâne intact. ✌️")
+        user_sessions[chat_id]['step'] = None
 
-@bot.message_handler(func=lambda m: user_sessions.get(m.chat.id, {}).get('step') == 'social')
-def get_biz_social(message):
+@bot.message_handler(func=lambda m: user_sessions.get(m.chat.id, {}).get('step') in ['social', 'edit_info'])
+def handle_info_steps(message):
     chat_id = message.chat.id
-    user_sessions[chat_id]['extra_info'] = message.text
-    start_generation(message)
+    step = user_sessions[chat_id].get('step')
+    
+    if step == 'social':
+        user_sessions[chat_id]['extra_info'] = message.text
+        start_generation(message)
+    elif step == 'edit_info':
+        site_id = user_sessions[chat_id].get('last_site_id')
+        bot.send_message(chat_id, "⚡ Actualizăm link-urile... Stai așa.")
+        success, res = update_site_links(site_id, message.text)
+        if success:
+            url = f"{PUBLIC_URL}/demos/{res}"
+            bot.send_message(chat_id, f"Actualizat! ✅ Noile info sunt acum live pe site.\n\n🔗 [Vezi Schimbările]({url})", parse_mode='Markdown')
+        else:
+            bot.send_message(chat_id, f"Eroare: {res}")
+        user_sessions[chat_id]['step'] = None
 
 def start_generation(message):
     chat_id = message.chat.id
@@ -92,10 +118,13 @@ def start_generation(message):
     try:
         site_id, filename = generate_and_save(biz_data)
         url = f"{PUBLIC_URL}/demos/{filename}"
-        caption = f"Gata! 🎉 Site-ul tău e live.\n\n🔗 [Vizualizează Site-ul]({url})\n🔑 **Cod unic:** `{site_id}`\n\nN-ai site? Ai acum. 🚀"
+        
+        # Save site_id for future /edit calls
+        user_sessions[chat_id]['last_site_id'] = site_id
+        
+        caption = f"Gata! 🎉 Site-ul tău e live.\n\n🔗 [Vizualizează Site-ul]({url})\n🔑 **Cod unic:** `{site_id}`\n\nDacă vrei să schimbi link-urile, scrie /edit. 🚀"
         bot.send_message(chat_id, caption, parse_mode='Markdown')
-        if chat_id in user_sessions:
-            del user_sessions[chat_id]
+        user_sessions[chat_id]['step'] = None
     except Exception as e:
         print(f"BOT GEN ERROR: {e}")
         bot.send_message(chat_id, f"Oops! A apărut o eroare la generare: {e}\n\nÎncearcă din nou folosind /start.")
