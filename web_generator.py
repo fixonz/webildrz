@@ -95,10 +95,46 @@ class WebGenerator:
             if "<!DOCTYPE html>" not in html_content and "<html>" not in html_content:
                  raise ValueError("AI response did not provide valid HTML")
             
-            return html_content
+            return self._surgical_fixes(html_content, biz_data)
         except Exception as e:
             print(f"CRITICAL ERROR (Mobile Fix): {e}")
             return f"<!DOCTYPE html><html><body style='padding:40px; font-family:sans-serif; text-align:center;'><h1>{biz_data['name']}</h1><p>Contact: {biz_data['phone']}</p><p style='color:red;'>AI Generation Failed. Please try again.</p></body></html>"
+
+    def _surgical_fixes(self, html, biz_data):
+        """Inyects bulletproof fixes for images and branding."""
+        # 1. Broken Image Handler Script
+        image_handler = """
+        <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const handleBrokenImages = () => {
+                document.querySelectorAll('img').forEach(img => {
+                    if (img.dataset.fixed) return;
+                    img.onerror = function() {
+                        this.style.display = 'none';
+                        const div = document.createElement('div');
+                        div.style.cssText = 'width:100%; min-height:250px; background:linear-gradient(135deg, #0f172a 0%, #1e293b 100%); display:flex; align-items:center; justify-content:center; color:#38bdf8; font-family:system-ui, sans-serif; font-weight:800; text-align:center; padding:20px; border-radius:16px; border:1px solid rgba(56,189,248,0.2); margin:10px 0;';
+                        div.innerHTML = '<div style="display:flex; flex-direction:column; gap:8px;"><span>🖼️ IMAGINE OPTIMIZATĂ AI</span><span style="font-size:0.7rem; color:rgba(255,255,255,0.5);">N-AI WEB? AI ACUM!</span></div>';
+                        this.insertAdjacentElement('afterend', div);
+                        this.dataset.fixed = "true";
+                    };
+                    // Trigger for cached broken images
+                    if (img.complete && img.naturalHeight === 0) img.onerror();
+                });
+            };
+            handleBrokenImages();
+            // Also watch for dynamically added images
+            new MutationObserver(handleBrokenImages).observe(document.body, {childList: true, subtree: true});
+        });
+        </script>
+        """
+        
+        # Inject before </body>
+        if "</body>" in html:
+            html = html.replace("</body>", f"{image_handler}</body>")
+        else:
+            html += image_handler
+            
+        return html
 
     def enrich_html_with_links(self, html_content, extra_info):
         """Surgically injects or updates links in existing HTML using a focused AI call."""
@@ -133,8 +169,8 @@ class WebGenerator:
             enriched_html = enriched_html.strip()
 
             if "<!DOCTYPE html>" in enriched_html:
-                return enriched_html
-            return html_content
+                return self._surgical_fixes(enriched_html, {"name": "Enriched Site"})
+            return self._surgical_fixes(html_content, {"name": "Enriched Site"})
         except Exception as e:
             print(f"ENRICH ERROR: {e}")
             return html_content
@@ -146,7 +182,10 @@ class WebGenerator:
         from datetime import datetime
 
         print(f"🤖 AI-ul lucrează intens la un design UNIC pentru {biz_data['name']}...")
-        html_content = self._generate_ai_html(biz_data)
+        html_raw = self._generate_ai_html(biz_data)
+        
+        # Apply surgical fixes also during final generation call to be sure
+        html_content = self._surgical_fixes(html_raw, biz_data)
         
         # Generate ID matching server style
         site_id = str(uuid.uuid4())[:8].upper()
