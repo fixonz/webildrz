@@ -44,6 +44,9 @@ class WebGenerator:
         else:
             reviews_block = "\nNu există recenzii disponibile, creează 3 testimoniale plauzibile.\n"
 
+        extra_info = biz_data.get("extra_info", "")
+        extra_block = f"\nINFORMAȚII SUPLIMENTARE / SOCIAL MEDIA:\n{extra_info}\n" if extra_info else ""
+
         prompt = f"""
         Ești un Director Creativ de Top Mondial. Creează un Landing Page de LUX, MOBILE-FIRST și VISUALLY STUNNING pentru:
         Nume Afacere: {biz_data['name']}
@@ -51,6 +54,7 @@ class WebGenerator:
         Locație: {biz_data['address']}
         Tel: {biz_data['phone']}
         Rating Google: {rating}⭐ ({reviews_count} recenzii)
+        {extra_block}
         
         CERINȚE TEHNICE OBLIGATORII:
         1. FAVICON: Trebuie să incluzi un favicon relevant.
@@ -64,7 +68,8 @@ class WebGenerator:
         5. VISUAL RICHNESS: 
            - Design VIBRANT, Image-First, cu spații largi între secțiuni.
            - Folosește overlay-uri subtile de gradient peste imagini.
-        6. MOBILE-FIRST absolut.
+        6. SOCIAL MEDIA: Dacă au fost oferite link-uri în 'INFORMAȚII SUPLIMENTARE', include-le cu iconițe oficiale în subsol.
+        7. MOBILE-FIRST absolut.
 
         Returnează DOAR codul HTML complet (fără ```html). Începe cu <!DOCTYPE html>.
         """
