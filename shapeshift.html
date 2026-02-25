@@ -1121,6 +1121,37 @@
             color: #FFD166;
         }
 
+        /* Coming Soon State */
+        .portfolio-card.coming-soon {
+            filter: grayscale(0.8);
+            pointer-events: none;
+            opacity: 0.5;
+            position: relative;
+        }
+
+        .portfolio-card.coming-soon .portfolio-preview {
+            filter: blur(12px);
+        }
+
+        .portfolio-card.coming-soon::before {
+            content: 'SOON';
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-10deg);
+            padding: 8px 16px;
+            background: #000;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            z-index: 20;
+            border-radius: 4px;
+            box-shadow: 0 0 20px rgba(0, 255, 170, 0.3);
+        }
+
         /* MARKETING / CAMPAIGN */
         .campaign-strip {
             background: linear-gradient(135deg, rgba(108, 99, 255, 0.15) 0%, rgba(0, 212, 255, 0.1) 100%);
@@ -2956,55 +2987,72 @@
             rose: 'CULORI IMPUSE DE UTILIZATOR: Deep Plum (#4A1942) primar, Roz Pudrat (#E8A0BF) accent, Cream (#FAF0E6) background. Stil feminin-luxury.',
         };
 
-        // ── Portfolio — Hardcoded + shuffled each page load ──
-        function loadPortfolio() {
+        // ── Portfolio — Dynamic Fetch + Coming Soon logic ──
+        async function loadPortfolio() {
             const grid = document.getElementById('portfolio-grid');
-            const ALL_DEMOS = [
-                'ana_25CEA8E2.html',
-                'auto_service_ionescu.html',
-                'avocat_popescu__asociaii.html',
-                'bioclinic_medical_center.html',
-                'd_10_hair_studio.html',
-                'dentist_elite_bucureti.html',
-                'desoi.html',
-                'frizeria_modernă.html',
-                'grdinia_prichindeii_veseli.html',
-                'mdm_2002_service.html',
-                'montessori.html',
-                'mugshot.html',
-                'royal_spa__beauty.html',
-                'ruah__specialty_coffee.html',
-                'sky_gym_fitness_sector_6.html',
-                'test_auto.html',
-                'urban_cafe__bistro.html'
-            ];
+            if (!grid) return;
 
-            // Shuffle and pick 6
-            const demos = ALL_DEMOS.sort(() => Math.random() - 0.5).slice(0, 6);
+            let demos = [];
+            try {
+                const res = await fetch('/api/demos');
+                const data = await res.json();
+                demos = data.demos || [];
+            } catch (e) {
+                console.warn('Could not fetch projects');
+            }
 
-            grid.innerHTML = demos.map(file => {
-                const name = file.replace('.html', '')
-                    .replace(/[_\-]+/g, ' ')
-                    .replace(/\b\w/g, l => l.toUpperCase())
-                    .trim();
-                const rating = (4.5 + Math.random() * 0.5).toFixed(1);
-                const reviews = Math.floor(Math.random() * 400) + 80;
-                return `
-                    <a href="/demos/${file}" target="_blank" class="portfolio-card" style="text-decoration:none;color:inherit;">
-                        <div class="portfolio-preview">
-                            <iframe src="/demos/${file}" loading="lazy"></iframe>
-                        </div>
-                        <div class="portfolio-info">
-                            <div class="portfolio-niche">Proiect Generat AI</div>
-                            <div class="portfolio-name">${name}</div>
-                            <div class="portfolio-meta">
-                                <span class="portfolio-rating">★★★★★</span>
-                                <span>${rating} &middot; ${reviews} recenzii &middot; România</span>
+            // Shuffle available demos
+            demos = demos.sort(() => Math.random() - 0.5);
+
+            // Logic: Fill up to 3 or 6 slots. 
+            // If less than 3, we show 3 spots (some blurred).
+            // If more than 3, we show 6 spots (some blurred if needed).
+            let targetCount = demos.length > 3 ? 6 : 3;
+            let finalDemos = demos.slice(0, targetCount);
+
+            grid.innerHTML = '';
+
+            for (let i = 0; i < targetCount; i++) {
+                const file = finalDemos[i];
+                if (file) {
+                    const name = file.replace('.html', '')
+                        .replace(/[_\-]+/g, ' ')
+                        .replace(/\b\w/g, l => l.toUpperCase())
+                        .trim();
+                    const rating = (4.5 + Math.random() * 0.5).toFixed(1);
+                    const reviews = Math.floor(Math.random() * 400) + 80;
+
+                    grid.innerHTML += `
+                        <a href="/demos/${file}" target="_blank" class="portfolio-card" style="text-decoration:none;color:inherit;">
+                            <div class="portfolio-preview">
+                                <iframe src="/demos/${file}" loading="lazy"></iframe>
+                            </div>
+                            <div class="portfolio-info">
+                                <div class="portfolio-niche">Proiect Generat AI</div>
+                                <div class="portfolio-name">${name}</div>
+                                <div class="portfolio-meta">
+                                    <span class="portfolio-rating">★★★★★</span>
+                                    <span>${rating} &middot; ${reviews} &middot; România</span>
+                                </div>
+                            </div>
+                        </a>
+                    `;
+                } else {
+                    // Placeholder card
+                    grid.innerHTML += `
+                        <div class="portfolio-card coming-soon">
+                            <div class="portfolio-preview"></div>
+                            <div class="portfolio-info">
+                                <div class="portfolio-niche">AI Slot Liber</div>
+                                <div class="portfolio-name">Proiect în Așteptare</div>
+                                <div class="portfolio-meta">
+                                    <span>Rezervat pentru următorul client</span>
+                                </div>
                             </div>
                         </div>
-                    </a>
-                `;
-            }).join('');
+                    `;
+                }
+            }
         }
         loadPortfolio();
 
