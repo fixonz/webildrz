@@ -77,14 +77,17 @@ class WebGenerator:
         """
         
         try:
-            # NEW SDK SYNTAX - Using latest high-speed flash model
+            # NEW SDK SYNTAX - Using latest high-speed Gemini 3 Flash Preview
             response = self.client.models.generate_content(
-                model='gemini-3.0-flash',
+                model='gemini-3-flash-preview',
                 contents=prompt
             )
             html_content = response.text.strip()
-            html_content = re.sub(r'^```html\n?', '', html_content)
-            html_content = re.sub(r'\n?```$', '', html_content)
+            
+            # Robust cleaning of markdown delimiters
+            html_content = re.sub(r'^```(?:html)?\s*', '', html_content, flags=re.MULTILINE)
+            html_content = re.sub(r'```\s*$', '', html_content, flags=re.MULTILINE)
+            html_content = html_content.strip()
 
             if "<!DOCTYPE html>" not in html_content and "<html>" not in html_content:
                  raise ValueError("AI response did not provide valid HTML")
@@ -117,12 +120,14 @@ class WebGenerator:
         
         try:
             response = self.client.models.generate_content(
-                model='gemini-2.0-flash',
+                model='gemini-3-flash-preview',
                 contents=prompt
             )
             enriched_html = response.text.strip()
-            enriched_html = re.sub(r'^```html\n?', '', enriched_html)
-            enriched_html = re.sub(r'\n?```$', '', enriched_html)
+            # Clean here too
+            enriched_html = re.sub(r'^```(?:html)?\s*', '', enriched_html, flags=re.MULTILINE)
+            enriched_html = re.sub(r'```\s*$', '', enriched_html, flags=re.MULTILINE)
+            enriched_html = enriched_html.strip()
 
             if "<!DOCTYPE html>" in enriched_html:
                 return enriched_html
