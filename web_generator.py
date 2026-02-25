@@ -123,7 +123,7 @@ class WebGenerator:
         
         try:
             response = self.client.models.generate_content(
-                model='gemini-3-flash-preview',
+                model='gemini-2.0-flash',
                 contents=prompt
             )
             enriched_html = response.text.strip()

@@ -262,5 +262,18 @@ def start_generation(message):
         bot.send_message(chat_id, f"Oops! A apărut o eroare la generare: {e}\n\nÎncearcă din nou folosind /start.")
 
 if __name__ == '__main__':
-    print("ShapeShift Bot is running...", flush=True)
-    bot.polling(none_stop=True)
+    print(f"🚀 ShapeShift Bot is starting...", flush=True)
+    print(f"👑 ADMIN_ID configured: {ADMIN_ID}", flush=True)
+    print(f"🔗 PUBLIC_URL: {PUBLIC_URL}", flush=True)
+    
+    # Robust polling loop to handle conflicts and restarts
+    while True:
+        try:
+            print("🤖 Bot is now listening for updates...", flush=True)
+            bot.polling(none_stop=True, timeout=60, long_polling_timeout=60)
+        except Exception as e:
+            if "Conflict" in str(e):
+                print("⚠️ Polling Conflict (Error 409). Another instance is likely running. Retrying in 10s...", flush=True)
+            else:
+                print(f"🚨 Polling Error: {e}. Retrying in 5s...", flush=True)
+            time.sleep(10)
