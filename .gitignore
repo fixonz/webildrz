@@ -24,8 +24,6 @@ call_test_result.txt
 preview.py
 agent.py
 pilot.py
-caller.py
-leads.py
 test_leads.py
 _fix_html.py
 cleanup_shapeshift.py
