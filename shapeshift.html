@@ -2158,6 +2158,36 @@
             </h2>
 
             <form id="gen-form">
+                <!-- VERIFICATION SECTION (NEW) -->
+                <div id="verify-section" style="margin-top: 32px; display: none;" class="reveal">
+                    <div
+                        style="background: rgba(108, 99, 255, 0.05); border: 1px dashed var(--premium); padding: 24px; border-radius: 20px; text-align: center;">
+                        <h4 style="margin-bottom: 8px;">🔒 Securitate: Verificare Email</h4>
+                        <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 20px;">Trimitem un cod de
+                            confirmare pentru a valida cererea.</p>
+
+                        <div id="email-step">
+                            <input type="email" id="user-email" placeholder="Email-ul tău..."
+                                style="margin-bottom: 12px; text-align: center;">
+                            <button type="button" class="gen-btn" style="padding: 12px 24px; font-size: 0.9rem;"
+                                onclick="requestEmailCode()">Trimite Codul →</button>
+                        </div>
+
+                        <div id="code-step" style="display: none;">
+                            <input type="text" id="verify-code" placeholder="Codul din 6 cifre..." maxlength="6"
+                                style="margin-bottom: 12px; text-align: center; letter-spacing: 4px; font-weight: 700;">
+                            <button type="button" class="gen-btn" id="final-gen-btn"
+                                style="padding: 12px 24px; font-size: 0.9rem;"
+                                onclick="processFinalGeneration()">Verifică & Generează ✨</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions" id="main-actions">
+                    <button type="submit" class="gen-btn" id="pre-gen-btn">
+                        🚀 Generează Site Gratuit — 60 sec
+                    </button>
+                </div>
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="biz-name">Numele Afacerii *</label>
@@ -3063,10 +3093,71 @@
             return BAD_WORDS.some(word => lower.includes(word));
         }
 
-        // ── Main submit ──
+        // ── Security & Verification ──
+        let isAdmin = false;
+        window.addEventListener('keydown', e => {
+            if (e.altKey && e.shiftKey && e.code === 'KeyA') {
+                isAdmin = !isAdmin;
+                alert(isAdmin ? "ADMIN MODE ACTIVE (Bypass Verification)" : "ADMIN MODE DISABLED");
+            }
+        });
+
+        async function requestEmailCode() {
+            const email = document.getElementById('user-email').value.trim();
+            if (!email || !email.includes('@')) {
+                alert('Te rugăm să introduci un email valid.');
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/verify/request', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    document.getElementById('email-step').style.display = 'none';
+                    document.getElementById('code-step').style.display = 'block';
+                    alert('Codul a fost trimis! Verifică consola (sau email-ul în varianta finală).');
+                } else {
+                    alert('Eroare: ' + data.error);
+                }
+            } catch (err) {
+                alert('Eroare la trimiterea codului.');
+            }
+        }
+
+        async function processFinalGeneration() {
+            const email = document.getElementById('user-email').value.trim();
+            const code = document.getElementById('verify-code').value.trim();
+
+            if (code.length < 6) return alert('Introdu codul din 6 cifre.');
+
+            // Start generation with verification data
+            triggerGeneration(email, code);
+        }
+
+        // ── Main submit logic changed ──
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
+            // Basic validation
+            if (!document.getElementById('biz-name').value) return document.getElementById('biz-name').focus();
+            if (!document.getElementById('biz-phone').value) return document.getElementById('biz-phone').focus();
+
+            if (isAdmin) {
+                triggerGeneration('admin@webdone.ro', '000000'); // Mock data for internal skip
+            } else {
+                // Show verification section
+                document.getElementById('main-actions').style.display = 'none';
+                document.getElementById('verify-section').style.display = 'block';
+                document.getElementById('verify-section').classList.add('active');
+                document.getElementById('verify-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+
+        async function triggerGeneration(vEmail, vCode) {
             const bizName = document.getElementById('biz-name').value.trim();
             const bizPhone = document.getElementById('biz-phone').value.trim();
             const bizCategory = document.getElementById('biz-category').value || 'General';
@@ -3180,7 +3271,12 @@ Returnează DOAR codul HTML complet (fără markdown) care începe cu <!DOCTYPE 
                 const res = await fetch('/api/generate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt, biz_name: bizName })
+                    body: JSON.stringify({
+                        prompt,
+                        biz_name: bizName,
+                        email: vEmail,
+                        code: vCode
+                    })
                 });
                 if (!res.ok) throw new Error(`Server error: ${res.status}`);
                 const data = await res.json();
@@ -3227,7 +3323,7 @@ Returnează DOAR codul HTML complet (fără markdown) care începe cu <!DOCTYPE 
                 // Scroll to result
                 resultArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, 600);
-        });
+        }
 
         btnNew.addEventListener('click', () => { resetUI(); form.reset(); logoBase64 = ''; removeLogo({ stopPropagation: () => { } }); document.getElementById('site-id-card').style.display = 'none'; });
 

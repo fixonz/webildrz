@@ -18,7 +18,7 @@ load_dotenv()
 app = Flask(__name__, static_folder='.')
 CORS(app)
 
-from core import increment_counter, generate_and_save, SITES_DIR, GEN_DIR, BASE_DIR
+from core import increment_counter, generate_and_save, SITES_DIR, GEN_DIR, BASE_DIR, send_verification_code, verify_code, notify_admin_site_created
 
 # --- BAD WORDS FILTER ---
 BAD_WORDS = [
@@ -87,6 +87,25 @@ def get_stats():
 def health():
     return jsonify({"status": "ok", "path": SITES_DIR, "gemini_ready": client is not None})
 
+@app.route('/api/verify/request', methods=['POST'])
+def request_verification():
+    data = request.get_json()
+    email = data.get('email')
+    if not email or '@' not in email:
+        return jsonify({"error": "Email valid necesar"}), 400
+    
+    send_verification_code(email)
+    return jsonify({"success": True, "message": "Cod trimis pe email (verifică consola în Beta)"})
+
+@app.route('/api/verify/check', methods=['POST'])
+def check_verification():
+    data = request.get_json()
+    email = data.get('email')
+    code = data.get('code')
+    if verify_code(email, code):
+        return jsonify({"success": True})
+    return jsonify({"error": "Cod incorect"}), 400
+
 @app.route('/api/generate', methods=['POST'])
 def generate_site():
     if not client:
@@ -101,6 +120,13 @@ def generate_site():
         return jsonify({"error": "Offensive content detected. Please keep it professional."}), 400
 
     try:
+        email = data.get('email')
+        code = data.get('code')
+        
+        # In a real SaaS, we'd check if the user is already verified in a session
+        if not verify_code(email, code):
+             return jsonify({"error": "Eroare de verificare. Cere un alt cod."}), 403
+
         biz_data = {
             "name": biz_name,
             "category": biz_category,
@@ -110,6 +136,11 @@ def generate_site():
         }
         
         site_id, filename = generate_and_save(biz_data)
+        
+        # Notify Admin
+        public_url = os.getenv("PUBLIC_URL", "http://localhost:5000")
+        site_url = f"{public_url}/demos/{filename}"
+        notify_admin_site_created(biz_name, site_id, site_url)
         
         print(f"GENERATED: {filename}", flush=True)
         return jsonify({"site_id": site_id, "filename": filename})
