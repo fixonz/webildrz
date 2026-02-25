@@ -80,9 +80,9 @@ class WebGenerator:
         """
         
         try:
-            # NEW SDK SYNTAX - Using latest stable high-speed flash model
+            # NEW SDK SYNTAX - Using latest high-speed stable model
             response = self.client.models.generate_content(
-                model='gemini-2.0-flash',
+                model='gemini-2.5-flash',
                 contents=prompt
             )
             html_content = response.text.strip()
@@ -123,7 +123,7 @@ class WebGenerator:
         
         try:
             response = self.client.models.generate_content(
-                model='gemini-2.0-flash',
+                model='gemini-2.5-flash',
                 contents=prompt
             )
             enriched_html = response.text.strip()
