@@ -58,28 +58,28 @@ class WebGenerator:
         Rating Google: {rating}⭐ ({reviews_count} recenzii)
         {extra_block}
         
-        CERINȚE TEHNICE OBLIGATORII:
-        1. FAVICON: Trebuie să incluzi un favicon relevant.
-        2. BRANDING "WEB? DONE!" în Footer.
-        3. DIVERSITATE CROMATICĂ: Culori premium, moderne, potrivite nișei.
-        4. IMAGINI (OBLIGATORIU 8-10 POZE): 
+        CERINȚE TEHNICE OBLIGATORII (PRIORITATE MAXIMĂ MOBILE):
+        1. MOBILE-FIRST DESIGN: Design-ul trebuie să fie PERFECT pe telefon. Folosește containere flexibile, fonturi lizibile pe ecrane mici și butoane mari, ușor de apăsat.
+        2. FAVICON: Trebuie să incluzi un favicon relevant.
+        3. BRANDING "WEB? DONE!" în Footer.
+        4. DIVERSITATE CROMATICĂ: Culori premium, moderne, potrivite nișei.
+        5. IMAGINI (OBLIGATORIU 8-10 POZE): 
            - Hero Background Cinematic.
            - Service Cards specific imagery.
            - O secțiune "Galerie" sau "Atmosferă" cu 4-6 imagini.
            - Folosește Unsplash cu termeni de căutare preciși.
-        5. VISUAL RICHNESS: 
+        6. VISUAL RICHNESS: 
            - Design VIBRANT, Image-First, cu spații largi între secțiuni.
            - Folosește overlay-uri subtile de gradient peste imagini.
-        6. SOCIAL MEDIA: Dacă au fost oferite link-uri în 'INFORMAȚII SUPLIMENTARE', include-le cu iconițe oficiale în subsol.
-        7. MOBILE-FIRST absolut.
+        7. SOCIAL MEDIA: Dacă au fost oferite link-uri în 'INFORMAȚII SUPLIMENTARE', include-le cu iconițe oficiale în subsol.
 
         Returnează DOAR codul HTML complet (fără ```html). Începe cu <!DOCTYPE html>.
         """
         
         try:
-            # NEW SDK SYNTAX
+            # NEW SDK SYNTAX - Updated to Flash experimental for guaranteed access
             response = self.client.models.generate_content(
-                model='gemini-2.0-flash',
+                model='gemini-2.0-flash-exp',
                 contents=prompt
             )
             html_content = response.text.strip()
@@ -92,7 +92,7 @@ class WebGenerator:
             return html_content
         except Exception as e:
             print(f"CRITICAL ERROR (Mobile Fix): {e}")
-            return f"<!DOCTYPE html><html><body style='padding:20px; font-family:sans-serif;'><h1>{biz_data['name']}</h1><p>Contact: {biz_data['phone']}</p></body></html>"
+            return f"<!DOCTYPE html><html><body style='padding:40px; font-family:sans-serif; text-align:center;'><h1>{biz_data['name']}</h1><p>Contact: {biz_data['phone']}</p><p style='color:red;'>AI Generation Failed. Please try again.</p></body></html>"
 
     def enrich_html_with_links(self, html_content, extra_info):
         """Surgically injects or updates links in existing HTML using a focused AI call."""
@@ -105,18 +105,19 @@ class WebGenerator:
 
         REGULI:
         1. NU MODIFICA Design-ul, Culorile sau Structura principală.
-        2. Caută secțiunea de 'Contact' sau 'Footer' și inserează link-urile folosind iconițe sociale (FontAwesome sau simple SVGs).
-        3. Dacă link-urile există deja, actualizează-le cu noile valori.
-        4. Returnează codul HTML COMPLET actualizat.
-        5. Fără ```html, începe direct cu <!DOCTYPE html>.
+        2. Menține optimizarea MOBILE existentă.
+        3. Caută secțiunea de 'Contact' sau 'Footer' și inserează link-urile folosind iconițe sociale (FontAwesome sau simple SVGs).
+        4. Dacă link-urile există deja, actualizează-le cu noile valori.
+        5. Returnează codul HTML COMPLET actualizat.
+        6. Fără ```html, începe direct cu <!DOCTYPE html>.
 
         COD SURSĂ:
-        {html_content[:30000]} # Cap to avoid context overflow for very large files
+        {html_content[:30000]}
         """
         
         try:
             response = self.client.models.generate_content(
-                model='gemini-2.0-flash',
+                model='gemini-2.0-flash-exp',
                 contents=prompt
             )
             enriched_html = response.text.strip()
