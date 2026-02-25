@@ -1,1 +1,1 @@
-web: gunicorn shapeshift_server:app
+web: bash start.sh

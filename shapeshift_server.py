@@ -18,12 +18,7 @@ load_dotenv()
 app = Flask(__name__, static_folder='.')
 CORS(app)
 
-# Use ABSOLUTE path for SITES_DIR
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-SITES_DIR = os.path.join(BASE_DIR, 'demos')
-GEN_DIR   = os.path.join(BASE_DIR, 'generated_sites')
-os.makedirs(SITES_DIR, exist_ok=True)
-os.makedirs(GEN_DIR, exist_ok=True)
+from core import increment_counter, generate_and_save, SITES_DIR, GEN_DIR, BASE_DIR
 
 # --- BAD WORDS FILTER ---
 BAD_WORDS = [
@@ -92,58 +87,32 @@ def get_stats():
 def health():
     return jsonify({"status": "ok", "path": SITES_DIR, "gemini_ready": client is not None})
 
-def increment_counter():
-    stats_path = os.path.join(BASE_DIR, 'stats.json')
-    try:
-        if os.path.exists(stats_path):
-            with open(stats_path, 'r') as f:
-                stats = json.load(f)
-        else:
-            stats = {"sites_created": 149}
-        
-        stats["sites_created"] += 1
-        
-        with open(stats_path, 'w') as f:
-            json.dump(stats, f)
-    except Exception as e:
-        print(f"Counter Error: {e}")
-
 @app.route('/api/generate', methods=['POST'])
 def generate_site():
     if not client:
         return jsonify({"error": "Gemini not configured — check API key"}), 503
     
     data = request.get_json()
-    prompt = data.get('prompt', '')
     biz_name = data.get('biz_name', 'Business')
+    biz_category = data.get('biz_category', 'Afacere')
+    prompt = data.get('prompt', f"Nume: {biz_name}, Nisa: {biz_category}")
 
     if contains_bad_words(prompt) or contains_bad_words(biz_name):
         return jsonify({"error": "Offensive content detected. Please keep it professional."}), 400
 
     try:
-        # NEW SDK SYNTAX
-        response = client.models.generate_content(
-            model='gemini-2.0-flash', # Using stable high-speed flash
-            contents=prompt
-        )
-        html = response.text.strip()
-        html = re.sub(r'^```html\n?', '', html)
-        html = re.sub(r'\n?```$', '', html)
+        biz_data = {
+            "name": biz_name,
+            "category": biz_category,
+            "address": data.get("biz_address", "România"),
+            "phone": data.get("biz_phone", ""),
+            "reviews": [], "rating": 5, "reviews_count": 0
+        }
         
-        site_id = str(uuid.uuid4())[:8].upper()
-        clean_biz = re.sub(r'[^a-zA-Z0-9]', '_', biz_name).lower()
-        filename = f"{clean_biz}_{site_id}.html"
+        site_id, filename = generate_and_save(biz_data)
         
-        # Save to demos/ (served by Flask) AND generated_sites/ (compatibility)
-        for save_dir in [SITES_DIR, GEN_DIR]:
-            with open(os.path.join(save_dir, filename), 'w', encoding='utf-8') as f:
-                f.write(html)
-        
-        # Increment counter
-        increment_counter()
-        
-        print(f"GENERATED: {filename} ({len(html)} chars)", flush=True)
-        return jsonify({"html": html, "site_id": site_id, "filename": filename})
+        print(f"GENERATED: {filename}", flush=True)
+        return jsonify({"site_id": site_id, "filename": filename})
     except Exception as e:
         print(f"GENERATE ERROR: {type(e).__name__}: {e}", flush=True)
         return jsonify({"error": str(e)}), 500
