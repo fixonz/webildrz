@@ -1,7 +1,7 @@
 import os
 import telebot
 from telebot import types
-from core import generate_and_save, update_site_links
+from core import generate_and_save, update_site_links, send_verification_code, verify_code, notify_admin_site_created
 from leads import LeadGenerator
 from caller import ColdCaller
 import threading
@@ -100,7 +100,37 @@ def handle_info_steps(message):
     
     if step == 'social':
         user_sessions[chat_id]['extra_info'] = message.text
-        start_generation(message)
+        
+        # Security: Check if Admin or if we need verification
+        if chat_id == ADMIN_ID:
+            start_generation(message)
+        else:
+            user_sessions[chat_id]['step'] = 'verify_email'
+            bot.send_message(chat_id, "🔒 **Securitate**: Pentru a preveni abuzurile, te rugăm să introduci adresa de email pentru a primi un cod de confirmare.", parse_mode='Markdown')
+            
+    elif step == 'verify_email':
+        email = message.text.lower().strip()
+        if '@' not in email:
+            bot.send_message(chat_id, "⚠️ Te rog introdu o adresă de email validă.")
+            return
+            
+        user_sessions[chat_id]['email'] = email
+        code = send_verification_code(email)
+        user_sessions[chat_id]['step'] = 'verify_code'
+        bot.send_message(chat_id, f"📧 Am trimis un cod de 6 cifre pe `{email}`.\n\nTe rugăm să îl scrii aici pentru a confirma identitatea.", parse_mode='Markdown')
+        # Note: In Beta, the user would need to see the server logs for the code, 
+        # but for internal testing we can hint at it or use a fixed trial code.
+        
+    elif step == 'verify_code':
+        email = user_sessions[chat_id].get('email')
+        code = message.text.strip()
+        
+        if verify_code(email, code):
+            bot.send_message(chat_id, "✅ Verificat cu succes!")
+            start_generation(message)
+        else:
+            bot.send_message(chat_id, "❌ Cod incorect. Mai încearcă o dată sau trimite /start pentru a reseta.")
+
     elif step == 'edit_info':
         site_id = user_sessions[chat_id].get('last_site_id')
         bot.send_message(chat_id, "⚡ Actualizăm link-urile... Stai așa.")
@@ -213,6 +243,9 @@ def start_generation(message):
         
         # Save site_id for future /edit calls
         user_sessions[chat_id]['last_site_id'] = site_id
+        
+        # Notify Admin about the new site
+        notify_admin_site_created(biz_data['name'], site_id, url, chat_id=chat_id)
         
         caption = f"Gata! 🎉 Site-ul tău e live.\n\n🔗 [Vizualizează Site-ul]({url})\n🔑 **Cod unic:** `{site_id}`\n\nDacă vrei să schimbi link-urile, scrie /edit. 🚀"
         bot.send_message(chat_id, caption, parse_mode='Markdown')
