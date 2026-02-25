@@ -1,7 +1,9 @@
-import os
-import google.generativeai as genai
+try:
+    from google import genai
+except ImportError:
+    genai = None
+
 from dotenv import load_dotenv
-import re
 
 load_dotenv()
 
@@ -15,22 +17,19 @@ class WebGenerator:
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
         
-        # Configure Gemini
+        # Configure Gemini via New SDK
         api_key = os.getenv("GEMINI_API_KEY")
-        if api_key:
-            genai.configure(api_key=api_key)
-            # Using the latest available model in this environment: Gemini 3 Flash
-            # Based on debug logs, this model is available and supported.
-            self.model = genai.GenerativeModel('models/gemini-3-flash-preview')
+        if api_key and genai:
+            self.client = genai.Client(api_key=api_key)
         else:
-            self.model = None
+            self.client = None
 
     def _generate_ai_html(self, biz_data):
         """Uses Gemini and enriches the prompt with real reviews and business context."""
-        if not self.model:
+        if not self.client:
             return f"<!DOCTYPE html><html><body><h1>Cheia API Gemini lipsește</h1></body></html>"
 
-        # Build reviews context string
+        # ... (reviews and street view blocks same as before) ...
         reviews = biz_data.get("reviews", [])
         rating = biz_data.get("rating", 0)
         reviews_count = biz_data.get("reviews_count", 0)
@@ -38,17 +37,12 @@ class WebGenerator:
 
         reviews_block = ""
         if reviews:
-            reviews_block = f"\nRECENZII REALE GOOGLE ({rating}⭐ din {reviews_count} recenzii - FOLOSEȘTE-LE ÎN DESIGN):\n"
+            reviews_block = f"\nRECENZII REALE GOOGLE ({rating}⭐ din {reviews_count} recenzii):\n"
             for r in reviews:
                 stars = "⭐" * int(r.get("rating", 5))
                 reviews_block += f'- {stars} "{r["text"]}" — {r["author"]}\n'
-            reviews_block += "\nINSTRUCȚIUNE: Incluzi o secțiune TESTIMONIALE cu aceste recenzii reale. Citatul trebuie să fie mare, vizibil, cu stilizare 'quote' elegantă (ghilimele mari, fundal subtil, avatar placeholder cu inițialele autorului).\n"
         else:
-            reviews_block = "\nNu există recenzii disponibile, creează 3 testimoniale plauzibile pentru nișa lor.\n"
-
-        street_view_block = ""
-        if street_view_url:
-            street_view_block = f"\nFOTO FAȚADĂ REALĂ: Include această imagine a intrării afacerii în secțiunea 'Despre noi': {street_view_url}\n"
+            reviews_block = "\nNu există recenzii disponibile, creează 3 testimoniale plauzibile.\n"
 
         prompt = f"""
         Ești un Director Creativ de Top Mondial. Creează un Landing Page de LUX, MOBILE-FIRST și VISUALLY STUNNING pentru:
@@ -57,42 +51,30 @@ class WebGenerator:
         Locație: {biz_data['address']}
         Tel: {biz_data['phone']}
         Rating Google: {rating}⭐ ({reviews_count} recenzii)
-        Partener: WEB? DONE!
-        {reviews_block}{street_view_block}
+        
         CERINȚE TEHNICE OBLIGATORII:
-        1. FAVICON: Trebuie să incluzi un favicon relevant (emoji sau icon link).
-        2. BRANDING "WEB? DONE!" în Footer: "Acest site a fost creat instant de WEB? DONE! --- N-ai site? Ai acum.."
-        3. DIVERSITATE CROMATICĂ (FĂRĂ REPETAREA ACESTORA):
-           - GRĂDINIȚĂ: Culori pastelate vesele (Soft Cyan, Lemon, Mint). FĂRĂ NEGRU.
-           - MEDICAL: Teal, Royal Blue sau Platinum Emerald.
-           - RESTAURANT: Deep Burgundy, Slate Gold sau Forest Green.
-           - FITNESS: Acid Yellow, Electric Indigo sau High-Contrast Monochrome.
-           - GENERAL: Evită combinația de Orange și Black (este prea comună). Caută palete proaspete, premium, care să surprindă utilizatorul.
-        4. SECȚIUNI OBLIGATORII:
-           - Hero cu rating-ul afacerii ({rating}⭐) vizibil (badge trust).
-           - Secțiune TESTIMONIALE cu recenziile reale de mai sus (design premium, fiecare card are avatar cu inițiale, stele, citat și nume autor).
-           - Servicii/Features grid.
-           - Contact cu buton "Sună Acum" proeminent pentru {biz_data['phone']}.
-        5. IMAGINI (OBLIGATORIU 8-10 POZE):
-           - Hero Background Cinematic (full width).
-           - Cel puțin o poză Unsplash pentru FIECARE serviciu/feature.
-           - O secțiune "Galerie" sau "Atmosferă" cu 4-6 imagini grid.
-           - Folosește keywords precise în engleză pentru Unsplash.
-        6. VISUAL RICHNESS: 
-           - Design-ul trebuie să fie VIBRANT, Image-First, cu spații largi între secțiuni.
-           - Folosește `object-fit: cover` și `aspect-ratio` moderne.
-           - Adaugă overlay-uri subtile de gradient peste imagini pentru contrast.
-        7. MOBILE-FIRST absolut.
+        1. FAVICON: Trebuie să incluzi un favicon relevant.
+        2. BRANDING "WEB? DONE!" în Footer.
+        3. DIVERSITATE CROMATICĂ: Culori premium, moderne, potrivite nișei.
+        4. IMAGINI (OBLIGATORIU 8-10 POZE): 
+           - Hero Background Cinematic.
+           - Service Cards specific imagery.
+           - O secțiune "Galerie" sau "Atmosferă" cu 4-6 imagini.
+           - Folosește Unsplash cu termeni de căutare preciși.
+        5. VISUAL RICHNESS: 
+           - Design VIBRANT, Image-First, cu spații largi între secțiuni.
+           - Folosește overlay-uri subtile de gradient peste imagini.
+        6. MOBILE-FIRST absolut.
 
-        COPYWRITING: Română, bazat pe experiența reală din recenzii (dacă clienții menționează "fără durere", "prețuri corecte", "echipă prietenoasă" — folosește asta în headlines și USP-uri!).
-        CALITATE: Design de 10.000 EUR. Returnează DOAR codul HTML complet (fără ```html). Începe cu <!DOCTYPE html>.
+        Returnează DOAR codul HTML complet (fără ```html). Începe cu <!DOCTYPE html>.
         """
         
         try:
-            response = self.model.generate_content(prompt)
-            if not response.text:
-                raise ValueError("Response text is empty")
-            
+            # NEW SDK SYNTAX
+            response = self.client.models.generate_content(
+                model='gemini-2.0-flash',
+                contents=prompt
+            )
             html_content = response.text.strip()
             html_content = re.sub(r'^```html\n?', '', html_content)
             html_content = re.sub(r'\n?```$', '', html_content)

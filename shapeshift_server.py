@@ -5,9 +5,9 @@ from flask import Flask, request, jsonify, send_from_directory, send_file
 from flask_cors import CORS
 import os, re, uuid, json, sys, random
 
-# Try to import Gemini only if available
+# New SDK import
 try:
-    import google.generativeai as genai
+    from google import genai
 except ImportError:
     genai = None
 
@@ -21,12 +21,11 @@ CORS(app)
 # Use ABSOLUTE path for SITES_DIR
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SITES_DIR = os.path.join(BASE_DIR, 'demos')
-GEN_DIR   = os.path.join(BASE_DIR, 'generated_sites')  # also save here for compatibility
+GEN_DIR   = os.path.join(BASE_DIR, 'generated_sites')
 os.makedirs(SITES_DIR, exist_ok=True)
 os.makedirs(GEN_DIR, exist_ok=True)
 
 # --- BAD WORDS FILTER ---
-# A basic list of offensive words to reject immediately
 BAD_WORDS = [
     "pula", "pizda", "muie", "futu-te", "fututi", "jeg", "cacat", "cur", "sugi", 
     "nigger", "faggot", "hitler", "nazi", "porn", "xxx", "sex", "escort"
@@ -40,23 +39,15 @@ def contains_bad_words(text):
             return True
     return False
 
-# Configure Gemini — try best available model
+# Configure Gemini via New SDK
 api_key = os.getenv("GEMINI_API_KEY")
-model = None
+client = None
 if api_key and genai:
-    genai.configure(api_key=api_key)
-    # Try models in preference order
-    for model_name in ['models/gemini-2.5-pro', 'models/gemini-2.0-flash', 'models/gemini-flash-latest']:
-        try:
-            model = genai.GenerativeModel(model_name)
-            # Quick validate by listing (doesn't cost tokens)
-            print(f"READY: ShapeShift Engine Loaded: {model_name}", flush=True)
-            break
-        except Exception as e:
-            print(f"SKIP: {model_name} — {e}", flush=True)
-            model = None
-    if not model:
-        print("ERROR: No working Gemini model found!", flush=True)
+    try:
+        client = genai.Client(api_key=api_key)
+        print("READY: ShapeShift Engine Loaded (New SDK)", flush=True)
+    except Exception as e:
+        print(f"ERROR: Gemini Init — {e}", flush=True)
 
 @app.route('/')
 def index():
@@ -99,7 +90,7 @@ def get_stats():
 
 @app.route('/api/health')
 def health():
-    return jsonify({"status": "ok", "path": SITES_DIR, "gemini_ready": model is not None})
+    return jsonify({"status": "ok", "path": SITES_DIR, "gemini_ready": client is not None})
 
 def increment_counter():
     stats_path = os.path.join(BASE_DIR, 'stats.json')
@@ -119,19 +110,22 @@ def increment_counter():
 
 @app.route('/api/generate', methods=['POST'])
 def generate_site():
-    if not model:
-        return jsonify({"error": "Gemini not configured — check API key and model availability"}), 503
+    if not client:
+        return jsonify({"error": "Gemini not configured — check API key"}), 503
     
     data = request.get_json()
     prompt = data.get('prompt', '')
     biz_name = data.get('biz_name', 'Business')
 
-    # Security: Filter offensive content
     if contains_bad_words(prompt) or contains_bad_words(biz_name):
         return jsonify({"error": "Offensive content detected. Please keep it professional."}), 400
 
     try:
-        response = model.generate_content(prompt)
+        # NEW SDK SYNTAX
+        response = client.models.generate_content(
+            model='gemini-2.0-flash', # Using stable high-speed flash
+            contents=prompt
+        )
         html = response.text.strip()
         html = re.sub(r'^```html\n?', '', html)
         html = re.sub(r'\n?```$', '', html)
