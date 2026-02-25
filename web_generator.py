@@ -47,7 +47,10 @@ class WebGenerator:
             reviews_block = "\nNu există recenzii disponibile, creează 3 testimoniale plauzibile.\n"
 
         extra_info = biz_data.get("extra_info", "")
-        extra_block = f"\nINFORMAȚII SUPLIMENTARE / SOCIAL MEDIA:\n{extra_info}\n" if extra_info else ""
+        extra_block = f"\nDETALII IMPORTANTE DE LA CLIENT (Folosește-le în text!):\n{extra_info}\n" if extra_info else ""
+        
+        logo_base64 = biz_data.get("logo_base64")
+        logo_block = f"\nLOGO CLIENT (Include-l în Navbar și Hero): <img src='{logo_base64}' alt='Logo {biz_data['name']}' style='max-height:80px;'>\n" if logo_base64 else ""
 
         prompt = f"""
         Ești un Director Creativ de Top Mondial. Creează un Landing Page de LUX, MOBILE-FIRST și VISUALLY STUNNING pentru:
@@ -55,12 +58,15 @@ class WebGenerator:
         Nișă: {biz_data['category']}
         Locație: {biz_data['address']}
         Tel: {biz_data['phone']}
-        Rating Google: {rating}⭐ ({reviews_count} recenzii)
+        {logo_block}
+        {reviews_block}
         {extra_block}
         
-        CERINȚE TEHNICE OBLIGATORII (PRIORITATE MAXIMĂ MOBILE):
-        1. MOBILE-FIRST DESIGN: Design-ul trebuie să fie PERFECT pe telefon. Folosește containere flexibile, fonturi lizibile pe ecrane mici și butoane mari, ușor de apăsat.
-        2. AI GENERATED BANNER: Adaugă OBLIGATORIU la începutul body-ului un banner discret dar vizibil (float/sticky la top) care să specifice: "PROIECT GENERAT AI (BETA) - Acest site este o versiune preliminară. Abonează-te pentru a debloca versiunea completă și editările personalizate. [RECLAMĂ SITE-UL]". Folosește glassmorphism pentru banner.
+        CERINȚE ȘI RESTRICȚII CRITICE:
+        1. FOCUS PE CLIENT: Folosește DOAR informațiile furnizate. NU menționa sursa datelor (ex: NU scrie 'Telegram', 'Bot', 'AI generated via...', etc).
+        2. LOGO: Dacă logo-ul este furnizat (tag-ul img de mai sus), pune-l în Navbar (stânga) și în secțiunea Hero.
+        3. MOBILE-FIRST: Design perfect pe telefon. Fonturi mari, butoane accesibile.
+        4. BANNER BETA: Adaugă la începutul body-ului un banner discret: "PROIECT ÎN LUCRU (BETA) - N-AI WEB? AI ACUM! [DESIGN EXPERIMENTAL]".
         3. FAVICON: Trebuie să incluzi un favicon relevant.
         4. BRANDING "WEB? DONE!" în Footer.
         5. DIVERSITATE CROMATICĂ: Culori premium, moderne, potrivite nișei.

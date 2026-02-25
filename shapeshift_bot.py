@@ -1,5 +1,7 @@
 import os
 import telebot
+import base64
+import io
 from telebot import types
 from core import generate_and_save, update_site_links, send_verification_code, verify_code, notify_admin_site_created
 from leads import LeadGenerator
@@ -74,8 +76,30 @@ def get_biz_category(message):
 @bot.message_handler(content_types=['photo', 'document'], func=lambda m: user_sessions.get(m.chat.id, {}).get('step') == 'media')
 def get_biz_media(message):
     chat_id = message.chat.id
-    user_sessions[chat_id]['step'] = 'social'
-    bot.send_message(chat_id, "Am primit media! ✅ Va arăta super pe site.\n\nMai avem un ultim pas: ai link-uri de **Facebook, Instagram** sau alte info pe care vrei să le includem? Scrie-le aici sau trimite /skip.", reply_markup=types.ReplyKeyboardRemove(), parse_mode='Markdown')
+    try:
+        # Get the highest resolution photo
+        if message.content_type == 'photo':
+            file_id = message.photo[-1].file_id
+        else:
+            file_id = message.document.file_id
+            
+        file_info = bot.get_file(file_id)
+        downloaded_file = bot.download_file(file_info.file_path)
+        
+        # Convert to Base64
+        encoded_string = base64.b64encode(downloaded_file).decode('utf-8')
+        # Check if it's an image
+        ext = file_info.file_path.split('.')[-1].lower()
+        if ext in ['jpg', 'jpeg', 'png', 'webp']:
+            mime = f"image/{ext if ext != 'jpg' else 'jpeg'}"
+            user_sessions[chat_id]['logo_base64'] = f"data:{mime};base64,{encoded_string}"
+            
+        user_sessions[chat_id]['step'] = 'social'
+        bot.send_message(chat_id, "Imaginea a fost primită! ✅ Va fi integrată în design.\n\nMai avem un ultim pas: ai link-uri de **Facebook, Instagram** sau alte info (program, servicii specifice) pe care vrei să le includem? Scrie-le aici sau trimite /skip.", reply_markup=types.ReplyKeyboardRemove(), parse_mode='Markdown')
+    except Exception as e:
+        print(f"MEDIA ERROR: {e}")
+        bot.send_message(chat_id, "⚠️ Am avut o problemă la procesarea imaginii. Vom folosi poze AI premium, dar poți continua.")
+        user_sessions[chat_id]['step'] = 'social'
 
 @bot.message_handler(commands=['skip'])
 def skip_step(message):
@@ -238,10 +262,11 @@ def start_generation(message):
     biz_data = {
         "name": data.get('name', 'Afacere'),
         "category": data.get('category', 'General'),
-        "address": "Din Telegram Bot",
+        "address": "România", # Generic, AI will refine based on context
         "phone": "Contact rapid",
         "reviews": [], "rating": 5, "reviews_count": 0,
-        "extra_info": data.get('extra_info', '')
+        "extra_info": data.get('extra_info', ''),
+        "logo_base64": data.get('logo_base64')
     }
     
     try:
