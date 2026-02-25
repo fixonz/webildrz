@@ -80,7 +80,7 @@ class WebGenerator:
         """
         
         try:
-            # NEW SDK SYNTAX - Using latest high-speed stable model
+            # NEW SDK SYNTAX - Using Gemini 2.5 Flash as verified available
             response = self.client.models.generate_content(
                 model='gemini-2.5-flash',
                 contents=prompt

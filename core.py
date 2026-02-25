@@ -4,6 +4,7 @@ import re
 import uuid
 import random
 import requests
+import resend
 from datetime import datetime
 from web_generator import WebGenerator
 
@@ -16,23 +17,61 @@ os.makedirs(SITES_DIR, exist_ok=True)
 os.makedirs(GEN_DIR, exist_ok=True)
 
 # Temporary in-memory storage for verification codes
-# In production, use Redis or a database
 verification_codes = {}
 
 def send_verification_code(email):
-    """Generates and 'sends' a verification code."""
+    """Generates and sends a verification code via Resend or Admin Telegram."""
     code = str(random.randint(100000, 999999))
     verification_codes[email] = {
         "code": code,
         "timestamp": datetime.now()
     }
-    # For now, we just print it to the console/logs. 
-    # In a real app, you'd use an email API (SendGrid, Mailgun) here.
-    print(f"📧 EMAIL VERIFICATION: [{code}] sent to {email}")
+    
+    resend_key = os.getenv("RESEND_API_KEY")
+    sent_via_email = False
+    
+    if resend_key:
+        try:
+            resend.api_key = resend_key
+            resend.Emails.send({
+                "from": "ShapeShift AI <onboarding@resend.dev>",
+                "to": [email],
+                "subject": f"Codul tău ShapeShift: {code}",
+                "html": f"""
+                <div style="font-family: sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
+                    <h2 style="color: #6C63FF;">Salut! 🤖</h2>
+                    <p>Codul tău de verificare pentru generarea site-ului este:</p>
+                    <div style="font-size: 32px; font-weight: bold; letter-spacing: 5px; color: #1a1a2e; margin: 20px 0;">{code}</div>
+                    <p style="color: #666; font-size: 14px;">Dacă nu tu ai cerut acest cod, poți ignora acest email.</p>
+                    <hr>
+                    <p style="font-size: 12px; color: #aaa;">WEB? DONE! — N-ai site? Ai acum.</p>
+                </div>
+                """
+            })
+            sent_via_email = True
+            print(f"📧 EMAIL SENT to {email}")
+        except Exception as e:
+            print(f"❌ Resend Error: {e}")
+
+    # Fallback/Mirror: Always notify Admin so they can give the code manually if email fails
+    admin_id = os.getenv("ADMIN_ID")
+    bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
+    if admin_id and bot_token:
+        try:
+            msg = f"🔑 **COD VERIFICARE NOU**\n\n📧 Email: `{email}`\n🔢 Cod: `{code}`\n\n{'✅ Trimis pe email' if sent_via_email else '⚠️ Eroare Email - Trimite-l manual!'}"
+            api_url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+            requests.post(api_url, json={"chat_id": admin_id, "text": msg, "parse_mode": "Markdown"})
+        except Exception as e:
+            print(f"Admin Notify Error: {e}")
+
     return code
 
 def verify_code(email, user_code):
     """Checks if the code is correct."""
+    # MASTER CODE for easy testing during Beta
+    if str(user_code) == "772517":
+        return True
+        
     if email in verification_codes:
         saved = verification_codes[email]
         if saved["code"] == str(user_code):

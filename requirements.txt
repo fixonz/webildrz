@@ -5,3 +5,4 @@ python-dotenv
 gunicorn
 pyTelegramBotAPI
 requests
+resend
