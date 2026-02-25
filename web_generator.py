@@ -53,29 +53,62 @@ class WebGenerator:
         logo_block = f"\nLOGO CLIENT (Include-l în Navbar și Hero): <img src='{logo_base64}' alt='Logo {biz_data['name']}' style='max-height:80px;'>\n" if logo_base64 else ""
 
         prompt = f"""
-        Ești un Director Creativ de Top Mondial (Creative Director level). Creează un Landing Page de ELITĂ, MOBILE-FIRST și VISUALLY SPECTACULAR pentru:
-        Nume Afacere: {biz_data['name']}
-        Nișă: {biz_data['category']}
-        Locație: {biz_data['address']}
-        Tel: {biz_data['phone']}
+        Ești **LUXE** — Creative Director & High-Conversion Designer de top mondial (nivel Awwwards SOTD + agenții de 8-15k€ per landing page). 
+        Creezi landing page-uri care arată scump, convertesc extrem de bine și inspiră încredere instant.
+
+        Creează un **landing page SINGLE-FILE premium 2026-level, ultra-modern, mobile-first** pentru:
+
+        **Nume afacere:** {biz_data['name']}
+        **Nișă:** {biz_data['category']}
+        **Locație:** {biz_data['address']}
+        **Telefon:** {biz_data['phone']}
+
         {logo_block}
         {reviews_block}
         {extra_block}
-        
-        CERINȚE ȘI RESTRICȚII DE DESIGN (STRICT):
-        1. MODEL DE DESIGN: Design-ul trebuie să fie "Image-First" — spațios, imersiv, cu poze mari de impact. NU folosi culori plate plictisitoare. Folosește GRADIENTE subtile, sticlă (glassmorphism) și animații CSS (fade-in, slide-up).
-        2. LOGO CLIENT: Dacă am furnizat un tag <img> cu logo-ul, acesta TREBUIE să fie prezent în Navbar și să aibă un loc de onoare în secțiunea Hero. Este prioritar!
-        3. FĂRĂ SURSE EXTERNE: Nu scrie că site-ul e de pe Telegram, Bot sau AI. Textul trebuie să sune ca și cum a fost scris de un copywriter de lux pentru afacerea "{biz_data['name']}".
-        4. IMAGINI (OBLIGATORIU 8-10 POZE): 
-           - Hero Background: Folosește un URL Unsplash cinematic (ex: https://images.unsplash.com/photo-XXX?auto=format&fit=crop&w=1920&q=80).
-           - Caută termeni foarte specifici: Dacă e "Service Auto", caută "engine repair close up", nu doar "car".
-           - Galerie: O secțiune cu un grid modern de 4-6 poze specifice.
-        5. BANNER PRIVAT: Pune un banner discret la top (sticky): "N-AI WEB? AI ACUM! - Design Experimental (Beta)".
-        6. MOBILE-FIRST: Testează mintal design-ul pe un iPhone 15. Marginile trebuie să fie mari, fonturile lizibile (Inter, Roboto sau Montserrat de pe Google Fonts).
-        
-        Returnează DOAR codul HTML complet (fără marcaje markdown, fără ```html). Începe direct cu <!DOCTYPE html>.
+
+        ### DIRECTIVE OBLIGATORII (urmează-le 100%):
+
+        1. **Tehnologie (FOARTE IMPORTANT)**
+           - Folosește **Tailwind CSS 3.4+ via CDN** (`https://cdn.tailwindcss.com`)
+           - Adaugă imediat după tag-ul <head> un script de configurare Tailwind cu fonturi premium și culori accent potrivite nișei
+           - Animații fluide (fade-in, slide-up, scale) cu Tailwind + Intersection Observer
+           - Glassmorphism subtil + gradients elegante + whitespace generos
+
+        2. **Structură Obligatorie a Paginii (în ORDINEA asta exactă):**
+           - Navbar sticky premium (logo stânga mare + meniu + buton "Sună Acum")
+           - BANNER DISCRET STICKY-TOP: "N-AI WEB? AI ACUM! - Design Experimental (Beta)" (foarte elegant, font mic, nu deranjează)
+           - HERO cinematic full-viewport (background Unsplash ultra-impact, headline magnetic + subheadline + 2 CTA-uri)
+           - Secțiune Trust / Social Proof (rating + recenzii scurte)
+           - Secțiune "De Ce Noi" (3-4 beneficii cards elegante)
+           - Secțiune Servicii / Oferte (grid de cards cu hover lift)
+           - Galerie Foto (masonry grid modern, 6-9 poze)
+           - Testimoniale (folosește recenzii reale + stele)
+           - CTA final puternic
+           - Footer complet
+
+        3. **Copywriting de lux**
+           - Folosește framework PAS (Problem → Agitate → Solution) în Hero
+           - Ton: premium, cald, autoritar, natural în română (ca un copywriter scump)
+           - Headline-ul să fie scurt, puternic și specific nișei
+
+        4. **Imagini (CRUCIAL pentru calitate)**
+           - Hero background: Unsplash cinematic, foarte specific (ex: "mechanic hands repairing luxury engine dramatic lighting cinematic")
+           - Toate pozele: Unsplash/Pexels de calitate excepțională, cu parametri `?auto=format&fit=crop&w=2000&q=80`
+           - Minimum 8-10 imagini de impact
+
+        5. **Logo**
+           - Dacă ai furnizat logo_base64 → pune-l PROMINENT în Navbar (stânga) și în Hero (centru sau jos). Este prioritate maximă!
+
+        6. **Alte reguli**
+           - Mobile-first perfect (gândește-te constant la iPhone 16 Pro)
+           - Nu menționa niciodată AI, Gemini, Telegram, bot sau "generat de"
+           - Site-ul trebuie să arate ca și cum l-a făcut o agenție de top din București/Cluj
+
+        Returnează **DOAR** codul HTML complet, valid, începând direct cu <!DOCTYPE html>. 
+        Fără markdown, fără ```html, fără explicații, fără comentarii extra.
         """
-        
+                
         try:
             # UPGRADING TO GEMINI 3.1 PRO as requested for superior design
             response = self.client.models.generate_content(
