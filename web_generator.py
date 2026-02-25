@@ -53,7 +53,7 @@ class WebGenerator:
         logo_block = f"\nLOGO CLIENT (Include-l în Navbar și Hero): <img src='{logo_base64}' alt='Logo {biz_data['name']}' style='max-height:80px;'>\n" if logo_base64 else ""
 
         prompt = f"""
-        Ești un Director Creativ de Top Mondial. Creează un Landing Page de LUX, MOBILE-FIRST și VISUALLY STUNNING pentru:
+        Ești un Director Creativ de Top Mondial (Creative Director level). Creează un Landing Page de ELITĂ, MOBILE-FIRST și VISUALLY SPECTACULAR pentru:
         Nume Afacere: {biz_data['name']}
         Nișă: {biz_data['category']}
         Locație: {biz_data['address']}
@@ -62,33 +62,24 @@ class WebGenerator:
         {reviews_block}
         {extra_block}
         
-        CERINȚE ȘI RESTRICȚII CRITICE:
-        1. FOCUS PE CLIENT: Folosește DOAR informațiile furnizate. NU menționa sursa datelor (ex: NU scrie 'Telegram', 'Bot', 'AI generated via...', etc).
-        2. LOGO: Dacă logo-ul este furnizat (tag-ul img de mai sus), pune-l în Navbar (stânga) și în secțiunea Hero.
-        3. MOBILE-FIRST: Design perfect pe telefon. Fonturi mari, butoane accesibile.
-        4. BANNER BETA: Adaugă la începutul body-ului un banner discret: "PROIECT ÎN LUCRU (BETA) - N-AI WEB? AI ACUM! [DESIGN EXPERIMENTAL]".
-        3. FAVICON: Trebuie să incluzi un favicon relevant.
-        4. BRANDING "WEB? DONE!" în Footer.
-        5. DIVERSITATE CROMATICĂ: Culori premium, moderne, potrivite nișei.
-        6. IMAGINI (OBLIGATORIU 8-10 POZE): 
-           - Hero Background Cinematic.
-           - Service Cards specific imagery.
-           - O secțiune "Galerie" sau "Atmosferă" cu 4-6 imagini.
-           - Folosește Unsplash cu termeni de căutare preciși.
-        7. IMAGE BACKUP (CRITIC): Include un script JS la sfârșitul body-ului care să detecteze pozele care nu se încarcă și să le pună un background premium cu textul "N-AI WEB? AI ACUM!".
-           Exemplu logică: script-ul trebuie să adauge `onerror` pe toate imaginile. Dacă o imagine e 404, pune-i un placeholder gri-albastru și un font stilizat alb deasupra.
-        8. VISUAL RICHNESS: 
-           - Design VIBRANT, Image-First, cu spații largi între secțiuni.
-           - Folosește overlay-uri subtile de gradient peste imagini pentru contrast.
-        9. SOCIAL MEDIA: Dacă au fost oferite link-uri în 'INFORMAȚII SUPLIMENTARE', include-le cu iconițe oficiale în subsol.
-
-        Returnează DOAR codul HTML complet (fără markdown). Începe cu <!DOCTYPE html>.
+        CERINȚE ȘI RESTRICȚII DE DESIGN (STRICT):
+        1. MODEL DE DESIGN: Design-ul trebuie să fie "Image-First" — spațios, imersiv, cu poze mari de impact. NU folosi culori plate plictisitoare. Folosește GRADIENTE subtile, sticlă (glassmorphism) și animații CSS (fade-in, slide-up).
+        2. LOGO CLIENT: Dacă am furnizat un tag <img> cu logo-ul, acesta TREBUIE să fie prezent în Navbar și să aibă un loc de onoare în secțiunea Hero. Este prioritar!
+        3. FĂRĂ SURSE EXTERNE: Nu scrie că site-ul e de pe Telegram, Bot sau AI. Textul trebuie să sune ca și cum a fost scris de un copywriter de lux pentru afacerea "{biz_data['name']}".
+        4. IMAGINI (OBLIGATORIU 8-10 POZE): 
+           - Hero Background: Folosește un URL Unsplash cinematic (ex: https://images.unsplash.com/photo-XXX?auto=format&fit=crop&w=1920&q=80).
+           - Caută termeni foarte specifici: Dacă e "Service Auto", caută "engine repair close up", nu doar "car".
+           - Galerie: O secțiune cu un grid modern de 4-6 poze specifice.
+        5. BANNER PRIVAT: Pune un banner discret la top (sticky): "N-AI WEB? AI ACUM! - Design Experimental (Beta)".
+        6. MOBILE-FIRST: Testează mintal design-ul pe un iPhone 15. Marginile trebuie să fie mari, fonturile lizibile (Inter, Roboto sau Montserrat de pe Google Fonts).
+        
+        Returnează DOAR codul HTML complet (fără marcaje markdown, fără ```html). Începe direct cu <!DOCTYPE html>.
         """
         
         try:
-            # NEW SDK SYNTAX - Using Gemini 2.5 Flash as verified available
+            # UPGRADING TO GEMINI 3.1 PRO as requested for superior design
             response = self.client.models.generate_content(
-                model='gemini-2.5-flash',
+                model='gemini-3.1-pro-preview',
                 contents=prompt
             )
             html_content = response.text.strip()
@@ -165,7 +156,7 @@ class WebGenerator:
         
         try:
             response = self.client.models.generate_content(
-                model='gemini-2.5-flash',
+                model='gemini-3.1-pro-preview',
                 contents=prompt
             )
             enriched_html = response.text.strip()
