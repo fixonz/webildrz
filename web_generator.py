@@ -69,18 +69,20 @@ class WebGenerator:
            - Service Cards specific imagery.
            - O secțiune "Galerie" sau "Atmosferă" cu 4-6 imagini.
            - Folosește Unsplash cu termeni de căutare preciși.
-        7. VISUAL RICHNESS: 
+        7. IMAGE BACKUP (CRITIC): Include un script JS la sfârșitul body-ului care să detecteze pozele care nu se încarcă și să le pună un background premium cu textul "N-AI WEB? AI ACUM!".
+           Exemplu logică: script-ul trebuie să adauge `onerror` pe toate imaginile. Dacă o imagine e 404, pune-i un placeholder gri-albastru și un font stilizat alb deasupra.
+        8. VISUAL RICHNESS: 
            - Design VIBRANT, Image-First, cu spații largi între secțiuni.
-           - Folosește overlay-uri subtile de gradient peste imagini.
-        8. SOCIAL MEDIA: Dacă au fost oferite link-uri în 'INFORMAȚII SUPLIMENTARE', include-le cu iconițe oficiale în subsol.
+           - Folosește overlay-uri subtile de gradient peste imagini pentru contrast.
+        9. SOCIAL MEDIA: Dacă au fost oferite link-uri în 'INFORMAȚII SUPLIMENTARE', include-le cu iconițe oficiale în subsol.
 
-        Returnează DOAR codul HTML complet (fără ```html). Începe cu <!DOCTYPE html>.
+        Returnează DOAR codul HTML complet (fără markdown). Începe cu <!DOCTYPE html>.
         """
         
         try:
-            # NEW SDK SYNTAX - Using latest high-speed Gemini 3 Flash Preview
+            # NEW SDK SYNTAX - Using latest stable high-speed flash model
             response = self.client.models.generate_content(
-                model='gemini-3-flash-preview',
+                model='gemini-2.0-flash',
                 contents=prompt
             )
             html_content = response.text.strip()

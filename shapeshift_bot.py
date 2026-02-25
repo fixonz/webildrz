@@ -88,7 +88,13 @@ def skip_step(message):
         bot.send_message(chat_id, "Nicio problemă, folosim imagini premium AI! 🎨\n\nAI link-uri de social media (FB/Insta) sau info extra? Scrie-le aici sau /skip.", reply_markup=types.ReplyKeyboardRemove(), parse_mode='Markdown')
     elif step == 'social':
         user_sessions[chat_id]['extra_info'] = ""
-        start_generation(message)
+        # Enforce verification check even on skip
+        if chat_id == ADMIN_ID:
+            bot.send_message(chat_id, "👑 **Salut, Admin!** (Skip detected). Verificare ignorată. Pornim generarea...", parse_mode='Markdown')
+            start_generation(message)
+        else:
+            user_sessions[chat_id]['step'] = 'verify_email'
+            bot.send_message(chat_id, "🔒 **Securitate**: Chiar și la skip, avem nevoie de verificarea email-ului pentru a continua.", parse_mode='Markdown')
     elif step == 'edit_info':
         bot.send_message(chat_id, "Nicio schimbare efectuată. Site-ul tău râmâne intact. ✌️")
         user_sessions[chat_id]['step'] = None
@@ -103,6 +109,7 @@ def handle_info_steps(message):
         
         # Security: Check if Admin or if we need verification
         if chat_id == ADMIN_ID:
+            bot.send_message(chat_id, "👑 **Salut, Admin!** Verificare ignorată. Pornim generarea site-ului...", parse_mode='Markdown')
             start_generation(message)
         else:
             user_sessions[chat_id]['step'] = 'verify_email'
