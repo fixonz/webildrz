@@ -60,18 +60,19 @@ class WebGenerator:
         
         CERINȚE TEHNICE OBLIGATORII (PRIORITATE MAXIMĂ MOBILE):
         1. MOBILE-FIRST DESIGN: Design-ul trebuie să fie PERFECT pe telefon. Folosește containere flexibile, fonturi lizibile pe ecrane mici și butoane mari, ușor de apăsat.
-        2. FAVICON: Trebuie să incluzi un favicon relevant.
-        3. BRANDING "WEB? DONE!" în Footer.
-        4. DIVERSITATE CROMATICĂ: Culori premium, moderne, potrivite nișei.
-        5. IMAGINI (OBLIGATORIU 8-10 POZE): 
+        2. AI GENERATED BANNER: Adaugă OBLIGATORIU la începutul body-ului un banner discret dar vizibil (float/sticky la top) care să specifice: "PROIECT GENERAT AI (BETA) - Acest site este o versiune preliminară. Abonează-te pentru a debloca versiunea completă și editările personalizate. [RECLAMĂ SITE-UL]". Folosește glassmorphism pentru banner.
+        3. FAVICON: Trebuie să incluzi un favicon relevant.
+        4. BRANDING "WEB? DONE!" în Footer.
+        5. DIVERSITATE CROMATICĂ: Culori premium, moderne, potrivite nișei.
+        6. IMAGINI (OBLIGATORIU 8-10 POZE): 
            - Hero Background Cinematic.
            - Service Cards specific imagery.
            - O secțiune "Galerie" sau "Atmosferă" cu 4-6 imagini.
            - Folosește Unsplash cu termeni de căutare preciși.
-        6. VISUAL RICHNESS: 
+        7. VISUAL RICHNESS: 
            - Design VIBRANT, Image-First, cu spații largi între secțiuni.
            - Folosește overlay-uri subtile de gradient peste imagini.
-        7. SOCIAL MEDIA: Dacă au fost oferite link-uri în 'INFORMAȚII SUPLIMENTARE', include-le cu iconițe oficiale în subsol.
+        8. SOCIAL MEDIA: Dacă au fost oferite link-uri în 'INFORMAȚII SUPLIMENTARE', include-le cu iconițe oficiale în subsol.
 
         Returnează DOAR codul HTML complet (fără ```html). Începe cu <!DOCTYPE html>.
         """

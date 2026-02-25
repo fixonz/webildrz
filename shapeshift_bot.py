@@ -2,6 +2,10 @@ import os
 import telebot
 from telebot import types
 from core import generate_and_save, update_site_links
+from leads import LeadGenerator
+from caller import ColdCaller
+import threading
+import time
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -17,6 +21,15 @@ bot = telebot.TeleBot(TOKEN)
 
 # In-memory storage for user sessions
 user_sessions = {}
+ADMIN_ID = int(os.getenv("ADMIN_ID", "7725170652"))
+
+def admin_only(func):
+    def wrapper(message):
+        if message.from_user.id != ADMIN_ID:
+            bot.reply_to(message, "🚫 Acces refuzat. Această comandă este rezervată administratorului.")
+            return
+        return func(message)
+    return wrapper
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
@@ -98,6 +111,85 @@ def handle_info_steps(message):
         else:
             bot.send_message(chat_id, f"Eroare: {res}")
         user_sessions[chat_id]['step'] = None
+
+@bot.message_handler(commands=['campaign'])
+@admin_only
+def start_campaign(message):
+    chat_id = message.chat.id
+    user_sessions[chat_id] = {'step': 'campaign_query'}
+    bot.send_message(chat_id, "🚀 **Inițiere Campanie AI Outreach**\n\nCe tip de afaceri căutăm și în ce locație? (ex: `service auto, Bucuresti`)", parse_mode='Markdown')
+
+@bot.message_handler(func=lambda m: user_sessions.get(m.chat.id, {}).get('step') == 'campaign_query')
+@admin_only
+def run_campaign_logic(message):
+    chat_id = message.chat.id
+    query_raw = message.text
+    if ',' not in query_raw:
+        bot.send_message(chat_id, "⚠️ Format invalid. Te rog folosește: `nisa, locatia`")
+        return
+
+    niche, loc = [x.strip() for x in query_raw.split(',', 1)]
+    user_sessions[chat_id]['step'] = None
+    
+    bot.send_message(chat_id, f"🔍 Scanăm Google Maps pentru **{niche}** în **{loc}**...\n\nTe voi informa pe măsură ce avansăm.", parse_mode='Markdown')
+    
+    # Run in background to not block the bot
+    threading.Thread(target=campaign_worker, args=(chat_id, niche, loc)).start()
+
+def campaign_worker(chat_id, niche, loc):
+    try:
+        lg = LeadGenerator()
+        caller = ColdCaller()
+        
+        leads = lg.find_leads(location=loc, query=niche, limit=5)
+        
+        if not leads:
+            bot.send_message(chat_id, "❌ Nu am găsit lead-uri noi fără website în această zonă.")
+            return
+
+        bot.send_message(chat_id, f"✅ Am găsit **{len(leads)}** lead-uri. Începem procesarea...", parse_mode='Markdown')
+
+        for i, lead in enumerate(leads):
+            try:
+                bot.send_message(chat_id, f"🛠️ [{i+1}/{len(leads)}] Construiesc site pentru: **{lead['name']}**...", parse_mode='Markdown')
+                
+                # Use generate_and_save with lead data
+                biz_data = {
+                    "name": lead['name'],
+                    "category": lead['category'],
+                    "address": lead['address'],
+                    "phone": lead['phone'],
+                    "reviews": lead.get('reviews', []),
+                    "rating": lead.get('rating', 5),
+                    "reviews_count": lead.get('reviews_count', 0),
+                    "extra_info": "Campanie Automată Outreach (Beta)"
+                }
+                
+                site_id, filename = generate_and_save(biz_data)
+                url = f"{PUBLIC_URL}/demos/{filename}"
+                
+                bot.send_message(chat_id, f"🌐 Site creat: [Vizualizează]({url})\n📞 Pregătesc apelul către: `{lead['phone']}`", parse_mode='Markdown')
+                
+                # Place the call
+                call_res = caller.place_call(lead['name'], lead['phone'], site_id)
+                
+                if call_res.get('status') == 'dry_run':
+                    bot.send_message(chat_id, f"⚠️ **DRY RUN:** Apelul către {lead['name']} a fost simulat (chei API lipsă).")
+                elif 'call_id' in call_res:
+                    bot.send_message(chat_id, f"📞 **APEL ACTIV!** AI-ul vorbește acum cu clientul. ID Apel: `{call_res['call_id']}`")
+                else:
+                    bot.send_message(chat_id, f"❌ Eroare apel: {call_res.get('message', 'Eroare necunoscută')}")
+                
+                # Small delay between calls
+                time.sleep(5)
+                
+            except Exception as e:
+                bot.send_message(chat_id, f"⚠️ Eroare la lead-ul {lead['name']}: {e}")
+
+        bot.send_message(chat_id, "🏁 **Campanie Finalizată!**\n\nToate lead-urile au fost procesate.")
+
+    except Exception as e:
+        bot.send_message(chat_id, f"🚨 **EROARE CRITICĂ CAMPANIE:** {e}")
 
 def start_generation(message):
     chat_id = message.chat.id
