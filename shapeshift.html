@@ -3315,11 +3315,22 @@ Returnează DOAR codul HTML complet (fără markdown) care începe cu <!DOCTYPE 
                     body: JSON.stringify({
                         prompt,
                         biz_name: bizName,
-                        email: vEmail,
-                        code: vCode
+                        category: bizCategory,
+                        address: bizAddress,
+                        phone: bizPhone
                     })
                 });
-                if (!res.ok) throw new Error(`Server error: ${res.status}`);
+                if (!res.ok) {
+                    const errText = await res.text();
+                    try {
+                        const errJson = JSON.parse(errText);
+                        console.error('SERVER CRASH LOG:', errJson.trace || errJson);
+                        alert(`Server Error! Detalii in consola.\n\nEroare: ${errJson.details || errJson.error}`);
+                    } catch (e) {
+                        console.error('RAW SERVER ERROR:', errText);
+                    }
+                    throw new Error(`Server error: ${res.status}`);
+                }
                 const data = await res.json();
                 generatedHTML = data.html;
                 siteId = data.site_id || null;
