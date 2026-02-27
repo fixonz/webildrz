@@ -52,88 +52,40 @@ class WebGenerator:
         logo_base64 = biz_data.get("logo_base64")
         logo_block = f"\nLOGO CLIENT (Include-l în Navbar și Hero): <img src='{logo_base64}' alt='Logo {biz_data['name']}' style='max-height:80px;'>\n" if logo_base64 else ""
 
-        prompt = f"""
-        Ești **LUXE 2026** — cel mai elite Creative Director + High-Conversion Web Architect din lume (Awwwards SOTD, agenții 12-25k€/proiect, clienți Porsche, Rolex, Clinici de lux din Dubai & București).
+        prompt = f"""Creează un landing page HTML complet, single-file, premium, mobile-first pentru:
+Afacere: {biz_data['name']} | Nișă: {biz_data['category']} | Loc: {biz_data['address']} | Tel: {biz_data['phone']}
+{logo_block}{reviews_block}{extra_block}
 
-        Creezi un **landing page SINGLE-FILE ULTRA-PREMIUM 2026**, mobile-first, cinematic, cu conversie maximă pentru:
+TECH: Tailwind CDN + AOS 2.3.4 + Google Fonts.
+DESIGN UNIC & CREATIVITATE:
+- Fii EXTREM de variat: Folosește font-uri diferite (ex: Roboto+Oswald, Poppins+Merriweather, Syne+Inter, etc) în funcție de nișă.
+- Paleta de culori: Alege o paletă de culori UNICĂ și perfect adaptată nișei (ex: pasteluri pentru beauty, dark/gold pentru lux, neon/black pentru tech, earth-tones pentru cafea). Nu folosi mereu albastru/dark-mode.
+- Layout Variate: Schimbă structura de bază. Uneori fă un Hero 'split-screen' (text stânga, imagine dreapta), alteori 'centered' cu background full, sau cu un card de contact direct în hero. Diversifică formatele de afișare pentru cards (grid asimetric, masonry, etc).
 
-        **Nume afacere:** {biz_data['name']}
-        **Nișă:** {biz_data['category']}
-        **Locație:** {biz_data['address']}
-        **Telefon:** {biz_data['phone']}
+HEAD obligatoriu:
+<script src="https://cdn.tailwindcss.com"></script>
+<script>window.tailwind=window.tailwind||{{}};tailwind.config={{content:[],theme:{{extend:{{fontFamily:{{sans:['sans-serif'],display:['serif']}}}}}}}}</script>
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
-        {logo_block}
-        {reviews_block}
-        {extra_block}
+Înainte de </body>:
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>document.addEventListener("DOMContentLoaded",function(){{AOS.init({{duration:800,once:true}})}});</script>
 
-        ### TECH STACK OBLIGATORIU (nu negocia, folosește exact):
-        - Tailwind CSS 3.4+ via CDN: https://cdn.tailwindcss.com
-        - AOS (Animate On Scroll) v2.3.4: https://unpkg.com/aos@2.3.4/dist/aos.css + https://unpkg.com/aos@2.3.4/dist/aos.js
-        - Fonturi: Inter (body) + Playfair Display / Satoshi (headings) via Google Fonts
-        - Iconițe: Heroicons inline SVG + Font Awesome 6 (via CDN)
-        - Glassmorphism + micro-animations + scroll-triggered effects
-        - Dark/light elegant (default dark dacă nișa e premium/auto/lux)
+SECȚIUNI (obligatorii dar ordinea și designul să fie CREATIVE, nu rigide): Navbar | Hero cu CTA puternic | Trust bar / Asigurări | Despre/De Ce Noi | Servicii | Testimoniale reale | Footer cu "Site creat de WEB? DONE! © 2026"
 
-        ### SCRIPT TAILWIND OBLIGATORIU (pune-l imediat după <head>):
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script>
-          tailwind.config = {{
-            content: [],
-            theme: {{
-              extend: {{
-                fontFamily: {{ 
-                  sans: ['Inter', 'system-ui', 'sans-serif'],
-                  display: ['Playfair Display', 'sans-serif']
-                }},
-                colors: {{ 
-                  primary: {{ 50: '#f0f9ff', 500: '#0ea5e9', 600: '#0284c8', 900: '#0c4a6e' }}  // AI-ul va adapta la nișă
-                }}
-              }}
-            }}
-          }}
-        </script>
-        <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-        <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+IMAGINI — OBLIGATORIU (minim 4 poze reale pe pagină):
+Pentru imagini, folosește STRICT formatul picsum.photos adăugând un ID random (sau text unic din nișă) pentru diversitate:
+Exemple concrete:
+- Hero background: style="background-image: url('https://picsum.photos/seed/{biz_data['name'].replace(' ', '')}hero/1920/1080?blur=2'); background-size: cover; background-position: center;"
+- Secțiunea Despre: <img src="https://picsum.photos/seed/{biz_data['name'].replace(' ', '')}about/800/600" class="w-full h-64 object-cover rounded-xl" alt="Echipa">
+- Imagini servicii: <img src="https://picsum.photos/seed/{biz_data['name'].replace(' ', '')}serv1/800/600" class="w-full h-48 object-cover rounded-xl" alt="Serviciu 1">
+PUNE MINIM 4-5 imagini pe pagină! AȘA CUM SUNT EXEMPLELE DE MAI SUS. FĂRĂ placeholder urât, folosește DOAR https://picsum.photos/seed/...
 
-        ### STRUCTURA EXACTĂ A PAGINII (în această ordine, cu aceste ID-uri):
-        1. **<nav id="navbar">** — sticky top, glassmorphism, logo mare stânga (dacă există logo_base64 → folosește-l cu prioritate MAXIMĂ), meniu + buton "Sună Acum" roșu/auriu
-        2. **Banner discret sticky-top** (sub navbar): "N-AI WEB? AI ACUM! - Design Experimental (Beta)" — font foarte mic, elegant, nu deranjează
-        3. **Hero Section** (full viewport, h-screen) — background Unsplash cinematic ultra-specific + overlay gradient + headline magnetic + subheadline + 2 CTA (Sună + WhatsApp)
-        4. **Trust Bar** — rating + număr recenzii + "Lucrăm cu clienți din 2018"
-        5. **De Ce Noi** (3-4 cards elegante cu icon + AOS fade-up)
-        6. **Servicii / Oferte** (grid 1-3 coloane pe mobile, hover lift + shadow-xl)
-        7. **Galerie Foto** (masonry grid responsive, 8-10 poze, lightbox simplu)
-        8. **Testimoniale** (carousel sau grid cu recenzii reale + poze Unsplash avatar)
-        9. **CTA Final Puternic** (full-width, gradient, număr de telefon mare)
-        10. **Footer** complet + copyright
-
-        ### IMAGINI — STRATEGIE NUCLEARĂ:
-        - Toate pozele: `https://images.unsplash.com/photo-...` + `?auto=format&fit=crop&w=2000&q=85&ixlib=rb-4.0.3`
-        - Hero: termen extrem de specific (ex: "luxury car mechanic workshop dramatic lighting cinematic" sau "elegant beauty salon interior golden hour")
-        - Galerie: 8-10 poze ultra-specifice nișei (close-up-uri, before/after, echipamente, echipa etc.)
-        - Minimum 10 imagini de impact total
-
-        ### COPYWRITING RULES (ton de lux):
-        - Folosește framework-ul PAS + Emotional Triggers
-        - Headline Hero: maxim 8 cuvinte, ultra-puternic
-        - Toate textele 100% naturale în română, ca și cum ar fi scris un copywriter de 500€/zi
-        - Nu menționa niciodată AI, Gemini, Telegram, bot, "generat de"
-
-        ### REGULI FINALE STRICTE:
-        - Logo_base64 (dacă există) → TREBUIE să apară în navbar (stânga, max-h-14) și în Hero (centru sus sau jos)
-        - Mobile-first perfect (testează mintal pe iPhone 16 Pro — padding generos, font ≥16px)
-        - Animații AOS peste tot: data-aos="fade-up" / "zoom-in" / "fade-right"
-        - Buton "Sună Acum" → tel:{biz_data['phone']}
-        - Returnează **DOAR** codul HTML complet, valid, începând direct cu <!DOCTYPE html>
-        - Fără markdown, fără ```html, fără comentarii, fără explicații de niciun fel.
-
-        Acum creează capodopera.
-        """
+REGULI: Texte 100% în română, naturale, fără placeholder. Mobile-first cu clase Tailwind responsive. Buton tel:{biz_data['phone']}.{' Logo furnizat: pune-l în navbar și hero.' if biz_data.get('logo_base64') else ''} AOS pe elemente. Returnează DOAR HTML valid începând cu <!DOCTYPE html>. Fără markdown, fără explicații."""
                 
         try:
-            # UPGRADING TO GEMINI 3.1 PRO as requested for superior design
             response = self.client.models.generate_content(
-                model='gemini-3.1-pro-preview',
+                model='gemini-2.5-flash',
                 contents=prompt
             )
             html_content = response.text.strip()
@@ -157,24 +109,17 @@ class WebGenerator:
         image_handler = """
         <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const handleBrokenImages = () => {
-                document.querySelectorAll('img').forEach(img => {
-                    if (img.dataset.fixed) return;
-                    img.onerror = function() {
-                        this.style.display = 'none';
-                        const div = document.createElement('div');
-                        div.style.cssText = 'width:100%; min-height:250px; background:linear-gradient(135deg, #0f172a 0%, #1e293b 100%); display:flex; align-items:center; justify-content:center; color:#38bdf8; font-family:system-ui, sans-serif; font-weight:800; text-align:center; padding:20px; border-radius:16px; border:1px solid rgba(56,189,248,0.2); margin:10px 0;';
-                        div.innerHTML = '<div style="display:flex; flex-direction:column; gap:8px;"><span>🖼️ IMAGINE OPTIMIZATĂ AI</span><span style="font-size:0.7rem; color:rgba(255,255,255,0.5);">N-AI WEB? AI ACUM!</span></div>';
-                        this.insertAdjacentElement('afterend', div);
-                        this.dataset.fixed = "true";
-                    };
-                    // Trigger for cached broken images
-                    if (img.complete && img.naturalHeight === 0) img.onerror();
-                });
-            };
-            handleBrokenImages();
-            // Also watch for dynamically added images
-            new MutationObserver(handleBrokenImages).observe(document.body, {childList: true, subtree: true});
+            document.querySelectorAll('img').forEach(img => {
+                img.onerror = function() {
+                    if (this.dataset.fixed) return;
+                    this.dataset.fixed = "true";
+                    this.style.display = 'none';
+                    const div = document.createElement('div');
+                    div.style.cssText = 'width:100%; min-height:200px; background:linear-gradient(135deg, #0f172a 0%, #1e293b 100%); display:flex; align-items:center; justify-content:center; color:#38bdf8; font-family:system-ui; font-weight:700; text-align:center; padding:20px; border-radius:12px;';
+                    div.textContent = '📸 ' + (this.alt || 'Imagine');
+                    this.insertAdjacentElement('afterend', div);
+                };
+            });
         });
         </script>
         """

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WEB? DONE! | N-ai site? Ai acum..</title>
     <meta name="description"
-        content="Generează un site profesional pentru afacerea ta în mai puțin de 60 de secunde. Complet gratuit, fără tehnic.">
+        content="Generează un site profesional pentru afacerea ta în aproximativ 1-2 minute. Complet gratuit, fără tehnic.">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
 
@@ -240,11 +240,12 @@
 
         .hero h1 {
             font-family: 'Syne', sans-serif;
-            font-size: clamp(2rem, 5vw, 3.8rem);
+            font-size: clamp(2.5rem, 6vw, 4.2rem);
             font-weight: 800;
             line-height: 1.05;
-            letter-spacing: -0.03em;
-            margin-bottom: 20px;
+            letter-spacing: -0.04em;
+            margin-bottom: 24px;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         .hero h1 em {
@@ -299,15 +300,20 @@
 
         .form-card {
             padding: 56px;
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+            background: rgba(12, 17, 29, 0.4);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
             position: relative;
             overflow: hidden;
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .form-card:hover {
-            box-shadow: 0 50px 120px rgba(0, 255, 170, 0.1);
-            border-color: rgba(0, 255, 170, 0.3);
+            box-shadow: 0 50px 120px rgba(0, 255, 170, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            border-color: rgba(0, 255, 170, 0.4);
         }
 
         /* Continuous Layout Shift */
@@ -414,16 +420,17 @@
         input,
         select,
         textarea {
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 14px 18px;
-            font-size: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 16px 20px;
+            font-size: 1.05rem;
             color: var(--text);
             font-family: 'Inter', sans-serif;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             outline: none;
             width: 100%;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         input::placeholder,
@@ -485,8 +492,18 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
             cursor: pointer;
+            padding: 12px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(0, 0, 0, 0.15);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .palette-swatch:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.15);
         }
 
         .palette-swatch input[type=radio] {
@@ -960,16 +977,20 @@
         }
 
         .feature-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 28px;
-            transition: border-color 0.3s, transform 0.3s;
+            background: rgba(12, 17, 29, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 32px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
 
         .feature-card:hover {
-            border-color: rgba(108, 99, 255, 0.3);
-            transform: translateY(-4px);
+            border-color: rgba(0, 255, 170, 0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 40px 80px rgba(0, 255, 170, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
         .feature-icon {
@@ -1031,17 +1052,21 @@
         }
 
         .portfolio-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 20px;
+            background: rgba(12, 17, 29, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
             overflow: hidden;
-            transition: transform 0.3s, border-color 0.3s;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             text-align: left;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
 
         .portfolio-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(108, 99, 255, 0.3);
+            transform: translateY(-8px);
+            border-color: rgba(0, 212, 255, 0.3);
+            box-shadow: 0 40px 80px rgba(0, 212, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
         .portfolio-preview {
@@ -1154,14 +1179,17 @@
 
         /* MARKETING / CAMPAIGN */
         .campaign-strip {
-            background: linear-gradient(135deg, rgba(108, 99, 255, 0.15) 0%, rgba(0, 212, 255, 0.1) 100%);
+            background: linear-gradient(135deg, rgba(108, 99, 255, 0.15) 0%, rgba(0, 212, 255, 0.08) 100%);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
             border: 1px solid rgba(108, 99, 255, 0.2);
-            border-radius: 28px;
-            padding: 60px 48px;
+            border-radius: 32px;
+            padding: 80px 48px;
             text-align: center;
-            margin: 40px 0;
+            margin: 60px 0;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
         .campaign-strip::before {
@@ -1476,8 +1504,10 @@
         }
 
         .tier-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
+            background: rgba(12, 17, 29, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 24px;
             padding: 32px 24px;
             text-align: left;
@@ -1487,7 +1517,7 @@
             flex-direction: column;
             width: 100%;
             height: 100%;
-            /* Ensure equal height */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
 
         /* Extreme Mobile Optimization (Verified Centering) */
@@ -1529,8 +1559,8 @@
 
         .tier-card:hover {
             transform: translateY(-12px) scale(1.02);
-            border-color: var(--accent);
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+            border-color: rgba(0, 255, 170, 0.4);
+            box-shadow: 0 40px 100px rgba(0, 255, 170, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
         .popular-badge {
@@ -1662,6 +1692,7 @@
             text-align: center;
             border: none;
             text-decoration: none;
+            margin-top: auto;
         }
 
         .tier-btn-outline {
@@ -1712,14 +1743,17 @@
         }
 
         .modal {
-            background: var(--surface);
-            border: 1px solid var(--border);
+            background: rgba(12, 17, 29, 0.5);
+            backdrop-filter: blur(60px);
+            -webkit-backdrop-filter: blur(60px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 28px;
             padding: 48px;
             max-width: 520px;
             width: 100%;
             position: relative;
-            animation: modalIn 0.3s ease;
+            animation: modalIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
         .modal::before {
@@ -1867,7 +1901,7 @@
 
             .hero {
                 padding: 60px 0 30px;
-                text-align: left;
+                text-align: center;
                 /* More modern for mobile */
             }
 
@@ -1879,7 +1913,7 @@
 
             .hero p {
                 font-size: 1.05rem;
-                margin: 0 0 32px 0;
+                margin: 0 auto 32px auto;
                 max-width: 100%;
                 opacity: 0.9;
             }
@@ -1889,20 +1923,21 @@
                 border-radius: 20px;
                 padding: 12px;
                 gap: 12px;
-                background: var(--surface2);
-                border-color: var(--border);
+                background: rgba(12, 17, 29, 0.7);
+                border-color: rgba(255, 255, 255, 0.1);
             }
 
             .simple-gen-input {
-                font-size: 1.1rem;
+                font-size: 1.15rem;
                 padding: 12px 16px;
                 text-align: left;
+                width: 100%;
             }
 
             .btn-go {
                 width: 100%;
                 padding: 18px;
-                font-size: 1rem;
+                font-size: 1.05rem;
                 justify-content: center;
                 border-radius: 16px;
             }
@@ -2041,50 +2076,60 @@
             display: none;
         }
 
-        /* SIMPLIFIED HERO ACTION */
         .simple-gen-box {
-            background: var(--surface);
-            border: 2px solid var(--border);
+            background: rgba(12, 17, 29, 0.6);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 100px;
             padding: 8px 8px 8px 32px;
             display: flex;
             align-items: center;
             gap: 16px;
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            transition: all 0.4s;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .simple-gen-box:focus-within {
-            border-color: var(--accent);
-            box-shadow: 0 20px 80px rgba(0, 255, 170, 0.2);
-            transform: translateY(-4px);
+            border-color: rgba(0, 255, 170, 0.5);
+            box-shadow: 0 30px 80px rgba(0, 255, 170, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transform: translateY(-4px) scale(1.02);
         }
 
         .simple-gen-input {
             background: transparent;
             border: none;
             color: #fff;
-            font-size: 1.2rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.25rem;
             flex: 1;
             outline: none;
-            padding: 12px 0;
+            padding: 16px 0;
+            font-weight: 500;
+        }
+
+        .simple-gen-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
         }
 
         .btn-go {
-            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
             color: #000;
             border: none;
-            padding: 16px 32px;
+            padding: 18px 40px;
             border-radius: 100px;
             font-family: 'Syne', sans-serif;
             font-weight: 800;
+            font-size: 1.1rem;
+            letter-spacing: 0.02em;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            box-shadow: 0 10px 30px rgba(0, 255, 170, 0.3);
         }
 
         .btn-go:hover {
@@ -2185,7 +2230,7 @@
 
                 <div class="form-actions" id="main-actions">
                     <button type="submit" class="gen-btn" id="pre-gen-btn">
-                        🚀 Generează Site Gratuit — 60 sec
+                        🚀 Generează Site Gratuit — ~1-2 min
                     </button>
                 </div>
                 <div class="form-grid">
@@ -2332,7 +2377,7 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                         <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
                     </svg>
-                    Generează Site-ul Meu în ~60 sec
+                    Generează Site-ul Meu (durează mai mult de 1 minut)
                 </button>
             </form>
 
@@ -2345,8 +2390,12 @@
                     <div class="scanner-core">🤖</div>
                 </div>
 
-                <h3 style="text-align: center; margin-bottom: 24px; font-family: 'Syne', sans-serif;">Construim viitorul
+                <h3 style="text-align: center; margin-bottom: 8px; font-family: 'Syne', sans-serif;">Construim viitorul
                     tău digital...</h3>
+                <p
+                    style="text-align: center; color: var(--accent); font-size: 0.95rem; margin-bottom: 24px; font-weight: 600;">
+                    (Procesul durează mai mult de 1 minut. Te rugăm să aștepți!)
+                </p>
 
                 <div class="progress-bar-wrap">
                     <div class="progress-bar" id="prog-bar"></div>
@@ -3138,7 +3187,7 @@
             triggerGeneration(email, code);
         }
 
-        // ── Main submit logic changed ──
+        // ── Main submit logic — direct generation (no verification) ──
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
@@ -3146,15 +3195,8 @@
             if (!document.getElementById('biz-name').value) return document.getElementById('biz-name').focus();
             if (!document.getElementById('biz-phone').value) return document.getElementById('biz-phone').focus();
 
-            if (isAdmin) {
-                triggerGeneration('admin@webdone.ro', '000000'); // Mock data for internal skip
-            } else {
-                // Show verification section
-                document.getElementById('main-actions').style.display = 'none';
-                document.getElementById('verify-section').style.display = 'block';
-                document.getElementById('verify-section').classList.add('active');
-                document.getElementById('verify-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
+            // Skip verification, go straight to generation
+            triggerGeneration('direct@webdone.ro', '000000');
         });
 
         async function triggerGeneration(vEmail, vCode) {
@@ -3237,11 +3279,10 @@ CERINȚE TEHNICE OBLIGATORII:
    - Servicii: Grid cu iconițe.
    - Contact cu buton "Sună Acum" fix pe mobil.
 7. COPYWRITING: Dacă clienții menționează ceva specific în recenzii, folosește în headline-uri!
-8. IMAGINI (OBLIGATORIU 8-10 POZE): 
-   - Hero background image (full width, cinematic).
-   - Cel puțin o poză Unsplash pentru FIECARE serviciu/feature.
-   - O secțiune "Galerie" sau "Viziunea Noastră" cu 4-6 imagini grid specifice nișei "${bizCategory}".
-   - Folosește URL-uri Unsplash valide.
+8. IMAGINI (MINIM 4 POZE cu Picsum): 
+   - Hero background: style="background-image: url('https://picsum.photos/seed/${bizName.replace(/\s+/g, '')}hero/1920/1080?blur=2'); background-size: cover;"
+   - 3-4 poze prin pagină: <img src="https://picsum.photos/seed/${bizName.replace(/\s+/g, '')}serv1/800/600" class="w-full h-64 object-cover rounded-xl">
+   - Modifică seed-ul (ex: serv1, serv2, extr1) pentru fiecare poză. Folosește DOAR picsum.photos/seed/...
 9. VISUAL DESIGN: 
    - Design-ul trebuie să fie "Image-First" — spațios, cu poze mari, de impact.
    - Folosește overlay-uri subtile de gradient peste imagini pentru contrast și lizibilitate.

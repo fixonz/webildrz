@@ -120,13 +120,6 @@ def generate_site():
         return jsonify({"error": "Offensive content detected. Please keep it professional."}), 400
 
     try:
-        email = data.get('email')
-        code = data.get('code')
-        
-        # In a real SaaS, we'd check if the user is already verified in a session
-        if not verify_code(email, code):
-             return jsonify({"error": "Eroare de verificare. Cere un alt cod."}), 403
-
         biz_data = {
             "name": biz_name,
             "category": biz_category,
@@ -137,13 +130,17 @@ def generate_site():
         
         site_id, filename = generate_and_save(biz_data)
         
+        import os
+        with open(os.path.join(SITES_DIR, filename), 'r', encoding='utf-8') as f:
+            html = f.read()
+        
         # Notify Admin
         public_url = os.getenv("PUBLIC_URL", "http://localhost:5000")
         site_url = f"{public_url}/demos/{filename}"
         notify_admin_site_created(biz_name, site_id, site_url)
         
         print(f"GENERATED: {filename}", flush=True)
-        return jsonify({"site_id": site_id, "filename": filename})
+        return jsonify({"site_id": site_id, "filename": filename, "html": html})
     except Exception as e:
         print(f"GENERATE ERROR: {type(e).__name__}: {e}", flush=True)
         return jsonify({"error": str(e)}), 500
