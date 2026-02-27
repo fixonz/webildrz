@@ -111,20 +111,20 @@ def generate_site():
     if not client:
         return jsonify({"error": "Gemini not configured — check API key"}), 503
     
-    data = request.get_json()
-    biz_name = data.get('biz_name', 'Business')
-    biz_category = data.get('biz_category', 'Afacere')
-    prompt = data.get('prompt', f"Nume: {biz_name}, Nisa: {biz_category}")
-
-    if contains_bad_words(prompt) or contains_bad_words(biz_name):
-        return jsonify({"error": "Offensive content detected. Please keep it professional."}), 400
-
     try:
+        data = request.get_json(silent=True) or {}
+        biz_name = data.get('biz_name', 'Business')
+        biz_category = data.get('biz_category', 'Afacere')
+        prompt = data.get('prompt', f"Nume: {biz_name}, Nisa: {biz_category}")
+
+        if contains_bad_words(prompt) or contains_bad_words(biz_name):
+            return jsonify({"error": "Offensive content detected. Please keep it professional."}), 400
+
         biz_data = {
             "name": biz_name,
             "category": biz_category,
-            "address": data.get("biz_address", "România"),
-            "phone": data.get("biz_phone", ""),
+            "address": data.get("address", "România"),
+            "phone": data.get("phone", ""),
             "reviews": [], "rating": 5, "reviews_count": 0
         }
         
