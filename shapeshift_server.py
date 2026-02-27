@@ -142,8 +142,14 @@ def generate_site():
         print(f"GENERATED: {filename}", flush=True)
         return jsonify({"site_id": site_id, "filename": filename, "html": html})
     except Exception as e:
-        print(f"GENERATE ERROR: {type(e).__name__}: {e}", flush=True)
-        return jsonify({"error": str(e)}), 500
+        import traceback
+        error_trace = traceback.format_exc()
+        print(f"GENERATE ERROR TRACE: {error_trace}", flush=True)
+        return jsonify({
+            "error": "A apărut o eroare la generarea site-ului.", 
+            "details": str(e),
+            "trace": error_trace
+        }), 500
 
 @app.route('/api/site/<site_id>', methods=['GET'])
 def get_site(site_id):
