@@ -208,11 +208,17 @@ def campaign_worker(chat_id, niche, loc):
             bot.send_message(chat_id, "❌ Nu am găsit lead-uri noi fără website în această zonă.")
             return
 
-        bot.send_message(chat_id, f"✅ Am găsit **{len(leads)}** lead-uri. Începem procesarea...", parse_mode='Markdown')
+        bot.send_message(chat_id, f"✅ Am găsit **{len(leads)}** lead-uri. Iată lista:", parse_mode='Markdown')
+        
+        # Send full list of leads before building them
+        for i, lead in enumerate(leads):
+            bot.send_message(chat_id, f"🏢 **{i+1}. {lead['name']}**\n📞 `{lead['phone']}`\n📍 _{lead['address']}_", parse_mode='Markdown')
+            
+        bot.send_message(chat_id, "⚙️ Începem generarea site-urilor și apelurile...", parse_mode='Markdown')
 
         for i, lead in enumerate(leads):
             try:
-                bot.send_message(chat_id, f"🛠️ [{i+1}/{len(leads)}] Construiesc site pentru: **{lead['name']}**...", parse_mode='Markdown')
+                bot.send_message(chat_id, f"🛠️ [{i+1}/{len(leads)}] Construiesc site pentru **{lead['name']}**...", parse_mode='Markdown')
                 
                 # Use generate_and_save with lead data
                 biz_data = {
