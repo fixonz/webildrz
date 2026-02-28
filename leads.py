@@ -26,8 +26,7 @@ class LeadGenerator:
         while len(leads) < limit and start < 60:
             params = {
                 "engine": "google_maps",
-                "q": query,
-                "location": location,
+                "q": f"{query} in {location}",
                 "type": "search",
                 "api_key": self.api_key,
                 "start": start
