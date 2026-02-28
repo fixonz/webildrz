@@ -74,12 +74,12 @@ HEAD obligatoriu:
 SECȚIUNI (obligatorii dar ordinea și designul să fie CREATIVE, nu rigide): Navbar | Hero cu CTA puternic | Trust bar / Asigurări | Despre/De Ce Noi | Servicii | Testimoniale reale | Footer cu "Site creat de WEB? DONE! © 2026"
 
 IMAGINI — OBLIGATORIU (minim 4 poze reale pe pagină):
-Pentru imagini, folosește STRICT formatul picsum.photos adăugând un ID random (sau text unic din nișă) pentru diversitate:
-Exemple concrete:
-- Hero background: style="background-image: url('https://picsum.photos/seed/{biz_data['name'].replace(' ', '')}hero/1920/1080?blur=2'); background-size: cover; background-position: center;"
-- Secțiunea Despre: <img src="https://picsum.photos/seed/{biz_data['name'].replace(' ', '')}about/800/600" class="w-full h-64 object-cover rounded-xl" alt="Echipa">
-- Imagini servicii: <img src="https://picsum.photos/seed/{biz_data['name'].replace(' ', '')}serv1/800/600" class="w-full h-48 object-cover rounded-xl" alt="Serviciu 1">
-PUNE MINIM 4-5 imagini pe pagină! AȘA CUM SUNT EXEMPLELE DE MAI SUS. FĂRĂ placeholder urât, folosește DOAR https://picsum.photos/seed/...
+Pentru imagini, folosește STRICT formatul loremflickr.com adăugând CUVINTE CHEIE RELEVANTE ÎN ENGLEZĂ extrase din nișă ({biz_data['category']}) și un lock random (1-100) pentru consistență:
+Exemple concrete (adaptate la nișă!):
+- Hero background: style="background-image: url('https://loremflickr.com/1920/1080/mechanic,car/all?lock=1'); background-size: cover; background-position: center;"
+- Secțiunea Despre: <img src="https://loremflickr.com/800/600/engine,repair/all?lock=2" class="w-full h-64 object-cover rounded-xl" alt="Echipa">
+- Imagini servicii: <img src="https://loremflickr.com/800/600/auto,service/all?lock=3" class="w-full h-48 object-cover rounded-xl" alt="Serviciu 1">
+PUNE MINIM 4-5 imagini pe pagină! AȘA CUM SUNT EXEMPLELE DE MAI SUS. FĂRĂ placeholder urât, folosește DOAR loremflickr.com cu tag-uri STRICT ÎN ENGLEZĂ (ex: dentist,smile / pizza,food / car,mechanic etc).
 
 REGULI: Texte 100% în română, naturale, fără placeholder. Mobile-first cu clase Tailwind responsive. Buton tel:{biz_data['phone']}.{' Logo furnizat: pune-l în navbar și hero.' if biz_data.get('logo_base64') else ''} AOS pe elemente. Returnează DOAR HTML valid începând cu <!DOCTYPE html>. Fără markdown, fără explicații."""
                 
