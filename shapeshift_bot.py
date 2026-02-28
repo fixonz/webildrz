@@ -291,6 +291,11 @@ if __name__ == '__main__':
     print(f"👑 ADMIN_ID configured: {ADMIN_ID}", flush=True)
     print(f"🔗 PUBLIC_URL: {PUBLIC_URL}", flush=True)
     
+    # Supress the massive traceback logged by Telebot internally for 409 errors
+    import logging
+    telebot_logger = logging.getLogger('TeleBot')
+    telebot_logger.setLevel(logging.CRITICAL)
+
     # Robust polling loop to handle conflicts and restarts
     while True:
         try:
